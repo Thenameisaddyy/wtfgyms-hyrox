@@ -3,6 +3,10 @@
       {
         "source": "/lp/hyrox",
         "destination": "https://wtfgyms.com/lp/hyrox"
+      },
+      {
+        "source": "/lp/hyrox/:path*",
+        "destination": "https://wtfgyms.com/lp/hyrox"
       }
     ]
   }
