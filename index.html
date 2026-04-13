@@ -6,402 +6,399 @@
 <title>WTF Gyms x HYROX — Train for HYROX in Delhi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --white:#FAFAF7;--cream:#F3F1EC;--sand:#E8E4DC;--charcoal:#1A1A1A;--muted:#6B6B6B;--light:#9A9A9A;
-  --red:#C82333;--red-light:#FDF2F3;--red-muted:rgba(200,35,51,.08);
-  --gold:#C49A2B;--gold-light:#FBF7ED;
-  --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+  --bg:#050505;--surface:#0a0a0a;--card:#0f0f0f;--border:rgba(255,255,255,.06);
+  --text:#fff;--muted:rgba(255,255,255,.4);--dim:rgba(255,255,255,.15);
+  --red:#FF2D3B;--red-glow:rgba(255,45,59,.12);--gold:#E8A910;
+  --display:'Bebas Neue',sans-serif;--body:'Outfit',sans-serif;
   --ease:cubic-bezier(.25,.46,.45,.94)
 }
-html{background:var(--white)}
+html{background:var(--bg)}
 html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
-body{font-family:var(--font-body);background:var(--white);color:var(--charcoal);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
-button{-webkit-tap-highlight-color:transparent;font-family:var(--font-body)}
+button{-webkit-tap-highlight-color:transparent;font-family:var(--body)}
 ::selection{background:var(--red);color:#fff}
 
-/* ── GRAIN OVERLAY ── */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* CUSTOM CURSOR */
+.cursor{width:16px;height:16px;border:1.5px solid var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s,opacity .15s;mix-blend-mode:difference}
+@media(max-width:768px){.cursor{display:none}}
 
-/* ── REVEAL ── */
-.r{opacity:0;transform:translateY(30px)}.r.v{opacity:1;transform:translateY(0);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.r-d1{transition-delay:.1s}.r-d2{transition-delay:.2s}.r-d3{transition-delay:.3s}
+/* LOADER */
+.loader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center}
+.loader-text{font-family:var(--display);font-size:clamp(48px,10vw,120px);color:var(--red);letter-spacing:6px;opacity:0}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 clamp(20px,4vw,56px);height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,250,247,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.04);transition:all .4s var(--ease)}
-nav.scrolled{height:60px;background:rgba(250,250,247,.95);box-shadow:0 1px 0 rgba(0,0,0,.04)}
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 clamp(20px,4vw,64px);height:72px;display:flex;align-items:center;justify-content:space-between;background:transparent;transition:all .5s var(--ease);border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(5,5,5,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom-color:var(--border)}
 .nav-left{display:flex;align-items:center;gap:16px}
 .nav-logo{height:26px;width:auto}
-.nav-sep{width:1px;height:16px;background:var(--sand)}
-.nav-hyrox{font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.nav-dot{width:4px;height:4px;background:var(--red);border-radius:50%}
+.nav-hyrox{font-family:var(--display);font-size:18px;color:var(--gold);letter-spacing:6px}
 .nav-links{display:flex;align-items:center;gap:32px}
-.nav-link{color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;background:none;border:none;transition:color .25s;letter-spacing:.5px}
-.nav-link:hover{color:var(--charcoal)}
-.nav-cta{background:var(--charcoal);color:#fff;font-size:11px;font-weight:600;padding:10px 24px;border:none;cursor:pointer;transition:all .3s var(--ease);letter-spacing:1.5px;text-transform:uppercase}
-.nav-cta:hover{background:var(--red)}
+.nav-link{color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;background:none;border:none;transition:color .2s;letter-spacing:1px;text-transform:uppercase}
+.nav-link:hover{color:#fff}
+.nav-cta{position:relative;background:transparent;color:#fff;font-size:11px;font-weight:600;padding:10px 28px;border:1px solid var(--red);cursor:pointer;letter-spacing:2px;text-transform:uppercase;overflow:hidden;transition:color .3s}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateY(100%);transition:transform .3s var(--ease)}
+.nav-cta:hover::before{transform:translateY(0)}
+.nav-cta span{position:relative;z-index:1}
 .nav-burger{display:none;background:none;border:none;cursor:pointer;padding:4px}
-.nav-burger span{display:block;width:22px;height:1.5px;background:var(--charcoal);margin:5px 0;transition:all .2s}
-@media(max-width:900px){
-  .nav-links{display:none;position:fixed;top:60px;left:0;right:0;background:var(--white);flex-direction:column;padding:32px;gap:20px;border-bottom:1px solid var(--sand)}
-  .nav-links.open{display:flex}
-  .nav-burger{display:block}
-  nav{padding:0 20px}
-}
-.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 16px;background:rgba(250,250,247,.96);backdrop-filter:blur(12px);border-top:1px solid var(--sand)}
-.mob-cta button{width:100%;background:var(--red);color:#fff;font-family:var(--font-display);font-size:13px;font-weight:700;padding:14px;border:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+.nav-burger span{display:block;width:24px;height:1px;background:#fff;margin:6px 0;transition:all .3s}
+@media(max-width:900px){.nav-links{display:none;position:fixed;top:72px;left:0;right:0;background:var(--bg);flex-direction:column;padding:32px;gap:20px;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.nav-burger{display:block}nav{padding:0 20px}}
+
+/* MOBILE CTA */
+.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 16px;background:rgba(5,5,5,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border)}
+.mob-cta button{width:100%;background:var(--red);color:#fff;font-family:var(--display);font-size:16px;padding:14px;border:none;cursor:pointer;letter-spacing:3px}
 @media(max-width:900px){.mob-cta{display:block}body{padding-bottom:58px}}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:140px clamp(28px,5vw,80px) 80px;position:relative;z-index:2}
-.hero-collab{display:inline-flex;align-items:center;gap:10px;margin-bottom:40px;opacity:.5}
-.hero-collab img{height:16px;width:auto}
-.hc-x{font-size:10px;color:var(--light)}
-.hc-hyrox{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--gold);letter-spacing:3px}
-.hero h1{font-family:var(--font-display);font-size:clamp(42px,6vw,80px);font-weight:800;line-height:.88;letter-spacing:-3px;margin-bottom:28px;color:var(--charcoal)}
-.hero h1 em{font-style:normal;color:var(--red)}
-.hero-sub{font-family:var(--font-display);font-size:clamp(13px,1.4vw,16px);font-weight:400;color:var(--light);letter-spacing:4px;text-transform:uppercase;margin-bottom:32px}
-.hero-p{font-size:16px;color:var(--muted);max-width:420px;line-height:1.9;margin-bottom:40px}
-.hero-p strong{color:var(--charcoal);font-weight:600}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
-.btn-primary{background:var(--red);color:#fff;font-size:13px;font-weight:600;padding:16px 36px;border:none;cursor:pointer;transition:all .3s var(--ease);letter-spacing:1px;text-transform:uppercase;font-family:var(--font-body)}
-.btn-primary:hover{background:var(--charcoal);transform:translateY(-1px)}
-.btn-secondary{background:transparent;color:var(--charcoal);font-size:13px;font-weight:600;padding:16px 32px;border:1px solid var(--sand);cursor:pointer;transition:all .3s var(--ease);letter-spacing:.5px}
-.btn-secondary:hover{border-color:var(--charcoal)}
-.hero-proof{display:flex;gap:32px;flex-wrap:wrap}
-.hp-i{font-size:12px;color:var(--light);font-weight:500;letter-spacing:.5px;position:relative;padding-left:14px}
-.hp-i::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:var(--red);border-radius:50%}
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.4}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(5,5,5,.3) 40%,rgba(5,5,5,.6) 100%)}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,64px) clamp(60px,8vw,120px)}
+.hero-eyebrow{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--red)}
+.hero h1{font-family:var(--display);font-size:clamp(64px,12vw,180px);line-height:.85;letter-spacing:2px;margin-bottom:32px;color:#fff}
+.hero h1 .red{color:var(--red)}
+.hero h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.15);color:transparent}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.hero-left{max-width:480px}
+.hero-p{font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:32px;font-weight:300}
+.hero-p strong{color:#fff;font-weight:600}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-fill{position:relative;background:var(--red);color:#fff;font-size:13px;font-weight:600;padding:16px 36px;border:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase;overflow:hidden;transition:transform .2s}
+.btn-fill:hover{transform:translateY(-2px)}
+.btn-line{background:transparent;color:#fff;font-size:13px;font-weight:500;padding:16px 28px;border:1px solid var(--border);cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.btn-line:hover{border-color:rgba(255,255,255,.3)}
+.hero-stats{display:flex;gap:48px}
+.hs{text-align:right}
+.hs-n{font-family:var(--display);font-size:clamp(36px,5vw,64px);color:#fff;line-height:1;letter-spacing:2px}
+.hs-l{font-size:10px;color:var(--dim);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+@media(max-width:768px){.hero-stats{display:none}}
 
-/* HERO RIGHT */
-.hero-right{position:relative;overflow:hidden}
-.hero-right img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--white) 0%,transparent 15%)}
-.hero-float{position:absolute;bottom:60px;left:-40px;background:#fff;padding:24px 28px;box-shadow:0 20px 60px rgba(0,0,0,.08);z-index:3}
-.hf-n{font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--charcoal);letter-spacing:-2px;line-height:1}
-.hf-l{font-size:10px;color:var(--light);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
-.hero-float-2{position:absolute;top:80px;left:20px;background:var(--red);color:#fff;padding:12px 20px;z-index:3;font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{height:50vh;position:relative}.hero-right img{position:relative}.hero-right::after{background:linear-gradient(to top,var(--white),transparent 30%)}.hero-float,.hero-float-2{display:none}.hero-left{padding:120px 24px 40px}}
-
-/* ── MARQUEE ── */
-.marquee{border-top:1px solid var(--sand);border-bottom:1px solid var(--sand);overflow:hidden;background:var(--white);padding:0}
-.marquee-track{display:flex;animation:marquee 50s linear infinite;width:max-content}
+/* MARQUEE */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--surface)}
+.marquee-track{display:flex;animation:marquee 45s linear infinite;width:max-content}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mq-i{display:flex;align-items:center;gap:14px;padding:22px 48px;white-space:nowrap}
-.mq-i::after{content:'';width:4px;height:4px;background:var(--sand);border-radius:50%;margin-left:34px}
-.mq-n{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:-1px}
-.mq-n.red{color:var(--red)}.mq-n.gold{color:var(--gold)}
-.mq-l{font-size:10px;color:var(--light);font-weight:500;text-transform:uppercase;letter-spacing:2px}
+.mq-i{padding:20px 40px;font-family:var(--display);font-size:20px;letter-spacing:4px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.mq-i .dot{width:4px;height:4px;background:var(--red);border-radius:50%;margin:0 16px}
+.mq-i.red{color:var(--red)}.mq-i.gold{color:var(--gold)}.mq-i.white{color:rgba(255,255,255,.2)}
 
-/* ── COLLAB ── */
-.collab{padding:56px clamp(20px,4vw,56px);background:var(--cream);position:relative}
-.collab-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
-.collab-logos{display:flex;align-items:center;gap:24px}
-.cl-box{width:64px;height:64px;display:flex;align-items:center;justify-content:center}
-.cl-box.wtf{background:var(--charcoal)}
-.cl-box.wtf img{height:24px;width:auto}
+/* COLLAB */
+.collab{padding:48px clamp(20px,4vw,64px);border-bottom:1px solid var(--border);background:var(--bg)}
+.collab-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+.collab-logos{display:flex;align-items:center;gap:20px;flex-shrink:0}
+.cl-box{width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+.cl-box.wtf{border:1px solid var(--border)}
+.cl-box.wtf img{height:22px}
 .cl-box.hyrox{background:var(--gold)}
-.cl-box.hyrox span{font-family:var(--font-display);font-size:11px;font-weight:700;color:#fff;letter-spacing:2px}
-.cl-x{font-size:18px;font-weight:200;color:var(--sand)}
-.collab-info{max-width:440px}
-.ci-h{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
-.ci-h .red{color:var(--red)}.ci-h .gold{color:var(--gold)}
-.ci-p{font-size:14px;color:var(--muted);line-height:1.8}
-@media(max-width:700px){.collab-inner{flex-direction:column;text-align:center;gap:24px}.collab{padding:36px 20px}}
+.cl-box.hyrox span{font-family:var(--display);font-size:14px;color:var(--bg);letter-spacing:3px}
+.cl-x{font-size:16px;color:var(--dim)}
+.collab-text{font-size:14px;color:var(--muted);line-height:1.8;max-width:500px}
+.collab-text strong{color:#fff;font-weight:600}
 
-/* ── OFFER ── */
+/* OFFER */
 .offer{background:var(--red);padding:14px 32px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.offer-t{font-size:13px;font-weight:600;color:#fff;letter-spacing:.3px}
-.offer-t span{background:rgba(255,255,255,.15);padding:2px 8px;margin:0 2px}
-.offer-btn{background:#fff;color:var(--red);font-size:10px;font-weight:700;padding:7px 18px;border:none;cursor:pointer;transition:transform .2s;letter-spacing:1px;text-transform:uppercase;font-family:var(--font-body)}
-.offer-btn:hover{transform:scale(1.03)}
+.offer-t{font-size:13px;font-weight:600;color:#fff}
+.offer-t span{background:rgba(0,0,0,.2);padding:2px 8px}
+.offer-btn{background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:600;padding:7px 18px;border:none;cursor:pointer;letter-spacing:1.5px;text-transform:uppercase;backdrop-filter:blur(4px);transition:background .2s}
+.offer-btn:hover{background:rgba(255,255,255,.25)}
 
-/* ── SECTIONS ── */
-.sec{padding:clamp(64px,10vw,120px) clamp(20px,4vw,56px)}
-.sec-inner{max-width:1200px;margin:0 auto}
-.eyebrow{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px}
-.eyebrow.red{color:var(--red)}.eyebrow.gold{color:var(--gold)}
-.sec-h{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:14px}
+/* SECTIONS */
+.sec{padding:clamp(64px,10vw,140px) clamp(20px,4vw,64px)}
+.sec-inner{max-width:1400px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:24px;height:1px}
+.eyebrow.red{color:var(--red)}.eyebrow.red::before{background:var(--red)}
+.eyebrow.gold{color:var(--gold)}.eyebrow.gold::before{background:var(--gold)}
+.sec-h{font-family:var(--display);font-size:clamp(32px,5vw,72px);letter-spacing:2px;line-height:.95;margin-bottom:16px}
 .sec-h .red{color:var(--red)}.sec-h .gold{color:var(--gold)}
-.sec-p{font-size:15px;color:var(--muted);max-width:480px;line-height:1.9;margin-bottom:48px}
-.sec-divider{width:48px;height:1px;background:var(--sand);margin-bottom:14px}
+.sec-p{font-size:15px;color:var(--muted);max-width:480px;line-height:1.9;margin-bottom:56px;font-weight:300}
+.sec-line{width:48px;height:1px;background:var(--border);margin-bottom:16px}
 
-/* ── HYROX ── */
-.hyrox-sec{background:var(--white)}
-.hyrox-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:56px}
-@media(max-width:850px){.hyrox-split{grid-template-columns:1fr}}
+/* HYROX */
+.hyrox-sec{background:var(--bg)}
+.hyrox-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:64px}
+@media(max-width:850px){.hyrox-grid{grid-template-columns:1fr}}
 .hyrox-img{overflow:hidden;aspect-ratio:4/3;position:relative}
-.hyrox-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
-.hyrox-img:hover img{transform:scale(1.03)}
-.hyrox-img .img-badge{position:absolute;bottom:16px;left:16px;background:#fff;padding:8px 14px;font-size:11px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.img-badge-dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
-.hx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--sand)}
-@media(max-width:700px){.hx-grid{grid-template-columns:1fr}}
-.hx-card{padding:36px 28px;border-right:1px solid var(--sand);transition:background .3s}
+.hyrox-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.hyrox-img:hover img{transform:scale(1.04)}
+.hyrox-img .img-tag{position:absolute;bottom:0;left:0;background:var(--red);color:#fff;padding:10px 18px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.hx-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border)}
+@media(max-width:700px){.hx-cards{grid-template-columns:1fr}}
+.hx-card{padding:40px 28px;border-right:1px solid var(--border);transition:background .3s}
 .hx-card:last-child{border-right:none}
-@media(max-width:700px){.hx-card{border-right:none;border-bottom:1px solid var(--sand)}.hx-card:last-child{border-bottom:none}}
-.hx-card:hover{background:var(--cream)}
-.hxc-num{font-family:var(--font-display);font-size:48px;font-weight:800;color:var(--sand);line-height:1;margin-bottom:12px;letter-spacing:-2px}
-.hxc-t{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
-.hxc-d{font-size:13px;color:var(--muted);line-height:1.75}
+@media(max-width:700px){.hx-card{border-right:none;border-bottom:1px solid var(--border)}.hx-card:last-child{border-bottom:none}}
+.hx-card:hover{background:var(--surface)}
+.hxc-n{font-family:var(--display);font-size:72px;color:rgba(255,255,255,.03);line-height:1;letter-spacing:2px}
+.hxc-t{font-size:16px;font-weight:700;margin:8px 0;letter-spacing:-.2px}
+.hxc-d{font-size:13px;color:var(--muted);line-height:1.75;font-weight:300}
 
-/* RACE BOX */
-.race-box{border:1px solid var(--sand);margin-top:48px;overflow:hidden}
-.race-box-head{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--sand);flex-wrap:wrap;gap:8px}
-.rbh-title{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red)}
-.rbh-legend{display:flex;gap:14px;font-size:11px;color:var(--light)}
-.rbh-legend span{display:flex;align-items:center;gap:5px}
-.rbh-dot{width:8px;height:8px}
-.rbh-dot.run{background:var(--gold)}.rbh-dot.ch{background:var(--cream);border:1px solid var(--sand)}
-.race-box-body{padding:20px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.rb-run{background:var(--charcoal);color:#fff;font-size:10px;font-weight:600;padding:6px 12px;letter-spacing:.5px;white-space:nowrap}
-.rb-arr{color:var(--sand);font-size:12px}
-.rb-st{background:var(--cream);color:var(--muted);font-size:10px;font-weight:500;padding:6px 10px;white-space:nowrap;border:1px solid var(--sand);transition:background .15s}
-.rb-st:hover{background:var(--sand)}
-.rb-fin{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:6px 14px;letter-spacing:.5px}
+/* RACE */
+.race-box{border:1px solid var(--border);margin-top:48px}
+.race-head{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.race-title{font-family:var(--display);font-size:14px;letter-spacing:3px;color:var(--red)}
+.race-legend{display:flex;gap:14px;font-size:11px;color:var(--dim)}
+.race-legend span{display:flex;align-items:center;gap:5px}
+.rl-dot{width:8px;height:8px}
+.rl-dot.run{background:var(--gold)}.rl-dot.ch{border:1px solid var(--dim)}
+.race-body{padding:20px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.r-run{background:var(--gold);color:var(--bg);font-size:10px;font-weight:700;padding:6px 14px;letter-spacing:.5px}
+.r-arr{color:var(--dim);font-size:11px}
+.r-st{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:10px;padding:6px 12px;transition:background .15s}
+.r-st:hover{background:var(--card)}
+.r-fin{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:6px 14px;letter-spacing:.5px}
 
-/* ── STATIONS ── */
-.stations-sec{background:var(--cream)}
-.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--sand)}
+/* STATIONS */
+.stations-sec{background:var(--surface)}
+.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border)}
 @media(max-width:900px){.st-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.st-grid{grid-template-columns:1fr}}
-.stc{padding:28px 22px;border-right:1px solid var(--sand);border-bottom:1px solid var(--sand);transition:background .25s;background:var(--white)}
+.stc{padding:28px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
 .stc:nth-child(4n){border-right:none}
 .stc:nth-last-child(-n+4){border-bottom:none}
-@media(max-width:900px){.stc:nth-child(2n){border-right:none}.stc:nth-child(4n){border-right:1px solid var(--sand)}.stc:nth-last-child(-n+4){border-bottom:1px solid var(--sand)}.stc:nth-last-child(-n+2){border-bottom:none}}
-@media(max-width:480px){.stc{border-right:none!important}.stc:last-child{border-bottom:none}}
-.stc:hover{background:var(--cream)}
+@media(max-width:900px){.stc:nth-child(2n){border-right:none}.stc:nth-child(4n){border-right:1px solid var(--border)}.stc:nth-last-child(-n+4){border-bottom:1px solid var(--border)}.stc:nth-last-child(-n+2){border-bottom:none}}
+@media(max-width:480px){.stc{border-right:none!important}.stc:last-child{border-bottom:none!important}}
+.stc::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.stc:hover::before{transform:scaleX(1)}
+.stc:hover{background:var(--card)}
 .stc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.stc-num{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--light);letter-spacing:1px}
+.stc-num{font-family:var(--display);font-size:14px;color:var(--dim);letter-spacing:2px}
 .stc:hover .stc-num{color:var(--red)}
-.stc-dist{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.5px}
-.stc-name{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:5px;letter-spacing:-.2px}
-.stc-desc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.stc-dist{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:1px}
+.stc-name{font-size:15px;font-weight:700;margin-bottom:5px}
+.stc-desc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:10px;font-weight:300}
 .stc-tags{display:flex;gap:4px}
-.stc-tag{font-size:9px;background:var(--cream);color:var(--light);padding:3px 8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.stc-tag{font-size:8px;background:var(--surface);color:var(--dim);padding:3px 8px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border:1px solid var(--border)}
 
-/* ── VISUAL BREAK ── */
-.vbreak{height:50vh;max-height:500px;position:relative;overflow:hidden}
-.vbreak img{width:100%;height:100%;object-fit:cover}
-.vbreak::before{content:'';position:absolute;inset:0;background:rgba(26,26,26,.55);z-index:1}
-.vbreak-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;text-align:center;padding:24px}
-.vbreak-q{font-family:var(--font-display);font-size:clamp(24px,4vw,48px);font-weight:800;letter-spacing:-2px;max-width:700px;line-height:1.05;color:#fff}
+/* PARALLAX BREAK */
+.pbreak{height:60vh;max-height:560px;position:relative;overflow:hidden}
+.pbreak img{width:100%;height:120%;object-fit:cover;position:absolute;top:-10%}
+.pbreak::before{content:'';position:absolute;inset:0;background:rgba(5,5,5,.6);z-index:1}
+.pbreak-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;text-align:center;padding:20px}
+.pbreak-q{font-family:var(--display);font-size:clamp(32px,6vw,80px);letter-spacing:4px;line-height:.9;color:#fff}
+.pbreak-q .red{color:var(--red)}.pbreak-q .gold{color:var(--gold)}
 
-/* ── SPONSOR ── */
-.sponsor-sec{background:var(--white)}
+/* SPONSOR */
+.sponsor-sec{background:var(--bg)}
 .sp-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:start}
 @media(max-width:800px){.sp-grid{grid-template-columns:1fr}}
-.sp-steps{display:flex;flex-direction:column;gap:0;border:1px solid var(--sand);margin-top:8px}
-.sp-step{display:flex;gap:16px;padding:18px 20px;border-bottom:1px solid var(--sand);transition:background .2s}
+.sp-steps{border:1px solid var(--border);margin-top:8px}
+.sp-step{display:flex;gap:16px;padding:20px;border-bottom:1px solid var(--border);transition:all .2s}
 .sp-step:last-child{border-bottom:none}
-.sp-step:hover{background:var(--cream)}
-.sp-step-n{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--red);width:24px;flex-shrink:0;letter-spacing:-1px}
+.sp-step:hover{background:var(--surface);padding-left:28px}
+.sp-step-n{font-family:var(--display);font-size:28px;color:var(--red);width:28px;flex-shrink:0;letter-spacing:1px}
 .sp-step-t{font-size:14px;font-weight:700;margin-bottom:2px}
-.sp-step-d{font-size:12px;color:var(--muted);line-height:1.6}
-.sp-card{border:1px solid var(--sand);overflow:hidden;background:var(--white)}
-.spc-top{padding:44px 28px;text-align:center;background:var(--cream);border-bottom:1px solid var(--sand)}
-.spc-exc{font-family:var(--font-display);font-size:9px;font-weight:700;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
-.spc-num{font-family:var(--font-display);font-size:72px;font-weight:800;color:var(--charcoal);line-height:1;letter-spacing:-3px}
-.spc-lbl{font-size:10px;font-weight:600;color:var(--light);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+.sp-step-d{font-size:12px;color:var(--muted);line-height:1.6;font-weight:300}
+.sp-card{border:1px solid var(--border);overflow:hidden}
+.spc-top{padding:48px 28px;text-align:center;background:var(--surface);border-bottom:1px solid var(--border);position:relative}
+.spc-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;background:radial-gradient(circle,var(--red-glow),transparent 70%);pointer-events:none}
+.spc-exc{font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:4px;margin-bottom:8px;position:relative}
+.spc-num{font-family:var(--display);font-size:96px;color:#fff;line-height:1;letter-spacing:4px;position:relative}
+.spc-lbl{font-size:10px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-top:6px;position:relative}
 .spc-list{padding:0}
-.spc-item{padding:14px 20px;font-size:13px;color:var(--muted);font-weight:500;border-bottom:1px solid var(--sand);display:flex;align-items:center;gap:12px}
+.spc-item{padding:14px 20px;font-size:13px;color:var(--muted);font-weight:400;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
 .spc-item:last-child{border-bottom:none}
 .spc-item::before{content:'';width:4px;height:4px;background:var(--red);border-radius:50%;flex-shrink:0}
-.spc-btn{width:100%;background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:16px;border:none;cursor:pointer;transition:background .2s;letter-spacing:1px;text-transform:uppercase;font-family:var(--font-body)}
-.spc-btn:hover{background:var(--charcoal)}
+.spc-btn{width:100%;background:var(--red);color:#fff;font-family:var(--display);font-size:16px;padding:18px;border:none;cursor:pointer;letter-spacing:4px;transition:background .2s}
+.spc-btn:hover{background:#e0202e}
 
-/* ── WHY ── */
-.why-sec{background:var(--cream)}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--sand)}
+/* WHY */
+.why-sec{background:var(--surface)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border)}
 @media(max-width:768px){.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.why-grid{grid-template-columns:1fr}}
-.wyc{padding:32px 24px;border-right:1px solid var(--sand);border-bottom:1px solid var(--sand);transition:background .2s;background:var(--white)}
+.wyc{padding:36px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:background .3s}
 .wyc:nth-child(3n){border-right:none}
 .wyc:nth-last-child(-n+3){border-bottom:none}
-@media(max-width:768px){.wyc:nth-child(2n){border-right:none}.wyc:nth-child(3n){border-right:1px solid var(--sand)}.wyc:nth-child(even){border-right:none}.wyc:nth-last-child(-n+3){border-bottom:1px solid var(--sand)}.wyc:nth-last-child(-n+2){border-bottom:none}}
+@media(max-width:768px){.wyc:nth-child(2n){border-right:none}.wyc:nth-child(3n){border-right:1px solid var(--border)}.wyc:nth-child(even){border-right:none}.wyc:nth-last-child(-n+3){border-bottom:1px solid var(--border)}.wyc:nth-last-child(-n+2){border-bottom:none}}
 @media(max-width:480px){.wyc{border-right:none!important}.wyc:last-child{border-bottom:none}}
-.wyc:hover{background:var(--cream)}
-.wyc-n{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--sand);margin-bottom:8px;line-height:1;letter-spacing:-1px}
-.wyc-t{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:5px;letter-spacing:-.2px}
-.wyc-d{font-size:12px;color:var(--muted);line-height:1.7}
+.wyc:hover{background:var(--card)}
+.wyc-n{font-family:var(--display);font-size:36px;color:rgba(255,255,255,.03);line-height:1;letter-spacing:2px}
+.wyc-t{font-size:15px;font-weight:700;margin:6px 0 5px}
+.wyc-d{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
 
-/* ── DIVISIONS ── */
-.div-sec{background:var(--white)}
-.div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--sand)}
+/* DIVISIONS */
+.div-sec{background:var(--bg)}
+.div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border)}
 @media(max-width:768px){.div-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.div-grid{grid-template-columns:1fr}}
-.dvc{border-right:1px solid var(--sand);transition:background .2s}
+.dvc{border-right:1px solid var(--border);transition:background .2s}
 .dvc:last-child{border-right:none}
-@media(max-width:768px){.dvc:nth-child(2n){border-right:none}.dvc:nth-child(n+3){border-top:1px solid var(--sand)}}
-@media(max-width:480px){.dvc{border-right:none!important;border-bottom:1px solid var(--sand)}.dvc:last-child{border-bottom:none}}
-.dvc:hover{background:var(--cream)}
-.dvc-top{height:80px;display:flex;align-items:center;justify-content:center;background:var(--cream);border-bottom:1px solid var(--sand);position:relative}
-.dvc.pop .dvc-top{background:var(--red-light)}
-.dvc-label{font-family:var(--font-display);font-size:16px;font-weight:800;letter-spacing:-.3px}
-.dvc-tag{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:8px;font-weight:700;padding:3px 8px;letter-spacing:1px;text-transform:uppercase}
-.dvc-body{padding:18px 16px}
-.dvc-t{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:-.2px}
-.dvc-d{font-size:11px;color:var(--muted);line-height:1.6}
+@media(max-width:768px){.dvc:nth-child(2n){border-right:none}.dvc:nth-child(n+3){border-top:1px solid var(--border)}}
+@media(max-width:480px){.dvc{border-right:none!important;border-bottom:1px solid var(--border)}.dvc:last-child{border-bottom:none}}
+.dvc:hover{background:var(--surface)}
+.dvc-top{height:88px;display:flex;align-items:center;justify-content:center;background:var(--surface);border-bottom:1px solid var(--border);position:relative}
+.dvc.pop .dvc-top{background:var(--red-glow)}
+.dvc-label{font-family:var(--display);font-size:24px;letter-spacing:3px}
+.dvc-tag{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:8px;font-weight:700;padding:3px 8px;letter-spacing:1.5px;text-transform:uppercase}
+.dvc-body{padding:20px 16px}
+.dvc-t{font-size:14px;font-weight:700;margin-bottom:4px}
+.dvc-d{font-size:11px;color:var(--muted);line-height:1.6;font-weight:300}
 
-/* ── TESTIMONIALS ── */
-.test-sec{background:var(--white)}
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--sand)}
+/* TESTIMONIALS */
+.test-sec{background:var(--surface)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border)}
 @media(max-width:768px){.test-grid{grid-template-columns:1fr}}
-.tc{padding:36px 24px;border-right:1px solid var(--sand);background:var(--white)}
+.tc{padding:36px 24px;border-right:1px solid var(--border)}
 .tc:last-child{border-right:none}
-@media(max-width:768px){.tc{border-right:none;border-bottom:1px solid var(--sand)}.tc:last-child{border-bottom:none}}
-.tc-rating{font-family:var(--font-display);font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:16px;font-weight:700}
-.tc-q{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:24px;padding-left:16px;border-left:1px solid var(--red);font-style:italic}
-.tc-who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--sand)}
-.tc-av{width:36px;height:36px;background:var(--red-light);color:var(--red);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-display)}
+@media(max-width:768px){.tc{border-right:none;border-bottom:1px solid var(--border)}.tc:last-child{border-bottom:none}}
+.tc-rating{font-family:var(--display);font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:16px}
+.tc-q{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:24px;padding-left:16px;border-left:1px solid var(--red);font-style:italic;font-weight:300}
+.tc-who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--border)}
+.tc-av{width:36px;height:36px;background:var(--red-glow);color:var(--red);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tc-name{font-size:13px;font-weight:700}
-.tc-role{font-size:11px;color:var(--light);margin-top:1px}
+.tc-role{font-size:11px;color:var(--dim);margin-top:1px}
 
-/* ── FAQ ── */
-.faq-sec{background:var(--cream)}
-.faq-list{border:1px solid var(--sand)}
-.fi{border-bottom:1px solid var(--sand);background:var(--white)}
+/* FAQ */
+.faq-sec{background:var(--bg)}
+.faq-list{border:1px solid var(--border)}
+.fi{border-bottom:1px solid var(--border)}
 .fi:last-child{border-bottom:none}
-.fi-q{width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:var(--charcoal);font-size:14px;font-weight:600;cursor:pointer;text-align:left;gap:14px;transition:all .2s;font-family:var(--font-body)}
-.fi-q:hover{background:var(--cream)}
-.fi-icon{font-size:12px;color:var(--light);flex-shrink:0;transition:all .25s;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.fi-q{width:100%;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;font-size:15px;font-weight:600;cursor:pointer;text-align:left;gap:14px;transition:all .2s;font-family:var(--body)}
+.fi-q:hover{background:var(--surface)}
+.fi-icon{font-size:12px;color:var(--dim);flex-shrink:0;transition:all .3s;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 .fi.open .fi-icon{transform:rotate(45deg);color:var(--red)}
-.fi.open .fi-q{color:var(--red);background:var(--red-light)}
-.fi-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease),padding .25s;padding:0 24px;font-size:14px;color:var(--muted);line-height:1.85}
-.fi.open .fi-a{max-height:200px;padding:0 24px 20px}
+.fi.open .fi-q{color:var(--red);background:var(--surface)}
+.fi-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;padding:0 24px;font-size:14px;color:var(--muted);line-height:1.85;font-weight:300}
+.fi.open .fi-a{max-height:200px;padding:0 24px 20px;background:var(--surface)}
 
-/* ── FORM ── */
-.form-sec{background:var(--white)}
+/* FORM */
+.form-sec{background:var(--surface)}
 .form-in{max-width:720px;margin:0 auto}
 .form-header{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:44px}
 @media(max-width:600px){.form-header{grid-template-columns:1fr}}
-.fhd-r p{font-size:14px;color:var(--muted);line-height:1.8}
+.fhd-r p{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300}
 .fhd-r strong{color:var(--red);font-weight:600}
-.form-box{border:1px solid var(--sand);overflow:hidden;background:var(--white)}
+.form-box{border:1px solid var(--border);overflow:hidden;background:var(--bg)}
 .f-fields{display:grid;grid-template-columns:1fr 1fr}
 @media(max-width:520px){.f-fields{grid-template-columns:1fr}}
-.fg{display:flex;flex-direction:column;border-right:1px solid var(--sand);border-bottom:1px solid var(--sand)}
+.fg{display:flex;flex-direction:column;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
 .fg:nth-child(2n){border-right:none}
 .fg:nth-last-child(-n+2){border-bottom:none}
 @media(max-width:520px){.fg{border-right:none}.fg:last-child{border-bottom:none}}
-.fg label{font-size:9px;font-weight:600;color:var(--light);letter-spacing:2px;text-transform:uppercase;padding:12px 20px 2px}
-.fg input,.fg select{border:none;padding:4px 20px 12px;font-size:14px;font-family:var(--font-body);outline:none;background:transparent;color:var(--charcoal);width:100%;transition:background .15s}
-.fg input:focus,.fg select:focus{background:var(--red-light)}
-.fg input::placeholder{color:var(--sand)}
-.fg select{color:var(--light);-webkit-appearance:none}
-.fg select:valid:not([value=""]){color:var(--charcoal)}
-.fg select option{background:#fff;color:var(--charcoal)}
-.form-sponsor{background:var(--red-light);border-top:1px solid var(--sand);border-bottom:1px solid var(--sand);padding:16px 20px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:background .15s}
-.form-sponsor:hover{background:var(--cream)}
+.fg label{font-size:9px;font-weight:500;color:var(--dim);letter-spacing:2px;text-transform:uppercase;padding:12px 20px 2px}
+.fg input,.fg select{border:none;padding:4px 20px 12px;font-size:14px;font-family:var(--body);font-weight:400;outline:none;background:transparent;color:#fff;width:100%;transition:background .15s}
+.fg input:focus,.fg select:focus{background:var(--red-glow)}
+.fg input::placeholder{color:var(--dim)}
+.fg select{color:var(--muted);-webkit-appearance:none}
+.fg select:valid:not([value=""]){color:#fff}
+.fg select option{background:var(--bg);color:#fff}
+.form-sponsor{background:var(--red-glow);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:background .15s}
+.form-sponsor:hover{background:rgba(255,45,59,.15)}
 .form-sponsor input{accent-color:var(--red);width:18px;height:18px;margin-top:2px;flex-shrink:0;cursor:pointer}
 .fs-t{font-size:13px;font-weight:700;color:var(--red);margin-bottom:2px}
-.fs-d{font-size:12px;color:var(--muted);line-height:1.6}
-.form-submit{width:100%;background:var(--charcoal);color:#fff;font-size:13px;font-weight:700;padding:18px;border:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:background .2s;font-family:var(--font-body)}
-.form-submit:hover{background:var(--red)}
-.form-note{text-align:center;font-size:11px;color:var(--light);padding:12px 20px;background:var(--cream);border-top:1px solid var(--sand)}
+.fs-d{font-size:12px;color:var(--muted);line-height:1.6;font-weight:300}
+.form-submit{width:100%;background:var(--red);color:#fff;font-family:var(--display);font-size:18px;padding:20px;border:none;cursor:pointer;letter-spacing:4px;transition:background .2s}
+.form-submit:hover{background:#e0202e}
+.form-note{text-align:center;font-size:11px;color:var(--dim);padding:12px 20px;border-top:1px solid var(--border)}
 .f-success{display:none;text-align:center;padding:56px 20px}
-.fs-h{font-family:var(--font-display);font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-1px}
-.fs-p{font-size:14px;color:var(--muted);line-height:1.8}
+.fs-h{font-family:var(--display);font-size:36px;letter-spacing:2px;margin-bottom:8px}
+.fs-p{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300}
 
-/* ── FOOTER ── */
-footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#fff}
-.ft-in{max-width:1200px;margin:0 auto}
-.ft-top{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:48px;margin-bottom:48px}
+/* FOOTER */
+footer{background:var(--bg);padding:64px clamp(20px,4vw,64px) 28px;border-top:1px solid var(--border)}
+.ft-in{max-width:1400px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
 @media(max-width:640px){.ft-top{grid-template-columns:1fr;gap:20px}}
 .ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .ft-logo-img{height:40px;width:auto}
-.ft-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;margin-bottom:6px}
-.ft-tagline{font-size:11px;color:rgba(255,255,255,.1)}
-.ft-heading{font-size:10px;font-weight:600;color:rgba(255,255,255,.2);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
-.ft-link{display:block;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:10px;cursor:pointer;background:none;border:none;text-align:left;padding:0;transition:color .15s;font-family:var(--font-body)}
-.ft-link:hover{color:#fff}
-.ft-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-.ft-copy{font-size:11px;color:rgba(255,255,255,.12)}
+.ft-desc{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:6px}
+.ft-tagline{font-size:11px;color:var(--dim);font-style:italic}
+.ft-heading{font-size:10px;font-weight:500;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px}
+.ft-link{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;cursor:pointer;background:none;border:none;text-align:left;padding:0;transition:color .15s;font-family:var(--body);font-weight:400}
+.ft-link:hover{color:var(--red)}
+.ft-bottom{border-top:1px solid var(--border);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.ft-copy{font-size:11px;color:var(--dim)}
 </style>
 </head>
 <body>
+
+<!-- LOADER -->
+<div class="loader" id="loader"><div class="loader-text" id="loader-text">WTF</div></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
 
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-left">
     <img class="nav-logo" src="wtf-logo.png" alt="WTF Gyms"/>
-    <div class="nav-sep"></div>
+    <span class="nav-dot"></span>
     <span class="nav-hyrox">HYROX</span>
   </div>
   <button class="nav-burger" onclick="document.getElementById('navlinks').classList.toggle('open')"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navlinks">
-    <button class="nav-link" onclick="go('#hyrox')">What is HYROX</button>
+    <button class="nav-link" onclick="go('#hyrox')">HYROX</button>
     <button class="nav-link" onclick="go('#stations')">Stations</button>
-    <button class="nav-link" onclick="go('#sponsor')">Sponsorship</button>
+    <button class="nav-link" onclick="go('#sponsor')">Sponsor</button>
     <button class="nav-link" onclick="go('#faq')">FAQ</button>
-    <button class="nav-cta" onclick="go('#join')">Book Trial</button>
+    <button class="nav-cta" onclick="go('#join')"><span>Book Trial</span></button>
   </div>
 </nav>
-<div class="mob-cta"><button onclick="go('#join')">Book Free Trial</button></div>
+<div class="mob-cta"><button onclick="go('#join')">BOOK FREE TRIAL</button></div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-collab">
-      <img src="wtf-logo.png" alt="WTF" style="height:16px"/>
-      <span class="hc-x">&times;</span>
-      <span class="hc-hyrox">HYROX</span>
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" alt="WTF Gym"/></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="hero-ey">Delhi's Only HYROX Training Facility</div>
+    <h1 id="hero-h1">TRAIN<br>FOR <span class="red">HYROX</span><span class="outline">.</span></h1>
+    <div class="hero-bottom">
+      <div class="hero-left" id="hero-left">
+        <p class="hero-p">Join <strong>WTF Gyms</strong> and get <strong>race-ready for HYROX</strong> &mdash; all 8 stations, expert coaches and a structured program built around the race.</p>
+        <div class="hero-btns">
+          <button class="btn-fill" onclick="go('#join')">Book Free Trial &rarr;</button>
+          <button class="btn-line" onclick="go('#hyrox')">What is HYROX?</button>
+        </div>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div class="hs"><div class="hs-n" data-count="500">0</div><div class="hs-l">K+ Athletes</div></div>
+        <div class="hs"><div class="hs-n" data-count="8">0</div><div class="hs-l">Stations</div></div>
+        <div class="hs"><div class="hs-n" data-count="50">0</div><div class="hs-l">+ WTF Gyms</div></div>
+      </div>
     </div>
-    <div class="hero-sub" data-gsap="hero">Delhi's HYROX Training Gym</div>
-    <h1 data-gsap="hero">Train for<br><em>HYROX.</em></h1>
-    <p class="hero-p" data-gsap="hero">Join <strong>WTF Gyms</strong> and get <strong>race-ready for HYROX</strong> &mdash; Delhi's only facility with all 8 stations, expert coaches and a structured program built around the race.</p>
-    <div class="hero-btns" data-gsap="hero">
-      <button class="btn-primary" onclick="go('#join')">Book My Free Trial &rarr;</button>
-      <button class="btn-secondary" onclick="go('#hyrox')">What is HYROX?</button>
-    </div>
-    <div class="hero-proof" data-gsap="hero">
-      <span class="hp-i">First session FREE</span>
-      <span class="hp-i">All 8 stations</span>
-      <span class="hp-i">Beginner to Pro</span>
-    </div>
-  </div>
-  <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=1200&q=80" alt="HYROX athlete training"/>
-    <div class="hero-float"><div class="hf-n">500K+</div><div class="hf-l">Global Athletes</div></div>
-    <div class="hero-float-2">5 Free Race Entries</div>
   </div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee"><div class="marquee-track">
-  <div class="mq-i"><span class="mq-n red">8km</span><span class="mq-l">Total Running</span></div>
-  <div class="mq-i"><span class="mq-n gold">8</span><span class="mq-l">Challenges</span></div>
-  <div class="mq-i"><span class="mq-n red">500K+</span><span class="mq-l">Athletes</span></div>
-  <div class="mq-i"><span class="mq-n gold">FREE</span><span class="mq-l">First Trial</span></div>
-  <div class="mq-i"><span class="mq-n red">50+</span><span class="mq-l">WTF Gyms</span></div>
-  <div class="mq-i"><span class="mq-n gold">5</span><span class="mq-l">Sponsored</span></div>
-  <div class="mq-i"><span class="mq-n red">8km</span><span class="mq-l">Total Running</span></div>
-  <div class="mq-i"><span class="mq-n gold">8</span><span class="mq-l">Challenges</span></div>
-  <div class="mq-i"><span class="mq-n red">500K+</span><span class="mq-l">Athletes</span></div>
-  <div class="mq-i"><span class="mq-n gold">FREE</span><span class="mq-l">First Trial</span></div>
-  <div class="mq-i"><span class="mq-n red">50+</span><span class="mq-l">WTF Gyms</span></div>
-  <div class="mq-i"><span class="mq-n gold">5</span><span class="mq-l">Sponsored</span></div>
+  <div class="mq-i red">8KM RUNNING<span class="dot"></span></div>
+  <div class="mq-i gold">8 CHALLENGES<span class="dot"></span></div>
+  <div class="mq-i white">500K+ ATHLETES<span class="dot"></span></div>
+  <div class="mq-i red">FREE FIRST TRIAL<span class="dot"></span></div>
+  <div class="mq-i gold">5 SPONSORED ENTRIES<span class="dot"></span></div>
+  <div class="mq-i white">50+ WTF LOCATIONS<span class="dot"></span></div>
+  <div class="mq-i red">8KM RUNNING<span class="dot"></span></div>
+  <div class="mq-i gold">8 CHALLENGES<span class="dot"></span></div>
+  <div class="mq-i white">500K+ ATHLETES<span class="dot"></span></div>
+  <div class="mq-i red">FREE FIRST TRIAL<span class="dot"></span></div>
+  <div class="mq-i gold">5 SPONSORED ENTRIES<span class="dot"></span></div>
+  <div class="mq-i white">50+ WTF LOCATIONS<span class="dot"></span></div>
 </div></div>
 
 <!-- COLLAB -->
 <div class="collab">
   <div class="collab-inner">
     <div class="collab-logos">
-      <div class="cl-box wtf"><img src="wtf-logo.png" alt="WTF Gyms"/></div>
+      <div class="cl-box wtf"><img src="wtf-logo.png" alt="WTF"/></div>
       <span class="cl-x">&times;</span>
       <div class="cl-box hyrox"><span>HYROX</span></div>
     </div>
-    <div class="collab-info">
-      <div class="ci-h">Official <span class="red">HYROX</span> Training <span class="gold">Partner</span></div>
-      <div class="ci-p">All 8 race stations, certified coaches, and a complete race-day preparation program under one roof.</div>
-    </div>
+    <div class="collab-text"><strong>Official HYROX Training Partner.</strong> All 8 race stations, certified coaches, and a complete race-day program under one roof.</div>
   </div>
 </div>
 
@@ -414,35 +411,35 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- HYROX -->
 <section class="sec hyrox-sec" id="hyrox">
   <div class="sec-inner">
-    <div class="hyrox-split r">
+    <div class="hyrox-grid rv">
       <div>
         <div class="eyebrow gold">What is HYROX</div>
-        <div class="sec-divider"></div>
-        <div class="sec-h">The world's fastest growing<br>indoor <span class="gold">fitness race.</span></div>
-        <p class="sec-p">A global fitness race held indoors &mdash; same format in every city. Run 1km, complete a workout, repeat 8 times. Open to everyone.</p>
+        <div class="sec-line"></div>
+        <div class="sec-h">THE WORLD'S<br>FASTEST GROWING<br><span class="gold">FITNESS RACE.</span></div>
+        <p class="sec-p">A global indoor race &mdash; same format in every city. Run 1km, complete a workout, repeat 8 times. Open to everyone.</p>
       </div>
       <div class="hyrox-img">
         <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&q=80" alt="HYROX race"/>
-        <div class="img-badge"><span class="img-badge-dot"></span>30+ countries worldwide</div>
+        <div class="img-tag">30+ Countries</div>
       </div>
     </div>
-    <div class="hx-grid r">
-      <div class="hx-card"><div class="hxc-num">01</div><div class="hxc-t">Run + Challenge &times; 8</div><div class="hxc-d">Every round is 1km running followed by one physical challenge. Eight rounds total.</div></div>
-      <div class="hx-card"><div class="hxc-num">02</div><div class="hxc-t">Same format worldwide</div><div class="hxc-d">Delhi, London, New York &mdash; always the same 8 challenges. Train here, race anywhere.</div></div>
-      <div class="hx-card"><div class="hxc-num">03</div><div class="hxc-t">Open to everyone</div><div class="hxc-d">Beginner or elite. No qualification needed. A category for every fitness level.</div></div>
+    <div class="hx-cards rv">
+      <div class="hx-card"><div class="hxc-n">01</div><div class="hxc-t">Run + Challenge &times; 8</div><div class="hxc-d">1km running followed by one challenge. Eight rounds total.</div></div>
+      <div class="hx-card"><div class="hxc-n">02</div><div class="hxc-t">Same format worldwide</div><div class="hxc-d">Delhi, London, New York &mdash; always the same 8 challenges.</div></div>
+      <div class="hx-card"><div class="hxc-n">03</div><div class="hxc-t">Open to everyone</div><div class="hxc-d">No qualification. A category for every fitness level.</div></div>
     </div>
-    <div class="race-box r">
-      <div class="race-box-head"><span class="rbh-title">Full Race Order</span><div class="rbh-legend"><span><span class="rbh-dot run"></span> Run</span><span><span class="rbh-dot ch"></span> Challenge</span></div></div>
-      <div class="race-box-body">
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">SkiErg</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Sled Push</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Sled Pull</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Burpee Jump</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Rowing</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Farmers Carry</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Sandbag Lunges</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-run">Run 1km</span><span class="rb-arr">&rarr;</span><span class="rb-st">Wall Balls</span><span class="rb-arr">&rarr;</span>
-        <span class="rb-fin">Finish</span>
+    <div class="race-box rv">
+      <div class="race-head"><span class="race-title">FULL RACE ORDER</span><div class="race-legend"><span><span class="rl-dot run"></span> Run</span><span><span class="rl-dot ch"></span> Challenge</span></div></div>
+      <div class="race-body">
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">SkiErg</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Sled Push</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Sled Pull</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Burpee Jump</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Rowing</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Farmers Carry</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Sandbag Lunges</span><span class="r-arr">&rarr;</span>
+        <span class="r-run">RUN 1KM</span><span class="r-arr">&rarr;</span><span class="r-st">Wall Balls</span><span class="r-arr">&rarr;</span>
+        <span class="r-fin">FINISH</span>
       </div>
     </div>
   </div>
@@ -451,44 +448,44 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- STATIONS -->
 <section class="sec stations-sec" id="stations">
   <div class="sec-inner">
-    <div class="r"><div class="eyebrow red">The 8 Challenges</div><div class="sec-divider"></div><div class="sec-h">Know exactly what you're<br><span class="red">training for.</span></div><p class="sec-p">The exact 8 challenges in every HYROX race. WTF has equipment and coaches for all 8.</p></div>
-    <div class="st-grid r">
-      <div class="stc"><div class="stc-head"><span class="stc-num">01</span><span class="stc-dist">1,000m</span></div><div class="stc-name">SkiErg</div><div class="stc-desc">Cross-country skiing movement. Arms, shoulders, core.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50m</span></div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50m</span></div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled. Back, biceps, grip under fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">04</span><span class="stc-dist">80m</span></div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop, jump forward, repeat for 80m.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000m</span></div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 rower at halfway. Pacing is everything.</div><div class="stc-tags"><span class="stc-tag">Endurance</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200m</span></div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">07</span><span class="stc-dist">100m</span></div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with sandbag after 7km.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">08</span><span class="stc-dist">75-100</span></div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw med ball. Final push.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
+    <div class="rv"><div class="eyebrow red">8 Challenges</div><div class="sec-line"></div><div class="sec-h">KNOW WHAT<br>YOU'RE <span class="red">TRAINING FOR.</span></div><p class="sec-p">The exact 8 challenges in every HYROX race. WTF has equipment and coaches for all 8.</p></div>
+    <div class="st-grid rv">
+      <div class="stc"><div class="stc-head"><span class="stc-num">01</span><span class="stc-dist">1,000M</span></div><div class="stc-name">SkiErg</div><div class="stc-desc">Cross-country skiing motion. Arms, shoulders, core.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. Most feared station.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled. Grip under fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">04</span><span class="stc-dist">80M</span></div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop, jump forward, repeat 80m.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000M</span></div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 at halfway. Pacing is key.</div><div class="stc-tags"><span class="stc-tag">Endurance</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200M</span></div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">07</span><span class="stc-dist">100M</span></div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with sandbag after 7km.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">08</span><span class="stc-dist">75-100</span></div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw. The final push.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- VISUAL BREAK -->
-<div class="vbreak"><img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1920&q=80" alt="Training"/><div class="vbreak-inner"><div class="vbreak-q" data-gsap="vbreak">Train at WTF.<br>Race anywhere in the world.</div></div></div>
+<!-- PARALLAX BREAK -->
+<div class="pbreak"><img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1920&q=80" alt="" id="pbreak-img"/><div class="pbreak-inner"><div class="pbreak-q">TRAIN AT <span class="red">WTF.</span><br>RACE <span class="gold">ANYWHERE.</span></div></div></div>
 
 <!-- SPONSOR -->
 <section class="sec sponsor-sec" id="sponsor">
   <div class="sec-inner"><div class="sp-grid">
-    <div class="r"><div class="eyebrow red">WTF Sponsorship</div><div class="sec-divider"></div><div class="sec-h">5 members<br>race <span class="red">FREE.</span></div><p class="sec-p">WTF covers the full HYROX entry for 5 dedicated members.</p>
+    <div class="rv"><div class="eyebrow red">Sponsorship</div><div class="sec-line"></div><div class="sec-h">5 MEMBERS<br>RACE <span class="red">FREE.</span></div><p class="sec-p">WTF covers the full HYROX entry for 5 dedicated members.</p>
       <div class="sp-steps">
-        <div class="sp-step"><div class="sp-step-n">1</div><div><div class="sp-step-t">Join WTF Gyms</div><div class="sp-step-d">Book your free trial and sign up</div></div></div>
+        <div class="sp-step"><div class="sp-step-n">1</div><div><div class="sp-step-t">Join WTF Gyms</div><div class="sp-step-d">Book free trial and sign up</div></div></div>
         <div class="sp-step"><div class="sp-step-n">2</div><div><div class="sp-step-t">Train hard, every session</div><div class="sp-step-d">Show up consistently</div></div></div>
         <div class="sp-step"><div class="sp-step-n">3</div><div><div class="sp-step-t">Get selected by coaches</div><div class="sp-step-d">5 most dedicated chosen</div></div></div>
-        <div class="sp-step"><div class="sp-step-n">4</div><div><div class="sp-step-t">Race HYROX &mdash; FREE</div><div class="sp-step-d">WTF pays 100% of your entry</div></div></div>
+        <div class="sp-step"><div class="sp-step-n">4</div><div><div class="sp-step-t">Race HYROX &mdash; FREE</div><div class="sp-step-d">WTF pays your entry</div></div></div>
       </div>
     </div>
-    <div class="r r-d2"><div class="sp-card">
-      <div class="spc-top"><div class="spc-exc">Exclusive</div><div class="spc-num">5</div><div class="spc-lbl">Sponsored Spots</div></div>
+    <div class="rv"><div class="sp-card">
+      <div class="spc-top"><div class="spc-glow"></div><div class="spc-exc">EXCLUSIVE</div><div class="spc-num">5</div><div class="spc-lbl">Sponsored Spots</div></div>
       <div class="spc-list">
         <div class="spc-item">Full HYROX entry &mdash; 100% paid</div>
         <div class="spc-item">Official WTF race kit</div>
-        <div class="spc-item">Personal race day coaching</div>
+        <div class="spc-item">Race day coaching</div>
         <div class="spc-item">Social media spotlight</div>
-        <div class="spc-item">Race performance review</div>
+        <div class="spc-item">Performance review</div>
       </div>
-      <button class="spc-btn" onclick="go('#join')">Apply for Sponsorship &rarr;</button>
+      <button class="spc-btn" onclick="go('#join')">APPLY NOW &rarr;</button>
     </div></div>
   </div></div>
 </section>
@@ -496,14 +493,14 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- WHY -->
 <section class="sec why-sec">
   <div class="sec-inner">
-    <div class="r"><div class="eyebrow red">Why WTF</div><div class="sec-divider"></div><div class="sec-h">6 reasons to <span class="red">train here.</span></div><p class="sec-p">Hundreds of gyms in Delhi. Only WTF is built for HYROX.</p></div>
-    <div class="why-grid r">
-      <div class="wyc"><div class="wyc-n">01</div><div class="wyc-t">All 8 stations in-house</div><div class="wyc-d">SkiErg, sled track, rowers, kettlebells &mdash; all under one roof.</div></div>
-      <div class="wyc"><div class="wyc-n">02</div><div class="wyc-t">Race-specific coaching</div><div class="wyc-d">Station order, pacing, fatigue &mdash; trained for the actual race.</div></div>
-      <div class="wyc"><div class="wyc-n">03</div><div class="wyc-t">Running + strength</div><div class="wyc-d">Running endurance and station strength built together.</div></div>
-      <div class="wyc"><div class="wyc-n">04</div><div class="wyc-t">Structured program</div><div class="wyc-d">Phased plan, strategy, nutrition &mdash; peak on race day.</div></div>
-      <div class="wyc"><div class="wyc-n">05</div><div class="wyc-t">Small batches</div><div class="wyc-d">Capped groups. Genuine coaching attention.</div></div>
-      <div class="wyc"><div class="wyc-n">06</div><div class="wyc-t">5 members race FREE</div><div class="wyc-d">Train consistently, get selected. WTF covers entry.</div></div>
+    <div class="rv"><div class="eyebrow red">Why WTF</div><div class="sec-line"></div><div class="sec-h">6 REASONS TO<br><span class="red">TRAIN HERE.</span></div><p class="sec-p">Hundreds of gyms in Delhi. Only WTF is built for HYROX.</p></div>
+    <div class="why-grid rv">
+      <div class="wyc"><div class="wyc-n">01</div><div class="wyc-t">All 8 stations in-house</div><div class="wyc-d">SkiErg, sled track, rowers &mdash; all under one roof.</div></div>
+      <div class="wyc"><div class="wyc-n">02</div><div class="wyc-t">Race-specific coaching</div><div class="wyc-d">Pacing, station order, fatigue management.</div></div>
+      <div class="wyc"><div class="wyc-n">03</div><div class="wyc-t">Running + strength</div><div class="wyc-d">Endurance and station strength built together.</div></div>
+      <div class="wyc"><div class="wyc-n">04</div><div class="wyc-t">Structured program</div><div class="wyc-d">Phased plan to peak on race day.</div></div>
+      <div class="wyc"><div class="wyc-n">05</div><div class="wyc-t">Small batches</div><div class="wyc-d">Capped groups. Real coaching attention.</div></div>
+      <div class="wyc"><div class="wyc-n">06</div><div class="wyc-t">5 race FREE</div><div class="wyc-d">Train hard, get selected. WTF covers entry.</div></div>
     </div>
   </div>
 </section>
@@ -511,12 +508,12 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- DIVISIONS -->
 <section class="sec div-sec">
   <div class="sec-inner">
-    <div class="r"><div class="eyebrow gold">Race Divisions</div><div class="sec-divider"></div><div class="sec-h">How do you want to <span class="gold">race?</span></div><p class="sec-p">Four formats. Coaches help you decide in your trial.</p></div>
-    <div class="div-grid r">
-      <div class="dvc pop"><div class="dvc-top"><div class="dvc-label">Solo</div><div class="dvc-tag">Popular</div></div><div class="dvc-body"><div class="dvc-t">Open Solo</div><div class="dvc-d">Standard weights. Perfect for first-timers.</div></div></div>
-      <div class="dvc"><div class="dvc-top"><div class="dvc-label">Pro</div></div><div class="dvc-body"><div class="dvc-t">Pro Solo</div><div class="dvc-d">Heavier weights. Competitive times.</div></div></div>
-      <div class="dvc"><div class="dvc-top"><div class="dvc-label">2</div></div><div class="dvc-body"><div class="dvc-t">Doubles</div><div class="dvc-d">Race with a partner. Split reps.</div></div></div>
-      <div class="dvc"><div class="dvc-top"><div class="dvc-label">4</div></div><div class="dvc-body"><div class="dvc-t">Relay</div><div class="dvc-d">Team of 4. 2 runs + 2 challenges each.</div></div></div>
+    <div class="rv"><div class="eyebrow gold">Divisions</div><div class="sec-line"></div><div class="sec-h">HOW DO YOU<br>WANT TO <span class="gold">RACE?</span></div><p class="sec-p">Four formats. Coaches help you decide.</p></div>
+    <div class="div-grid rv">
+      <div class="dvc pop"><div class="dvc-top"><div class="dvc-label">SOLO</div><div class="dvc-tag">Popular</div></div><div class="dvc-body"><div class="dvc-t">Open Solo</div><div class="dvc-d">Standard weights. First-timers.</div></div></div>
+      <div class="dvc"><div class="dvc-top"><div class="dvc-label">PRO</div></div><div class="dvc-body"><div class="dvc-t">Pro Solo</div><div class="dvc-d">Heavier weights. Competitive.</div></div></div>
+      <div class="dvc"><div class="dvc-top"><div class="dvc-label">2</div></div><div class="dvc-body"><div class="dvc-t">Doubles</div><div class="dvc-d">Partner. Split reps.</div></div></div>
+      <div class="dvc"><div class="dvc-top"><div class="dvc-label">4</div></div><div class="dvc-body"><div class="dvc-t">Relay</div><div class="dvc-d">Team of 4.</div></div></div>
     </div>
   </div>
 </section>
@@ -524,11 +521,11 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- TESTIMONIALS -->
 <section class="sec test-sec">
   <div class="sec-inner">
-    <div class="r"><div class="eyebrow red">Members</div><div class="sec-divider"></div><div class="sec-h">Trained here. <span class="red">Raced.</span></div></div>
-    <div class="test-grid r">
-      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">Walked in knowing nothing about HYROX. Six months later I crossed my first finish line. Coaches made me ready from day one.</div><div class="tc-who"><div class="tc-av">AR</div><div><div class="tc-name">Aarav R.</div><div class="tc-role">HYROX Open finisher</div></div></div></div>
-      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">No other gym in Delhi has a sled track and SkiErg under one roof. WTF is built for HYROX &mdash; you feel it immediately.</div><div class="tc-who"><div class="tc-av">PS</div><div><div class="tc-name">Priya S.</div><div class="tc-role">Doubles competitor</div></div></div></div>
-      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">Got selected for the sponsored entry and raced free. WTF actually backs its members like no one else.</div><div class="tc-who"><div class="tc-av">KM</div><div><div class="tc-name">Kabir M.</div><div class="tc-role">Sponsored Athlete</div></div></div></div>
+    <div class="rv"><div class="eyebrow red">Members</div><div class="sec-line"></div><div class="sec-h">TRAINED HERE.<br><span class="red">RACED.</span></div></div>
+    <div class="test-grid rv">
+      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">Walked in knowing nothing. Six months later I crossed my first finish line. Coaches made me ready from day one.</div><div class="tc-who"><div class="tc-av">AR</div><div><div class="tc-name">Aarav R.</div><div class="tc-role">HYROX Open finisher</div></div></div></div>
+      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">No other gym has a sled track and SkiErg under one roof. WTF is built for HYROX &mdash; you feel it immediately.</div><div class="tc-who"><div class="tc-av">PS</div><div><div class="tc-name">Priya S.</div><div class="tc-role">Doubles competitor</div></div></div></div>
+      <div class="tc"><div class="tc-rating">5.0</div><div class="tc-q">Got selected for sponsored entry and raced free. WTF backs its members like no one else.</div><div class="tc-who"><div class="tc-av">KM</div><div><div class="tc-name">Kabir M.</div><div class="tc-role">Sponsored Athlete</div></div></div></div>
     </div>
   </div>
 </section>
@@ -536,14 +533,14 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- FAQ -->
 <section class="sec faq-sec" id="faq">
   <div class="sec-inner">
-    <div class="r"><div class="eyebrow gold">FAQ</div><div class="sec-divider"></div><div class="sec-h">Questions <span class="gold">answered.</span></div></div>
-    <div class="faq-list r">
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Do I need any experience to join?</span><span class="fi-icon">+</span></button><div class="fi-a">None at all. Coaches start from basics. Every station explained, every movement coached.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>What exactly is HYROX?</span><span class="fi-icon">+</span></button><div class="fi-a">A global indoor race: 8km running + 8 challenges. Same format worldwide. Open to everyone.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How does the free trial work?</span><span class="fi-icon">+</span></button><div class="fi-a">Fill the form. Coach calls within 24 hours. Try 2-3 stations. Zero cost, zero commitment.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How do I qualify for 5 free entries?</span><span class="fi-icon">+</span></button><div class="fi-a">Join WTF, tick sponsorship box, train consistently. Coaches select the 5 most dedicated.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How long until I'm race-ready?</span><span class="fi-icon">+</span></button><div class="fi-a">Beginners: 12-20 weeks. Intermediate: 8-12 weeks. Phased program builds you up.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Not a runner &mdash; can I do HYROX?</span><span class="fi-icon">+</span></button><div class="fi-a">Yes. Many athletes came from gym backgrounds. We build running from scratch.</div></div>
+    <div class="rv"><div class="eyebrow gold">FAQ</div><div class="sec-line"></div><div class="sec-h">QUESTIONS<br><span class="gold">ANSWERED.</span></div></div>
+    <div class="faq-list rv">
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Do I need experience to join?</span><span class="fi-icon">+</span></button><div class="fi-a">None. Coaches start from basics. Every station explained, every movement coached.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>What exactly is HYROX?</span><span class="fi-icon">+</span></button><div class="fi-a">Global indoor race: 8km running + 8 challenges. Same format worldwide. Open to everyone.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How does the free trial work?</span><span class="fi-icon">+</span></button><div class="fi-a">Fill the form. Coach calls within 24 hours. Try stations. Zero cost, zero commitment.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How do I qualify for 5 free entries?</span><span class="fi-icon">+</span></button><div class="fi-a">Join, tick sponsorship, train consistently. Coaches select the 5 most dedicated.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How long until race-ready?</span><span class="fi-icon">+</span></button><div class="fi-a">Beginners: 12-20 weeks. Intermediate: 8-12. Phased program builds you up.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Not a runner &mdash; can I do it?</span><span class="fi-icon">+</span></button><div class="fi-a">Yes. Many athletes came from gym backgrounds. We build running from scratch.</div></div>
     </div>
   </div>
 </section>
@@ -551,27 +548,27 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
 <!-- FORM -->
 <section class="sec form-sec" id="join">
   <div class="form-in">
-    <div class="form-header r">
-      <div><div class="eyebrow red">Get Started</div><div class="sec-divider"></div><div class="sec-h">Book Your<br><span class="red">Free Trial.</span></div></div>
-      <div class="fhd-r"><p>Coach calls you <strong>within 24 hours</strong>. No commitment, no card required.</p></div>
+    <div class="form-header rv">
+      <div><div class="eyebrow red">Get Started</div><div class="sec-line"></div><div class="sec-h">BOOK YOUR<br><span class="red">FREE TRIAL.</span></div></div>
+      <div class="fhd-r"><p>Coach calls <strong>within 24 hours</strong>. No commitment. No card.</p></div>
     </div>
-    <form class="form-box r" id="fbox" onsubmit="return doSubmit(event)">
+    <form class="form-box rv" id="fbox" onsubmit="return doSubmit(event)">
       <div class="f-fields">
-        <div class="fg"><label for="f-name">Your Name *</label><input type="text" id="f-name" name="name" placeholder="Full name" required/></div>
+        <div class="fg"><label for="f-name">Name *</label><input type="text" id="f-name" name="name" placeholder="Full name" required/></div>
         <div class="fg"><label for="f-phone">Phone *</label><input type="tel" id="f-phone" name="phone" placeholder="+91 00000 00000" required/></div>
         <div class="fg"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" placeholder="you@email.com" required/></div>
-        <div class="fg"><label for="f-lvl">Fitness Level</label><select id="f-lvl" name="level"><option value="">Select</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></div>
-        <div class="fg"><label for="f-hy">Done HYROX?</label><select id="f-hy" name="hyrox_experience"><option value="">Select</option><option value="no">No &mdash; first time</option><option value="once">Yes &mdash; 1 race</option><option value="multiple">Yes &mdash; multiple</option></select></div>
-        <div class="fg"><label for="f-dv">Race Format</label><select id="f-dv" name="division"><option value="">Select</option><option value="open">Solo Open</option><option value="pro">Solo Pro</option><option value="doubles">Doubles</option><option value="relay">Relay</option><option value="unsure">Not sure</option></select></div>
+        <div class="fg"><label for="f-lvl">Level</label><select id="f-lvl" name="level"><option value="">Select</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></div>
+        <div class="fg"><label for="f-hy">HYROX before?</label><select id="f-hy" name="hyrox_experience"><option value="">Select</option><option value="no">No</option><option value="once">1 race</option><option value="multiple">Multiple</option></select></div>
+        <div class="fg"><label for="f-dv">Format</label><select id="f-dv" name="division"><option value="">Select</option><option value="open">Solo Open</option><option value="pro">Solo Pro</option><option value="doubles">Doubles</option><option value="relay">Relay</option><option value="unsure">Not sure</option></select></div>
       </div>
       <label class="form-sponsor">
         <input type="checkbox" id="f-sp" name="sponsorship"/>
-        <div><div class="fs-t">Enter me for the 5 sponsored race spots</div><div class="fs-d">Considered for WTF's free HYROX entries based on dedication.</div></div>
+        <div><div class="fs-t">Enter me for the 5 sponsored spots</div><div class="fs-d">Considered based on training dedication.</div></div>
       </label>
-      <button type="submit" class="form-submit" id="f-btn">Book My Free Trial &rarr;</button>
+      <button type="submit" class="form-submit" id="f-btn">BOOK FREE TRIAL &rarr;</button>
       <div class="form-note">No spam. One call from our coach.</div>
     </form>
-    <div class="f-success" id="f-ok"><div class="fs-h">You're in.</div><p class="fs-p">Coach will call within 24 hours.</p></div>
+    <div class="f-success" id="f-ok"><div class="fs-h">YOU'RE IN.</div><p class="fs-p">Coach calls within 24 hours.</p></div>
   </div>
 </section>
 
@@ -598,44 +595,63 @@ footer{background:var(--charcoal);padding:64px clamp(20px,4vw,56px) 28px;color:#
       </div>
     </div>
     <div class="ft-bottom">
-      <div class="ft-copy">&copy; 2026 WTF Gyms. Delhi, India.</div>
+      <div class="ft-copy">&copy; 2026 WTF Gyms. Delhi.</div>
       <div class="ft-copy">WTF &times; HYROX</div>
     </div>
   </div>
 </footer>
 
 <script>
-// Lenis smooth scroll
-const lenis = new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},orientation:'vertical',smoothWheel:true});
-function raf(time){lenis.raf(time);requestAnimationFrame(raf)}
-requestAnimationFrame(raf);
-lenis.on('scroll',ScrollTrigger.update);
-gsap.ticker.add(function(time){lenis.raf(time*1000)});
-gsap.ticker.lagSmoothing(0);
+// LOADER
+gsap.to('#loader-text',{opacity:1,duration:.6,ease:'power2.out',onComplete:function(){
+  gsap.to('#loader-text',{opacity:0,y:-20,delay:.4,duration:.4,ease:'power2.in'});
+  gsap.to('#loader',{opacity:0,duration:.5,delay:.9,ease:'power2.inOut',onComplete:function(){
+    document.getElementById('loader').style.display='none';
+    initPage();
+  }});
+}});
 
-function go(s){document.getElementById('navlinks').classList.remove('open');lenis.scrollTo(s)}
+function initPage(){
+  // Lenis
+  const lenis=new Lenis({duration:1.4,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true});
+  function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf);
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0);
+  window._lenis=lenis;
 
-// Nav scroll
-var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40)},{passive:true});
+  // Hero animations
+  gsap.from('#hero-ey',{y:20,opacity:0,duration:.8,ease:'power3.out'});
+  gsap.from('#hero-h1',{y:40,opacity:0,duration:1,ease:'power3.out',delay:.15});
+  gsap.from('#hero-left',{y:30,opacity:0,duration:.8,ease:'power3.out',delay:.3});
+  gsap.from('#hero-stats .hs',{y:20,opacity:0,duration:.6,stagger:.1,ease:'power3.out',delay:.5});
 
-// GSAP hero stagger
-gsap.from('[data-gsap="hero"]',{y:40,opacity:0,duration:1,stagger:.15,ease:'power3.out',delay:.2});
-
-// GSAP scroll reveals
-document.querySelectorAll('.r').forEach(function(el){
-  ScrollTrigger.create({
-    trigger:el,
-    start:'top 88%',
-    onEnter:function(){el.classList.add('v')},
-    once:true
+  // Counter animation
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseInt(el.dataset.count);
+    gsap.to({val:0},{val:target,duration:2,delay:.6,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].val)}});
   });
-});
 
-// GSAP visual break text
-gsap.from('[data-gsap="vbreak"]',{
-  scrollTrigger:{trigger:'.vbreak',start:'top 70%'},
-  y:30,opacity:0,duration:1,ease:'power3.out'
+  // Scroll reveals
+  document.querySelectorAll('.rv').forEach(function(el){
+    ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:function(){
+      gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out'});
+    },once:true});
+  });
+
+  // Parallax
+  gsap.to('#pbreak-img',{y:'-15%',ease:'none',scrollTrigger:{trigger:'.pbreak',start:'top bottom',end:'bottom top',scrub:true}});
+}
+
+// Nav
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)},{passive:true});
+function go(s){document.getElementById('navlinks').classList.remove('open');if(window._lenis)window._lenis.scrollTo(s);else document.querySelector(s).scrollIntoView({behavior:'smooth'})}
+
+// Cursor
+var cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',function(e){cursor.style.left=e.clientX-8+'px';cursor.style.top=e.clientY-8+'px'});
+document.querySelectorAll('button,a,.stc,.hx-card,.wyc,.dvc,.fi-q,.sp-step').forEach(function(el){
+  el.addEventListener('mouseenter',function(){cursor.style.transform='scale(2.5)';cursor.style.opacity='.4'});
+  el.addEventListener('mouseleave',function(){cursor.style.transform='scale(1)';cursor.style.opacity='1'});
 });
 
 // FAQ
@@ -643,11 +659,9 @@ function tFaq(b){var i=b.parentElement,o=i.classList.contains('open');document.q
 
 // Form
 function doSubmit(e){
-  e.preventDefault();
-  var f=document.getElementById('fbox'),d=new FormData(f),btn=document.getElementById('f-btn');
-  btn.textContent='Booking...';btn.disabled=true;btn.style.opacity='.5';
-  var obj={};d.forEach(function(v,k){obj[k]=v});
-  console.log('Lead captured:',JSON.stringify(obj));
+  e.preventDefault();var f=document.getElementById('fbox'),d=new FormData(f),btn=document.getElementById('f-btn');
+  btn.textContent='BOOKING...';btn.disabled=true;btn.style.opacity='.5';
+  var obj={};d.forEach(function(v,k){obj[k]=v});console.log('Lead:',JSON.stringify(obj));
   setTimeout(function(){f.style.display='none';document.getElementById('f-ok').style.display='block'},800);
   return false;
 }
