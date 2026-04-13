@@ -79,7 +79,7 @@ nav.scrolled{background:rgba(5,5,5,.88);backdrop-filter:blur(28px);-webkit-backd
 }
 
 /* ---- MOBILE STICKY CTA ---- */
-.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:499;padding:10px 16px;background:rgba(5,5,5,.95);backdrop-filter:blur(16px);border-top:1px solid var(--border)}
+.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:499;padding:10px 16px;background:rgba(5,5,5,.95);backdrop-filter:blur(16px);border-top:1px solid var(--border);transition:transform .3s var(--ease)}
 .mob-cta button{width:100%;background:var(--red);color:#fff;font-family:var(--display);font-size:15px;padding:14px;border:none;cursor:pointer;letter-spacing:4px;transition:background .2s}
 .mob-cta button:active{background:var(--red-deep)}
 @media(max-width:900px){.mob-cta{display:block}body{padding-bottom:56px}}
@@ -451,7 +451,7 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
 </nav>
 
 <!-- MOBILE CTA -->
-<div class="mob-cta"><button onclick="goTo('#join')">BOOK FREE TRIAL</button></div>
+<div class="mob-cta" id="mobCta"><button onclick="goTo('#join')">BOOK FREE TRIAL</button></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1031,6 +1031,13 @@ initPage();
    ============================================ */
 window.addEventListener('scroll', function() {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  // Hide mobile sticky CTA when form section is visible
+  var joinSec = document.getElementById('join');
+  var mobCta = document.getElementById('mobCta');
+  if (joinSec && mobCta) {
+    var rect = joinSec.getBoundingClientRect();
+    mobCta.style.transform = rect.top < window.innerHeight && rect.bottom > 0 ? 'translateY(100%)' : 'translateY(0)';
+  }
 }, {passive: true});
 
 var burger = document.getElementById('navBurger');
