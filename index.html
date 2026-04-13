@@ -442,16 +442,16 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="navLinks">
-    <button class="nav-link" onclick="scrollTo('#hyrox')">HYROX</button>
-    <button class="nav-link" onclick="scrollTo('#stations')">Stations</button>
-    <button class="nav-link" onclick="scrollTo('#sponsor')">Sponsor</button>
-    <button class="nav-link" onclick="scrollTo('#faq')">FAQ</button>
-    <button class="nav-cta" onclick="scrollTo('#join')"><span>Book Trial</span></button>
+    <button class="nav-link" onclick="goTo('#hyrox')">HYROX</button>
+    <button class="nav-link" onclick="goTo('#stations')">Stations</button>
+    <button class="nav-link" onclick="goTo('#sponsor')">Sponsor</button>
+    <button class="nav-link" onclick="goTo('#faq')">FAQ</button>
+    <button class="nav-cta" onclick="goTo('#join')"><span>Book Trial</span></button>
   </div>
 </nav>
 
 <!-- MOBILE CTA -->
-<div class="mob-cta"><button onclick="scrollTo('#join')">BOOK FREE TRIAL</button></div>
+<div class="mob-cta"><button onclick="goTo('#join')">BOOK FREE TRIAL</button></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -466,8 +466,8 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
       <div class="hero-left" id="heroLeft">
         <p class="hero-p">Join <strong>WTF Gyms</strong> and get <strong>race-ready for HYROX</strong> &mdash; all 8 stations, expert coaches, and a structured program built around the race.</p>
         <div class="hero-btns">
-          <button class="btn-primary" onclick="scrollTo('#join')">Book Free Trial</button>
-          <button class="btn-ghost" onclick="scrollTo('#hyrox')">What is HYROX?</button>
+          <button class="btn-primary" onclick="goTo('#join')">Book Free Trial</button>
+          <button class="btn-ghost" onclick="goTo('#hyrox')">What is HYROX?</button>
         </div>
       </div>
       <div class="hero-stats" id="heroStats">
@@ -512,7 +512,7 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
 <!-- OFFER -->
 <div class="offer">
   <span class="offer-text">WTF is sponsoring <span>5 members</span> &mdash; full HYROX entry paid. FREE.</span>
-  <button class="offer-btn" onclick="scrollTo('#sponsor')">LEARN MORE</button>
+  <button class="offer-btn" onclick="goTo('#sponsor')">LEARN MORE</button>
 </div>
 
 <!-- HYROX -->
@@ -639,7 +639,7 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
             <div class="spc-item">Social media spotlight</div>
             <div class="spc-item">Post-race performance review</div>
           </div>
-          <button class="spc-btn" onclick="scrollTo('#join')">APPLY NOW</button>
+          <button class="spc-btn" onclick="goTo('#join')">APPLY NOW</button>
         </div>
       </div>
     </div>
@@ -901,15 +901,15 @@ footer{background:var(--bg);padding:72px clamp(20px,4vw,64px) 28px;border-top:1p
       </div>
       <div>
         <div class="ft-heading">Navigate</div>
-        <button class="ft-link" onclick="scrollTo('#hyrox')">What is HYROX</button>
-        <button class="ft-link" onclick="scrollTo('#stations')">8 Stations</button>
-        <button class="ft-link" onclick="scrollTo('#sponsor')">Sponsorship</button>
-        <button class="ft-link" onclick="scrollTo('#faq')">FAQ</button>
+        <button class="ft-link" onclick="goTo('#hyrox')">What is HYROX</button>
+        <button class="ft-link" onclick="goTo('#stations')">8 Stations</button>
+        <button class="ft-link" onclick="goTo('#sponsor')">Sponsorship</button>
+        <button class="ft-link" onclick="goTo('#faq')">FAQ</button>
       </div>
       <div>
         <div class="ft-heading">Get Started</div>
-        <button class="ft-link" onclick="scrollTo('#join')">Book Free Trial</button>
-        <button class="ft-link" onclick="scrollTo('#join')">Apply for Sponsorship</button>
+        <button class="ft-link" onclick="goTo('#join')">Book Free Trial</button>
+        <button class="ft-link" onclick="goTo('#join')">Apply for Sponsorship</button>
       </div>
     </div>
     <div class="ft-bottom">
@@ -1040,13 +1040,28 @@ burger.addEventListener('click', function() {
   navLinks.classList.toggle('open');
 });
 
-function scrollTo(selector) {
+function goTo(selector) {
   burger.classList.remove('open');
   navLinks.classList.remove('open');
+  // Reset form to step 1 when navigating to booking section
+  if (selector === '#join') {
+    var form = document.getElementById('leadForm');
+    var progress = document.getElementById('formProgress');
+    var success = document.getElementById('formSuccess');
+    if (form) { form.style.display = ''; form.reset(); }
+    if (progress) progress.style.display = '';
+    if (success) { success.classList.remove('show'); success.style.display = ''; }
+    var submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) { submitBtn.textContent = 'BOOK FREE TRIAL'; submitBtn.disabled = false; submitBtn.style.opacity = ''; }
+    var particles = document.getElementById('fsParticles');
+    if (particles) particles.innerHTML = '';
+    showStep(1);
+  }
   if (window._lenis) {
     window._lenis.scrollTo(selector);
   } else {
-    document.querySelector(selector).scrollIntoView({behavior: 'smooth'});
+    var el = document.querySelector(selector);
+    if (el) el.scrollIntoView({behavior: 'smooth'});
   }
 }
 
