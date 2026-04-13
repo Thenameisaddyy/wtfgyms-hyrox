@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/lp/hyrox",
+        "destination": "https://wtfgyms.com/lp/hyrox"
+      }
+    ]
+  }
