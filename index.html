@@ -3,353 +3,452 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>WTF Gyms – Train for HYROX in Delhi</title>
+<title>WTF Gyms x HYROX — Train for HYROX in Delhi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#f0b429;--dark:#0a0a0a;--card:#111;--gray:#888;--light:#f8f8f6;--radius:16px;--ease:cubic-bezier(.16,1,.3,1)}
+:root{--gold:#f0b429;--red:#e63946;--dark:#0a0a0a;--card:#111;--gray:#888;--radius:16px;--ease:cubic-bezier(.16,1,.3,1)}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
 
 /* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-@keyframes slideRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-@keyframes grain{0%,100%{transform:translate(0)}10%{transform:translate(-5%,-10%)}30%{transform:translate(3%,-15%)}50%{transform:translate(-15%,5%)}70%{transform:translate(12%,10%)}90%{transform:translate(-10%,15%)}}
-@keyframes countUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 30px rgba(240,180,41,.15)}50%{box-shadow:0 0 60px rgba(240,180,41,.3)}}
+@keyframes heroZoom{0%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes countPulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal{opacity:0;transform:translateY(50px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
-.reveal-delay-4{transition-delay:.4s}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);transition:all .4s var(--ease)}
-nav.scrolled{height:60px;background:rgba(10,10,10,.95)}
-.n-brand{display:flex;align-items:center;gap:0}
-.n-logo{display:flex;align-items:center;gap:0}
-.n-box{background:var(--gold);color:var(--dark);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;padding:8px 12px;letter-spacing:1px;line-height:1;border-radius:4px 0 0 4px}
-.n-name{padding:8px 14px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border-radius:0 4px 4px 0}
-.n-links{display:flex;align-items:center;gap:32px}
-.n-link{color:rgba(255,255,255,.5);font-size:13px;font-weight:500;letter-spacing:.3px;cursor:pointer;background:none;border:none;transition:color .3s;text-decoration:none}
-.n-link:hover{color:#fff}
-.n-cta{background:var(--gold);color:var(--dark);font-size:13px;font-weight:700;padding:10px 24px;border:none;border-radius:100px;cursor:pointer;letter-spacing:.3px;transition:all .3s var(--ease);box-shadow:0 0 20px rgba(240,180,41,.15)}
-.n-cta:hover{transform:translateY(-1px);box-shadow:0 4px 30px rgba(240,180,41,.3)}
-@media(max-width:768px){.n-links{display:none}nav{padding:0 20px}}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.04);transition:all .4s var(--ease)}
+nav.scrolled{height:60px;background:rgba(10,10,10,.95);border-bottom-color:rgba(255,255,255,.08)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.wtf-logo{display:flex;align-items:center;gap:0}
+.wtf-logo-box{background:var(--gold);padding:8px 12px;border-radius:6px 0 0 6px;display:flex;align-items:center;height:36px}
+.wtf-logo-box svg{height:16px;width:auto}
+.wtf-logo-name{background:rgba(255,255,255,.1);padding:8px 14px;border-radius:0 6px 6px 0;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;height:36px;display:flex;align-items:center}
+.nav-x{font-size:12px;font-weight:800;color:rgba(255,255,255,.2);letter-spacing:2px}
+.hyrox-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--red);letter-spacing:2px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-link{color:rgba(255,255,255,.45);font-size:13px;font-weight:500;cursor:pointer;background:none;border:none;transition:color .3s;letter-spacing:.2px}
+.nav-link:hover{color:#fff}
+.nav-cta{background:var(--gold);color:var(--dark);font-size:13px;font-weight:700;padding:10px 24px;border:none;border-radius:100px;cursor:pointer;transition:all .3s var(--ease);box-shadow:0 0 20px rgba(240,180,41,.15)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 30px rgba(240,180,41,.3)}
+@media(max-width:900px){.nav-links{display:none}nav{padding:0 20px}}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 40px 80px}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(240,180,41,.08),transparent 70%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(240,180,41,.04),transparent);pointer-events:none}
-.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.5;pointer-events:none}
-.hero-in{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
-.hero-left{animation:fadeUp .8s var(--ease) both}
-.h-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.2);padding:8px 16px;border-radius:100px;margin-bottom:28px}
-.h-badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
-.h-badge-text{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
-.hero-left h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,7vw,88px);font-weight:700;line-height:.92;letter-spacing:-3px;margin-bottom:24px}
-.hero-left h1 .gold{color:var(--gold)}
-.hero-left h1 .outline{-webkit-text-stroke:1.5px rgba(255,255,255,.25);color:transparent}
-.hero-desc{font-size:17px;color:rgba(255,255,255,.5);max-width:500px;line-height:1.8;margin-bottom:36px}
-.hero-desc strong{color:#fff;font-weight:600}
-.h-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
-.btn-primary{background:var(--gold);color:var(--dark);font-size:14px;font-weight:700;padding:16px 32px;border:none;border-radius:100px;cursor:pointer;letter-spacing:.3px;transition:all .3s var(--ease);display:flex;align-items:center;gap:8px}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(240,180,41,.3)}
-.btn-primary svg{width:18px;height:18px;transition:transform .3s}
-.btn-primary:hover svg{transform:translateX(3px)}
-.btn-secondary{background:rgba(255,255,255,.06);color:#fff;font-size:14px;font-weight:600;padding:16px 28px;border:1px solid rgba(255,255,255,.1);border-radius:100px;cursor:pointer;transition:all .3s var(--ease);backdrop-filter:blur(10px)}
-.btn-secondary:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
-.h-proof{display:flex;gap:24px;flex-wrap:wrap}
-.h-proof-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);font-weight:500}
-.h-proof-icon{color:var(--gold);font-size:14px}
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:heroZoom 20s ease-in-out infinite alternate}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.75) 40%,rgba(10,10,10,.6) 100%)}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;width:100%;padding:140px 48px 100px;display:grid;grid-template-columns:1.3fr 1fr;gap:80px;align-items:center}
+.hero-left{animation:fadeUp .9s var(--ease) .1s both}
+.collab-badge{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:10px 20px;border-radius:100px;margin-bottom:32px;backdrop-filter:blur(10px)}
+.collab-badge .cb-wtf{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--gold)}
+.collab-badge .cb-x{font-size:10px;color:rgba(255,255,255,.3);font-weight:800}
+.collab-badge .cb-hyrox{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--red);letter-spacing:1px}
+.collab-badge .cb-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;margin-right:4px}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(52px,7.5vw,96px);font-weight:700;line-height:.9;letter-spacing:-4px;margin-bottom:28px}
+.hero h1 .line2{color:var(--gold);display:block}
+.hero h1 .line3{display:block;font-size:.55em;color:rgba(255,255,255,.15);letter-spacing:-2px;margin-top:8px}
+.hero-p{font-size:18px;color:rgba(255,255,255,.45);max-width:520px;line-height:1.85;margin-bottom:40px}
+.hero-p strong{color:#fff;font-weight:600}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.btn-gold{background:var(--gold);color:var(--dark);font-size:15px;font-weight:700;padding:18px 36px;border:none;border-radius:100px;cursor:pointer;transition:all .3s var(--ease);display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;letter-spacing:.3px}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(240,180,41,.35)}
+.btn-gold svg{width:20px;height:20px;transition:transform .3s}
+.btn-gold:hover svg{transform:translateX(4px)}
+.btn-ghost{background:rgba(255,255,255,.05);color:#fff;font-size:15px;font-weight:600;padding:18px 32px;border:1px solid rgba(255,255,255,.1);border-radius:100px;cursor:pointer;transition:all .3s var(--ease);backdrop-filter:blur(10px);font-family:'Inter',sans-serif}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.hero-proof{display:flex;gap:28px;flex-wrap:wrap}
+.hero-proof-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.35);font-weight:500}
+.hero-proof-item svg{width:16px;height:16px;color:var(--gold)}
 
-/* HERO RIGHT - RACE CARD */
-.hero-right{animation:scaleIn .8s var(--ease) .2s both}
-.race-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;backdrop-filter:blur(20px)}
-.rc-head{background:rgba(240,180,41,.08);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
-.rc-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
-.rc-badge{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:5px 12px;border-radius:100px}
-.rc-body{padding:16px}
-.rc-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 12px;border-radius:10px;transition:background .2s}
-.rc-row:hover{background:rgba(255,255,255,.03)}
-.rc-run{background:var(--gold);color:var(--dark);font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;flex-shrink:0;letter-spacing:.3px}
-.rc-arrow{color:rgba(255,255,255,.15);font-size:14px;flex-shrink:0}
-.rc-station{color:rgba(255,255,255,.6);font-size:12px;font-weight:500;flex:1;display:flex;align-items:center;gap:8px}
-.rc-station em{font-size:16px;font-style:normal}
-.rc-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,.06);text-align:center;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;font-weight:600}
+/* HERO RIGHT - VISUAL CARD */
+.hero-right{animation:scaleIn 1s var(--ease) .3s both}
+.hero-visual{position:relative}
+.hv-main{width:100%;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;aspect-ratio:3/4}
+.hv-main img{width:100%;height:100%;object-fit:cover}
+.hv-main::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.9) 0%,transparent 50%)}
+.hv-overlay{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:2}
+.hv-tag{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.hv-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.5px}
+.hv-sub{font-size:13px;color:rgba(255,255,255,.5)}
+.hv-float-card{position:absolute;top:24px;right:-20px;background:rgba(17,17,17,.9);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 22px;animation:float 5s ease-in-out infinite;z-index:3;min-width:180px}
+.hv-float-card .hvf-num{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1}
+.hv-float-card .hvf-label{font-size:11px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.hv-float-badge{position:absolute;top:50%;left:-16px;background:var(--gold);color:var(--dark);padding:10px 16px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;animation:float 6s ease-in-out 1s infinite;z-index:3;box-shadow:0 8px 30px rgba(240,180,41,.2);white-space:nowrap}
+@media(max-width:1000px){.hero-content{grid-template-columns:1fr;gap:40px}.hero-right{max-width:400px}.hv-float-card{right:10px}.hv-float-badge{left:10px}}
+@media(max-width:600px){.hero-content{padding:120px 20px 60px}}
 
-@media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-right{display:none}.hero{padding:140px 20px 80px}}
+/* ── STATS STRIP ── */
+.stats-strip{border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;background:rgba(255,255,255,.02)}
+.stats-track{display:flex;animation:marquee 35s linear infinite;width:max-content}
+.stat-item{display:flex;align-items:center;gap:16px;padding:28px 56px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06)}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--gold);letter-spacing:-1px}
+.stat-label{font-size:12px;color:rgba(255,255,255,.3);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
 
-/* STATS MARQUEE */
-.stats-bar{border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:0;overflow:hidden;background:rgba(255,255,255,.02)}
-.stats-track{display:flex;animation:marquee 30s linear infinite;width:max-content}
-.stat-item{display:flex;align-items:center;gap:16px;padding:24px 48px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06)}
-.stat-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-1px}
-.stat-label{font-size:12px;color:rgba(255,255,255,.35);font-weight:500;text-transform:uppercase;letter-spacing:1px}
-.stat-sep{color:rgba(255,255,255,.1);padding:0 8px}
+/* ── COLLAB BANNER ── */
+.collab-banner{background:linear-gradient(135deg,#111 0%,#1a1209 50%,#111 100%);padding:48px;overflow:hidden;position:relative}
+.collab-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.collab-banner::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cb-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.cb-logo-group{display:flex;align-items:center;gap:24px}
+.cb-wtf-logo{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cb-wtf-mark{background:var(--gold);width:72px;height:72px;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.cb-wtf-mark svg{width:36px;height:auto}
+.cb-wtf-text{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+.cb-x-mark{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:300;color:rgba(255,255,255,.15)}
+.cb-hyrox-logo{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cb-hyrox-mark{width:72px;height:72px;border-radius:16px;background:var(--red);display:flex;align-items:center;justify-content:center}
+.cb-hyrox-mark span{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:2px}
+.cb-hyrox-text{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+.cb-info{max-width:480px}
+.cb-info-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;letter-spacing:-1px;margin-bottom:8px}
+.cb-info-title span{color:var(--gold)}
+.cb-info-desc{font-size:15px;color:rgba(255,255,255,.4);line-height:1.75}
 
-/* OFFER STRIP */
+/* ── OFFER STRIP ── */
 .offer-strip{background:var(--gold);padding:18px 40px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
 .os-text{font-size:15px;font-weight:700;color:var(--dark);text-align:center}
 .os-text span{background:var(--dark);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:13px;margin:0 4px}
 .os-btn{background:var(--dark);color:var(--gold);font-size:12px;font-weight:700;padding:10px 24px;border:none;border-radius:100px;cursor:pointer;transition:all .3s;letter-spacing:.5px;text-transform:uppercase}
 .os-btn:hover{transform:scale(1.05)}
 
-/* SECTIONS */
-.section{padding:120px 40px}
-.section-sm{max-width:1200px;margin:0 auto}
+/* ── SECTIONS ── */
+.section{padding:120px 48px}
+.section-inner{max-width:1300px;margin:0 auto}
 .sec-eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.sec-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
-.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.5vw,56px);font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:16px;color:#fff}
+.sec-eyebrow::before{content:'';width:24px;height:2px;background:var(--gold);border-radius:1px}
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,5vw,60px);font-weight:700;letter-spacing:-2.5px;line-height:1.02;margin-bottom:16px}
 .sec-title .gold{color:var(--gold)}
-.sec-subtitle{font-size:17px;color:rgba(255,255,255,.4);max-width:560px;line-height:1.8;margin-bottom:48px}
+.sec-title .red{color:var(--red)}
+.sec-sub{font-size:17px;color:rgba(255,255,255,.4);max-width:580px;line-height:1.85;margin-bottom:56px}
 @media(max-width:768px){.section{padding:80px 20px}}
 
-/* WHAT IS HYROX */
-.hyrox-sec{background:var(--dark)}
-.hx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden;margin-bottom:48px}
-.hx-card{background:var(--dark);padding:40px 32px;transition:background .3s}
-.hx-card:hover{background:rgba(255,255,255,.03)}
-.hx-icon{font-size:36px;margin-bottom:20px;display:block}
-.hx-card-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
-.hx-card-desc{font-size:14px;color:rgba(255,255,255,.4);line-height:1.7}
-@media(max-width:700px){.hx-grid{grid-template-columns:1fr}}
+/* ── WHAT IS HYROX ── */
+.hyrox-sec{background:var(--dark);position:relative}
+.hyrox-visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:64px}
+@media(max-width:800px){.hyrox-visual-grid{grid-template-columns:1fr}}
+.hyrox-img-wrap{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3}
+.hyrox-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 6s}
+.hyrox-img-wrap:hover img{transform:scale(1.05)}
+.hyrox-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,180,41,.15),transparent 60%);pointer-events:none}
+.hyrox-img-badge{position:absolute;bottom:16px;left:16px;background:rgba(10,10,10,.85);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:10px}
+.hyrox-img-badge span{font-size:13px;font-weight:600;color:rgba(255,255,255,.7)}
+.hyrox-img-badge .hib-dot{width:8px;height:8px;background:var(--red);border-radius:50%}
+.hx-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
+@media(max-width:700px){.hx-cards{grid-template-columns:1fr}}
+.hx-card{background:var(--dark);padding:40px 32px;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.hx-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.hx-card:hover::before{transform:scaleX(1)}
+.hx-card:hover{background:rgba(255,255,255,.02)}
+.hx-card-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:28px}
+.hx-card-icon.gold-bg{background:rgba(240,180,41,.1)}
+.hx-card-icon.red-bg{background:rgba(230,57,70,.1)}
+.hx-card-icon.white-bg{background:rgba(255,255,255,.06)}
+.hx-card-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.hx-card-desc{font-size:14px;color:rgba(255,255,255,.38);line-height:1.75}
 
 /* RACE FORMAT */
-.race-flow{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:32px;overflow:hidden}
-.rf-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.race-flow{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
+.rf-head{padding:24px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:12px}
 .rf-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
-.rf-legend{display:flex;gap:16px}
-.rf-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4)}
-.rf-legend-dot{width:8px;height:8px;border-radius:2px}
-.rf-legend-dot.run{background:var(--gold)}
-.rf-legend-dot.station{background:rgba(255,255,255,.15)}
-.rf-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.rf-run{background:var(--gold);color:var(--dark);font-size:12px;font-weight:700;padding:8px 14px;border-radius:8px;white-space:nowrap}
-.rf-arr{color:rgba(255,255,255,.15);font-size:14px}
-.rf-st{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:12px;font-weight:500;padding:8px 14px;border-radius:8px;white-space:nowrap;display:flex;align-items:center;gap:6px}
-.rf-fin{background:var(--gold);color:var(--dark);font-size:12px;font-weight:700;padding:8px 16px;border-radius:8px}
+.rf-legend{display:flex;gap:18px}
+.rf-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.35)}
+.rf-dot{width:10px;height:10px;border-radius:3px}
+.rf-dot.run{background:var(--gold)}
+.rf-dot.station{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}
+.rf-body{padding:28px 32px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rf-run{background:var(--gold);color:var(--dark);font-size:12px;font-weight:700;padding:8px 16px;border-radius:8px;white-space:nowrap}
+.rf-arr{color:rgba(255,255,255,.12);font-size:16px}
+.rf-st{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.55);font-size:12px;font-weight:500;padding:8px 14px;border-radius:8px;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .2s}
+.rf-st:hover{background:rgba(255,255,255,.08);color:#fff}
+.rf-fin{background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px}
 
-/* 8 STATIONS */
-.stations-sec{background:#050505}
+/* ── 8 STATIONS ── */
+.stations-sec{background:#050505;position:relative;overflow:hidden}
+.stations-sec::before{content:'';position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(230,57,70,.05),transparent 70%);pointer-events:none}
 .st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
 @media(max-width:900px){.st-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.st-grid{grid-template-columns:1fr}}
 .stc{background:var(--dark);padding:32px 24px;transition:all .4s var(--ease);cursor:default;position:relative;overflow:hidden}
-.stc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,180,41,.08),transparent);opacity:0;transition:opacity .4s}
+.stc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,180,41,.06),transparent 60%);opacity:0;transition:opacity .4s}
 .stc:hover::after{opacity:1}
-.stc:hover{background:#0f0f0f}
+.stc:hover{background:#0d0d0d}
+.stc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:relative;z-index:1}
+.stc-num{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.15);letter-spacing:1px;transition:color .3s}
 .stc:hover .stc-num{color:var(--gold)}
-.stc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:relative;z-index:1}
-.stc-num{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.2);letter-spacing:1px;transition:color .3s}
-.stc-dist{font-size:11px;font-weight:700;color:var(--gold);background:rgba(240,180,41,.1);padding:4px 10px;border-radius:100px;letter-spacing:.3px}
-.stc-em{font-size:36px;margin-bottom:14px;position:relative;z-index:1}
-.stc-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;position:relative;z-index:1}
-.stc-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.65;margin-bottom:14px;position:relative;z-index:1}
-.stc-tags{display:flex;flex-wrap:wrap;gap:4px;position:relative;z-index:1}
-.stc-tag{font-size:10px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);padding:4px 10px;border-radius:100px;font-weight:600}
+.stc-dist{font-size:11px;font-weight:700;color:var(--gold);background:rgba(240,180,41,.08);padding:4px 12px;border-radius:100px}
+.stc-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;position:relative;z-index:1;transition:all .3s}
+.stc:hover .stc-icon{background:rgba(240,180,41,.1)}
+.stc-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.stc-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;margin-bottom:14px;position:relative;z-index:1}
+.stc-tags{display:flex;gap:6px;position:relative;z-index:1}
+.stc-tag{font-size:10px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.3);padding:4px 10px;border-radius:100px;font-weight:600;letter-spacing:.3px}
 
-/* SPONSOR */
+/* ── VISUAL BREAK ── */
+.visual-break{height:480px;position:relative;overflow:hidden}
+.visual-break img{width:100%;height:100%;object-fit:cover}
+.visual-break::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,var(--dark),transparent 30%,transparent 70%,#050505)}
+.vb-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;text-align:center;padding:20px}
+.vb-quote{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,52px);font-weight:700;letter-spacing:-2px;max-width:800px;line-height:1.1}
+.vb-quote span{color:var(--gold)}
+@media(max-width:600px){.visual-break{height:360px}}
+
+/* ── SPONSOR ── */
 .sponsor-sec{background:var(--dark);position:relative;overflow:hidden}
 .sponsor-sec::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(240,180,41,.06),transparent 70%);pointer-events:none}
-.sp-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.sp-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start}
 @media(max-width:800px){.sp-grid{grid-template-columns:1fr}}
-.sp-steps{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-.sp-step{display:flex;gap:16px;padding:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;transition:all .3s var(--ease)}
-.sp-step:hover{background:rgba(240,180,41,.05);border-color:rgba(240,180,41,.15)}
-.sp-step-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--gold);width:32px;flex-shrink:0}
-.sp-step-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
-.sp-step-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.6}
-.sp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;animation:float 6s ease-in-out infinite}
-.spc-top{padding:40px;text-align:center;background:rgba(240,180,41,.05);border-bottom:1px solid rgba(255,255,255,.06)}
-.spc-num{font-family:'Space Grotesk',sans-serif;font-size:72px;font-weight:700;color:var(--gold);line-height:1}
-.spc-lbl{font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:8px}
-.spc-perks{padding:8px}
-.spc-perk{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:14px;color:rgba(255,255,255,.55);font-weight:500;border-radius:10px;transition:background .2s}
+.sp-steps{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.sp-step{display:flex;gap:18px;padding:22px 20px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .3s var(--ease)}
+.sp-step:hover{background:rgba(240,180,41,.04);border-color:rgba(240,180,41,.12);transform:translateX(4px)}
+.sp-step-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--gold);width:32px;flex-shrink:0}
+.sp-step-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.sp-step-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.65}
+.sp-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;animation:glow 4s ease-in-out infinite}
+.spc-top{padding:48px 32px;text-align:center;background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(230,57,70,.04));border-bottom:1px solid rgba(255,255,255,.06);position:relative}
+.spc-top::before{content:'EXCLUSIVE';position:absolute;top:16px;right:16px;font-size:10px;font-weight:700;color:var(--red);letter-spacing:2px;background:rgba(230,57,70,.1);padding:4px 12px;border-radius:100px}
+.spc-num{font-family:'Space Grotesk',sans-serif;font-size:80px;font-weight:700;color:var(--gold);line-height:1;animation:countPulse 3s ease-in-out infinite}
+.spc-lbl{font-size:13px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+.spc-perks{padding:12px}
+.spc-perk{display:flex;align-items:center;gap:16px;padding:14px 20px;font-size:14px;color:rgba(255,255,255,.5);font-weight:500;border-radius:12px;transition:background .2s}
 .spc-perk:hover{background:rgba(255,255,255,.03)}
-.spc-em{font-size:18px;width:24px;text-align:center;flex-shrink:0}
-.spc-apply{width:calc(100% - 16px);margin:8px;background:var(--gold);color:var(--dark);font-size:14px;font-weight:700;padding:16px;border:none;border-radius:12px;cursor:pointer;letter-spacing:.5px;transition:all .3s var(--ease)}
-.spc-apply:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,180,41,.25)}
+.spc-perk-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.spc-apply{width:calc(100% - 24px);margin:12px;background:var(--gold);color:var(--dark);font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;padding:18px;border:none;border-radius:14px;cursor:pointer;transition:all .3s var(--ease)}
+.spc-apply:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(240,180,41,.25)}
 
-/* WHY JOIN */
+/* ── WHY JOIN ── */
 .why-sec{background:#050505}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
 @media(max-width:768px){.why-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.why-grid{grid-template-columns:1fr}}
-.wyc{background:#0a0a0a;padding:36px 28px;transition:all .4s var(--ease)}
-.wyc:hover{background:rgba(240,180,41,.04)}
-.wyc-em{font-size:32px;margin-bottom:16px}
-.wyc-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
-.wyc-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.7}
+@media(max-width:480px){.why-grid{grid-template-columns:1fr}}
+.wyc{background:#0a0a0a;padding:40px 28px;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.wyc::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--red));transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.wyc:hover::before{transform:scaleX(1)}
+.wyc:hover{background:rgba(255,255,255,.02)}
+.wyc-icon{width:48px;height:48px;border-radius:12px;background:rgba(240,180,41,.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.wyc-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.wyc-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.75}
 
-/* DIVISIONS */
+/* ── DIVISIONS ── */
 .div-sec{background:var(--dark)}
 .div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
 @media(max-width:768px){.div-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.div-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.div-grid{grid-template-columns:1fr}}
 .dvc{background:var(--dark);transition:all .4s var(--ease);overflow:hidden}
 .dvc:hover{background:rgba(255,255,255,.02)}
-.dvc-vis{height:120px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);position:relative}
-.dvc.pop .dvc-vis{background:rgba(240,180,41,.1)}
-.dvc-em{font-size:44px}
-.dvc-tag{position:absolute;top:10px;right:10px;background:var(--gold);color:var(--dark);font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.3px}
-.dvc-body{padding:24px 20px}
-.dvc-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
-.dvc-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.6}
+.dvc-vis{height:140px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.02);position:relative}
+.dvc.pop .dvc-vis{background:linear-gradient(135deg,rgba(240,180,41,.12),rgba(240,180,41,.04))}
+.dvc-emoji{font-size:48px}
+.dvc-tag{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--dark);font-size:10px;font-weight:700;padding:4px 12px;border-radius:100px;letter-spacing:.5px}
+.dvc-body{padding:24px 22px}
+.dvc-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px}
+.dvc-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.65}
 
-/* TESTIMONIALS */
-.test-sec{background:#050505}
+/* ── TESTIMONIALS ── */
+.test-sec{background:#050505;position:relative;overflow:hidden}
+.test-sec::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(240,180,41,.04),transparent 70%);pointer-events:none}
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:var(--radius);overflow:hidden}
 @media(max-width:768px){.test-grid{grid-template-columns:1fr}}
-.tc{background:#0a0a0a;padding:36px 28px}
-.tc-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:16px}
-.tc-quote{font-size:15px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:24px;font-style:italic}
-.tc-who{display:flex;align-items:center;gap:12px}
-.tc-avatar{width:40px;height:40px;border-radius:50%;background:rgba(240,180,41,.15);color:var(--gold);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tc-name{font-size:14px;font-weight:700;color:#fff}
-.tc-role{font-size:12px;color:rgba(255,255,255,.3);margin-top:2px}
+.tc{background:#0a0a0a;padding:40px 28px;position:relative}
+.tc-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:20px}
+.tc-quote{font-size:16px;color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:28px;font-style:italic;position:relative}
+.tc-quote::before{content:'"';font-family:'Space Grotesk',sans-serif;font-size:64px;color:rgba(240,180,41,.1);position:absolute;top:-20px;left:-4px;line-height:1}
+.tc-who{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+.tc-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(240,180,41,.2),rgba(230,57,70,.15));color:var(--gold);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tc-name{font-size:14px;font-weight:700}
+.tc-role{font-size:12px;color:rgba(255,255,255,.25);margin-top:3px}
 
-/* FAQ */
+/* ── FAQ ── */
 .faq-sec{background:var(--dark)}
-.faq-list{display:flex;flex-direction:column;gap:2px;margin-top:0}
-.fi{background:rgba(255,255,255,.03);border-radius:12px;overflow:hidden;transition:all .3s}
+.faq-list{display:flex;flex-direction:column;gap:4px}
+.fi{background:rgba(255,255,255,.025);border-radius:14px;overflow:hidden;transition:all .3s}
 .fi:hover{background:rgba(255,255,255,.04)}
-.fi-q{width:100%;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;font-size:15px;font-weight:600;cursor:pointer;text-align:left;gap:16px;transition:all .2s}
-.fi-ic{font-size:20px;color:rgba(255,255,255,.2);flex-shrink:0;transition:all .3s var(--ease);line-height:1;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.05)}
-.fi.open .fi-ic{transform:rotate(45deg);color:var(--gold);background:rgba(240,180,41,.1)}
+.fi-q{width:100%;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;font-size:16px;font-weight:600;cursor:pointer;text-align:left;gap:16px;transition:all .2s;font-family:'Inter',sans-serif}
+.fi-icon{font-size:18px;color:rgba(255,255,255,.15);flex-shrink:0;transition:all .3s var(--ease);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.04)}
+.fi.open .fi-icon{transform:rotate(45deg);color:var(--gold);background:rgba(240,180,41,.1)}
 .fi.open .fi-q{color:var(--gold)}
-.fi-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;padding:0 24px;font-size:15px;color:rgba(255,255,255,.4);line-height:1.8}
-.fi.open .fi-a{max-height:200px;padding:0 24px 22px}
+.fi-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;padding:0 28px;font-size:15px;color:rgba(255,255,255,.4);line-height:1.85}
+.fi.open .fi-a{max-height:220px;padding:0 28px 24px}
 
-/* FORM */
+/* ── FORM ── */
 .form-sec{background:#050505;position:relative;overflow:hidden}
-.form-sec::before{content:'';position:absolute;bottom:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(240,180,41,.06),transparent 70%);pointer-events:none}
-.form-in{max-width:780px;margin:0 auto;position:relative;z-index:1}
-.form-header{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:40px}
+.form-sec::before{content:'';position:absolute;bottom:-300px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(240,180,41,.06),transparent 60%);pointer-events:none}
+.form-in{max-width:820px;margin:0 auto;position:relative;z-index:1}
+.form-header{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:48px}
 @media(max-width:600px){.form-header{grid-template-columns:1fr}}
-.fhd-r p{font-size:15px;color:rgba(255,255,255,.4);line-height:1.8}
+.fhd-r p{font-size:15px;color:rgba(255,255,255,.4);line-height:1.85}
 .fhd-r strong{color:var(--gold);font-weight:600}
-.form-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden}
+.form-box{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden}
 .f-fields{display:grid;grid-template-columns:1fr 1fr}
 @media(max-width:520px){.f-fields{grid-template-columns:1fr}}
-.fg{display:flex;flex-direction:column;padding:0;border-right:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.fg{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
 .fg:nth-child(2n){border-right:none}
 .fg:nth-last-child(-n+2){border-bottom:none}
 @media(max-width:520px){.fg{border-right:none}.fg:last-child{border-bottom:none}}
-.fg label{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:2px;text-transform:uppercase;padding:14px 20px 4px;display:block}
-.fg input,.fg select{border:none;padding:6px 20px 14px;font-size:15px;font-family:'Inter',sans-serif;outline:none;background:transparent;color:#fff;width:100%}
+.fg label{font-size:10px;font-weight:700;color:rgba(255,255,255,.2);letter-spacing:2px;text-transform:uppercase;padding:16px 24px 4px}
+.fg input,.fg select{border:none;padding:6px 24px 16px;font-size:15px;font-family:'Inter',sans-serif;outline:none;background:transparent;color:#fff;width:100%;transition:background .2s}
 .fg input:focus,.fg select:focus{background:rgba(240,180,41,.03)}
-.fg input::placeholder{color:rgba(255,255,255,.2)}
-.fg select{color:rgba(255,255,255,.5)}
+.fg input::placeholder{color:rgba(255,255,255,.15)}
+.fg select{color:rgba(255,255,255,.45);-webkit-appearance:none}
 .fg select option{background:#111;color:#fff}
-.form-sponsor{background:rgba(240,180,41,.04);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 24px;display:flex;align-items:flex-start;gap:14px;cursor:pointer}
-.form-sponsor input{accent-color:var(--gold);width:18px;height:18px;margin-top:3px;flex-shrink:0;cursor:pointer}
-.fs-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px}
-.fs-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.6}
-.form-submit{width:100%;background:var(--gold);color:var(--dark);font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;padding:20px;border:none;cursor:pointer;letter-spacing:.5px;transition:all .3s var(--ease)}
+.form-sponsor{background:rgba(240,180,41,.03);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:22px 28px;display:flex;align-items:flex-start;gap:16px;cursor:pointer;transition:background .2s}
+.form-sponsor:hover{background:rgba(240,180,41,.06)}
+.form-sponsor input{accent-color:var(--gold);width:20px;height:20px;margin-top:2px;flex-shrink:0;cursor:pointer}
+.fs-title{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.fs-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.65}
+.form-submit{width:100%;background:var(--gold);color:var(--dark);font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;padding:22px;border:none;cursor:pointer;transition:all .3s var(--ease)}
 .form-submit:hover{background:#e0a820}
-.form-note{text-align:center;font-size:12px;color:rgba(255,255,255,.2);padding:16px;background:rgba(255,255,255,.02);border-radius:0 0 var(--radius) var(--radius)}
-.f-success{display:none;text-align:center;padding:64px 24px;background:transparent}
-.fs-em{font-size:56px;margin-bottom:16px}
-.fs-h{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-1px}
-.fs-p{font-size:16px;color:rgba(255,255,255,.4);line-height:1.8}
+.form-note{text-align:center;font-size:12px;color:rgba(255,255,255,.15);padding:16px;background:rgba(255,255,255,.015);border-radius:0 0 20px 20px;border-top:1px solid rgba(255,255,255,.04)}
+.f-success{display:none;text-align:center;padding:72px 24px}
+.fs-em{font-size:64px;margin-bottom:20px}
+.fs-h{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;margin-bottom:12px;letter-spacing:-1px}
+.fs-p{font-size:16px;color:rgba(255,255,255,.4);line-height:1.85}
 
-/* FOOTER */
-footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(255,255,255,.06)}
-.ft-in{max-width:1200px;margin:0 auto}
-.ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:640px){.ft-top{grid-template-columns:1fr;gap:32px}}
-.ft-brand{display:flex;align-items:center;gap:0;margin-bottom:14px}
-.ftb-box{background:var(--gold);color:var(--dark);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;padding:7px 10px;letter-spacing:.5px;border-radius:4px 0 0 4px}
-.ftb-name{background:rgba(255,255,255,.1);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;padding:7px 12px;border-radius:0 4px 4px 0}
-.ft-desc{font-size:14px;color:rgba(255,255,255,.3);line-height:1.7;margin-bottom:8px}
-.ft-tagline{font-size:12px;color:rgba(255,255,255,.12);font-style:italic}
-.ft-heading{font-size:11px;font-weight:700;color:rgba(255,255,255,.2);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-.ft-link{display:block;font-size:14px;color:rgba(255,255,255,.3);margin-bottom:12px;cursor:pointer;background:none;border:none;text-align:left;padding:0;transition:color .2s;font-family:'Inter',sans-serif}
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:72px 48px 32px;border-top:1px solid rgba(255,255,255,.06)}
+.ft-in{max-width:1300px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:56px;margin-bottom:56px}
+@media(max-width:640px){.ft-top{grid-template-columns:1fr;gap:32px}footer{padding:48px 20px 24px}}
+.ft-brand{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.ft-wtf-mark{background:var(--gold);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.ft-wtf-mark svg{width:24px;height:auto}
+.ft-brand-text{font-family:'Space Grotesk',sans-serif}
+.ft-brand-name{font-size:18px;font-weight:700}
+.ft-brand-sub{font-size:12px;color:rgba(255,255,255,.3)}
+.ft-desc{font-size:14px;color:rgba(255,255,255,.25);line-height:1.75;margin-bottom:10px}
+.ft-tagline{font-size:12px;color:rgba(255,255,255,.1);font-style:italic}
+.ft-heading{font-size:11px;font-weight:700;color:rgba(255,255,255,.2);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.ft-link{display:block;font-size:14px;color:rgba(255,255,255,.3);margin-bottom:14px;cursor:pointer;background:none;border:none;text-align:left;padding:0;transition:color .2s;font-family:'Inter',sans-serif}
 .ft-link:hover{color:var(--gold)}
-.ft-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.ft-copy{font-size:12px;color:rgba(255,255,255,.15)}
-@media(max-width:768px){footer{padding:40px 20px 24px}}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.12)}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="n-brand">
-    <div class="n-logo">
-      <div class="n-box">WTF</div>
-      <div class="n-name">GYMS</div>
+  <div class="nav-left">
+    <div class="wtf-logo">
+      <div class="wtf-logo-box">
+        <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="19" font-family="Space Grotesk,sans-serif" font-weight="800" font-size="20" fill="#0a0a0a">WTF</text>
+        </svg>
+      </div>
+      <div class="wtf-logo-name">GYMS</div>
     </div>
+    <span class="nav-x">&times;</span>
+    <span class="hyrox-nav-logo">HYROX</span>
   </div>
-  <div class="n-links">
-    <button class="n-link" onclick="scrollTo('#hyrox')">What is HYROX?</button>
-    <button class="n-link" onclick="scrollTo('#stations')">8 Stations</button>
-    <button class="n-link" onclick="scrollTo('#sponsor')">Sponsorship</button>
-    <button class="n-link" onclick="scrollTo('#faq')">FAQ</button>
-    <button class="n-cta" onclick="scrollTo('#join')">Book Free Trial</button>
+  <div class="nav-links">
+    <button class="nav-link" onclick="scrollTo('#hyrox')">What is HYROX</button>
+    <button class="nav-link" onclick="scrollTo('#stations')">8 Stations</button>
+    <button class="nav-link" onclick="scrollTo('#sponsor')">Sponsorship</button>
+    <button class="nav-link" onclick="scrollTo('#faq')">FAQ</button>
+    <button class="nav-cta" onclick="scrollTo('#join')">Book Free Trial</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-in">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" alt="Gym training"/>
+    <div class="hero-grain"></div>
+  </div>
+  <div class="hero-content">
     <div class="hero-left">
-      <div class="h-badge">
-        <span class="h-badge-dot"></span>
-        <span class="h-badge-text">Delhi's HYROX Training Gym</span>
+      <div class="collab-badge">
+        <span class="cb-dot"></span>
+        <span class="cb-wtf">WTF GYMS</span>
+        <span class="cb-x">&times;</span>
+        <span class="cb-hyrox">HYROX</span>
       </div>
-      <h1>Train for<br><span class="gold">HYROX.</span><br><span class="outline">Race ready.</span></h1>
-      <p class="hero-desc">Join WTF Gyms and get <strong>race-ready for HYROX</strong> — Delhi's only dedicated training facility with all 8 stations, expert coaches and a structured program built around the race.</p>
-      <div class="h-btns">
-        <button class="btn-primary" onclick="scrollTo('#join')">Book My Free Trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-        <button class="btn-secondary" onclick="scrollTo('#hyrox')">What is HYROX?</button>
+      <h1>Train for<br><span class="line2">HYROX.</span><span class="line3">Delhi's #1 Training Facility</span></h1>
+      <p class="hero-p">Join WTF Gyms and get <strong>race-ready for HYROX</strong> — Delhi's only dedicated facility with all 8 stations, expert coaches and a structured program built around the race.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="scrollTo('#join')">Book My Free Trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <button class="btn-ghost" onclick="scrollTo('#hyrox')">What is HYROX?</button>
       </div>
-      <div class="h-proof">
-        <span class="h-proof-item"><span class="h-proof-icon">&#10003;</span> First session FREE</span>
-        <span class="h-proof-item"><span class="h-proof-icon">&#10003;</span> All 8 stations in-house</span>
-        <span class="h-proof-item"><span class="h-proof-icon">&#10003;</span> Beginner to Pro</span>
+      <div class="hero-proof">
+        <span class="hero-proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>First session FREE</span>
+        <span class="hero-proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>All 8 stations</span>
+        <span class="hero-proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>Beginner to Pro</span>
       </div>
     </div>
     <div class="hero-right">
-      <div class="race-card">
-        <div class="rc-head">
-          <span class="rc-title">Race Format</span>
-          <span class="rc-badge">8 x 1km + 8 Challenges</span>
+      <div class="hero-visual">
+        <div class="hv-main">
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&q=80" alt="HYROX athlete training"/>
+          <div class="hv-overlay">
+            <div class="hv-tag">HYROX Ready</div>
+            <div class="hv-title">All 8 Stations In-House</div>
+            <div class="hv-sub">The only gym in Delhi built for HYROX</div>
+          </div>
         </div>
-        <div class="rc-body">
-          <div class="rc-row"><div class="rc-run">RUN 1km</div><div class="rc-arrow">&rarr;</div><div class="rc-station"><em>&#9935;</em>SkiErg &middot; 1000m</div></div>
-          <div class="rc-row"><div class="rc-run">RUN 1km</div><div class="rc-arrow">&rarr;</div><div class="rc-station"><em>&#128755;</em>Sled Push &middot; 50m</div></div>
-          <div class="rc-row"><div class="rc-run">RUN 1km</div><div class="rc-arrow">&rarr;</div><div class="rc-station"><em>&#129522;</em>Sled Pull &middot; 50m</div></div>
-          <div class="rc-row"><div class="rc-run">RUN 1km</div><div class="rc-arrow">&rarr;</div><div class="rc-station"><em>&#128056;</em>Burpee Jump &middot; 80m</div></div>
-          <div class="rc-row" style="opacity:.4"><div class="rc-run">+ 4 more</div><div class="rc-arrow">&rarr;</div><div class="rc-station"><em>&#127937;</em>Finish Line</div></div>
+        <div class="hv-float-card">
+          <div class="hvf-num">500K+</div>
+          <div class="hvf-label">Global Athletes</div>
         </div>
-        <div class="rc-footer">WTF trains you for all 8 challenges</div>
+        <div class="hv-float-badge">5 FREE Race Entries</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- STATS MARQUEE -->
-<div class="stats-bar">
+<div class="stats-strip">
   <div class="stats-track">
     <div class="stat-item"><span class="stat-num">8km</span><span class="stat-label">Total Running</span></div>
     <div class="stat-item"><span class="stat-num">8</span><span class="stat-label">Challenges</span></div>
     <div class="stat-item"><span class="stat-num">500K+</span><span class="stat-label">Global Athletes</span></div>
-    <div class="stat-item"><span class="stat-num">FREE</span><span class="stat-label">First Trial Session</span></div>
-    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Sponsored Race Entries</span></div>
+    <div class="stat-item"><span class="stat-num">FREE</span><span class="stat-label">First Trial</span></div>
+    <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">WTF Locations</span></div>
+    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Sponsored Entries</span></div>
     <div class="stat-item"><span class="stat-num">8km</span><span class="stat-label">Total Running</span></div>
     <div class="stat-item"><span class="stat-num">8</span><span class="stat-label">Challenges</span></div>
     <div class="stat-item"><span class="stat-num">500K+</span><span class="stat-label">Global Athletes</span></div>
-    <div class="stat-item"><span class="stat-num">FREE</span><span class="stat-label">First Trial Session</span></div>
-    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Sponsored Race Entries</span></div>
+    <div class="stat-item"><span class="stat-num">FREE</span><span class="stat-label">First Trial</span></div>
+    <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">WTF Locations</span></div>
+    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Sponsored Entries</span></div>
+  </div>
+</div>
+
+<!-- COLLAB BANNER -->
+<div class="collab-banner">
+  <div class="cb-inner">
+    <div class="cb-logo-group">
+      <div class="cb-wtf-logo">
+        <div class="cb-wtf-mark">
+          <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="4" y="19" font-family="Space Grotesk,sans-serif" font-weight="800" font-size="20" fill="#0a0a0a">WTF</text>
+          </svg>
+        </div>
+        <span class="cb-wtf-text">WTF Gyms</span>
+      </div>
+      <span class="cb-x-mark">&times;</span>
+      <div class="cb-hyrox-logo">
+        <div class="cb-hyrox-mark"><span>HX</span></div>
+        <span class="cb-hyrox-text">HYROX</span>
+      </div>
+    </div>
+    <div class="cb-info">
+      <div class="cb-info-title">Official <span>HYROX Training</span> Partner</div>
+      <div class="cb-info-desc">WTF Gyms is Delhi's dedicated HYROX training facility — equipped with all 8 race stations, certified coaches, and a race-day prep program. From your first trial to the finish line.</div>
+    </div>
   </div>
 </div>
 
@@ -361,38 +460,48 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
 
 <!-- WHAT IS HYROX -->
 <section class="section hyrox-sec" id="hyrox">
-  <div class="section-sm">
-    <div class="reveal">
-      <div class="sec-eyebrow">What is HYROX?</div>
-      <div class="sec-title">The world's fastest growing<br>indoor <span class="gold">fitness race.</span></div>
-      <p class="sec-subtitle">HYROX is a global fitness race held indoors — same format in every city worldwide. Run 1km, complete a workout challenge, repeat 8 times. Open to everyone.</p>
+  <div class="section-inner">
+    <div class="hyrox-visual-grid reveal">
+      <div>
+        <div class="sec-eyebrow">What is HYROX?</div>
+        <div class="sec-title">The world's fastest growing<br>indoor <span class="gold">fitness race.</span></div>
+        <p class="sec-sub" style="margin-bottom:24px">HYROX is a global fitness race held indoors — same format in every city worldwide. Run 1km, complete a workout challenge, repeat 8 times. 8km of running + 8 physical challenges. Open to everyone.</p>
+      </div>
+      <div class="hyrox-img-wrap">
+        <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&q=80" alt="HYROX race event"/>
+        <div class="hyrox-img-badge">
+          <span class="hib-dot"></span>
+          <span>Same format in 30+ countries</span>
+        </div>
+      </div>
     </div>
-    <div class="hx-grid reveal">
+    <div class="hx-cards reveal">
       <div class="hx-card">
-        <span class="hx-icon">&#127939;</span>
-        <div class="hx-card-title">Run + Challenge x 8</div>
+        <div class="hx-card-icon gold-bg">&#127939;</div>
+        <div class="hx-card-title">Run + Challenge &times; 8</div>
         <div class="hx-card-desc">Every round is 1km of running followed by one physical challenge. Eight rounds total — 8km running + 8 challenges.</div>
       </div>
       <div class="hx-card">
-        <span class="hx-icon">&#127758;</span>
+        <div class="hx-card-icon red-bg">&#127758;</div>
         <div class="hx-card-title">Same format worldwide</div>
-        <div class="hx-card-desc">Delhi, London, New York — always the same 8 challenges in the same order. Train at WTF, race anywhere in the world.</div>
+        <div class="hx-card-desc">Delhi, London, New York — always the same 8 challenges in the same order. Train at WTF, race anywhere.</div>
       </div>
       <div class="hx-card">
-        <span class="hx-icon">&#128588;</span>
+        <div class="hx-card-icon white-bg">&#128588;</div>
         <div class="hx-card-title">Open to everyone</div>
         <div class="hx-card-desc">Beginner or elite, 20 or 55. No qualification needed. HYROX has a category for every fitness level.</div>
       </div>
     </div>
+    <div style="height:48px"></div>
     <div class="race-flow reveal">
-      <div class="rf-header">
-        <span class="rf-title">Full Race Order — Same Every Time, Worldwide</span>
+      <div class="rf-head">
+        <span class="rf-title">Full Race Order — Same Every Time</span>
         <div class="rf-legend">
-          <div class="rf-legend-item"><div class="rf-legend-dot run"></div>Run</div>
-          <div class="rf-legend-item"><div class="rf-legend-dot station"></div>Challenge</div>
+          <div class="rf-legend-item"><div class="rf-dot run"></div>Run</div>
+          <div class="rf-legend-item"><div class="rf-dot station"></div>Challenge</div>
         </div>
       </div>
-      <div class="rf-flow">
+      <div class="rf-body">
         <span class="rf-run">&#127939; Run 1km</span><span class="rf-arr">&rarr;</span><span class="rf-st">&#9935; SkiErg</span><span class="rf-arr">&rarr;</span>
         <span class="rf-run">&#127939; Run 1km</span><span class="rf-arr">&rarr;</span><span class="rf-st">&#128755; Sled Push</span><span class="rf-arr">&rarr;</span>
         <span class="rf-run">&#127939; Run 1km</span><span class="rf-arr">&rarr;</span><span class="rf-st">&#129522; Sled Pull</span><span class="rf-arr">&rarr;</span>
@@ -409,52 +518,60 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
 
 <!-- 8 STATIONS -->
 <section class="section stations-sec" id="stations">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="reveal">
       <div class="sec-eyebrow">The 8 Challenges</div>
       <div class="sec-title">Know exactly what<br>you're <span class="gold">training for.</span></div>
-      <p class="sec-subtitle">The exact 8 challenges in every HYROX race — in this exact order. At WTF we have the equipment and coaches for all 8.</p>
+      <p class="sec-sub">The exact 8 challenges in every HYROX race — in this exact order. At WTF we have the equipment and coaches for all 8.</p>
     </div>
     <div class="st-grid reveal">
-      <div class="stc"><div class="stc-top"><span class="stc-num">01</span><span class="stc-dist">1,000m</span></div><div class="stc-em">&#9935;</div><div class="stc-name">SkiErg</div><div class="stc-desc">Pull handles down like cross-country skiing. Arms, shoulders and core — the race opener.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">02</span><span class="stc-dist">50m</span></div><div class="stc-em">&#128755;</div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station. Practice before race day.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">03</span><span class="stc-dist">50m</span></div><div class="stc-em">&#129522;</div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled back. Back, biceps and grip tested under real fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">04</span><span class="stc-dist">80m</span></div><div class="stc-em">&#128056;</div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop, jump forward as far as you can, repeat for 80m. Scary first time.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">05</span><span class="stc-dist">1,000m</span></div><div class="stc-em">&#128675;</div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 rower at the halfway mark. Pacing here decides your second half.</div><div class="stc-tags"><span class="stc-tag">Full Body</span><span class="stc-tag">Endurance</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">06</span><span class="stc-dist">200m</span></div><div class="stc-em">&#128188;</div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells. Grip and core tested when already exhausted.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">07</span><span class="stc-dist">100m</span></div><div class="stc-em">&#127890;</div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with a sandbag on your shoulders after 7km of running.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
-      <div class="stc"><div class="stc-top"><span class="stc-num">08</span><span class="stc-dist">75-100 reps</span></div><div class="stc-em">&#127936;</div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw a med ball to a target above. The final push to the finish.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">01</span><span class="stc-dist">1,000m</span></div><div class="stc-icon">&#9935;</div><div class="stc-name">SkiErg</div><div class="stc-desc">Pull handles down like cross-country skiing. Arms, shoulders and core — the race opener.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50m</span></div><div class="stc-icon">&#128755;</div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station. Practice before race day.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50m</span></div><div class="stc-icon">&#129522;</div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled back. Back, biceps and grip tested under real fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">04</span><span class="stc-dist">80m</span></div><div class="stc-icon">&#128056;</div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop, jump forward as far as you can, repeat for 80m. The mental grind.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000m</span></div><div class="stc-icon">&#128675;</div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 rower at halfway. Pacing here decides your second half performance.</div><div class="stc-tags"><span class="stc-tag">Full Body</span><span class="stc-tag">Endurance</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200m</span></div><div class="stc-icon">&#128188;</div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells. Grip and core tested when already exhausted.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">07</span><span class="stc-dist">100m</span></div><div class="stc-icon">&#127890;</div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with a sandbag on your shoulders after 7km of running.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
+      <div class="stc"><div class="stc-head"><span class="stc-num">08</span><span class="stc-dist">75-100 reps</span></div><div class="stc-icon">&#127936;</div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw a med ball to a target above. The final push to the finish.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
     </div>
   </div>
 </section>
 
+<!-- VISUAL BREAK -->
+<div class="visual-break">
+  <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1920&q=80" alt="Training intensity"/>
+  <div class="vb-content">
+    <div class="vb-quote">Train at <span>WTF.</span><br>Race anywhere in the <span>world.</span></div>
+  </div>
+</div>
+
 <!-- SPONSOR -->
 <section class="section sponsor-sec" id="sponsor">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="sp-grid">
       <div class="reveal">
         <div class="sec-eyebrow">WTF Sponsorship</div>
         <div class="sec-title">5 members<br>race <span class="gold">FREE.</span></div>
-        <p class="sec-subtitle">WTF Gyms is covering the full HYROX race entry fee for 5 dedicated members. Train with us, show your commitment, and you could be one of them.</p>
+        <p class="sec-sub">WTF Gyms is covering the full HYROX race entry fee for 5 dedicated members. Train with us, show your commitment, and you could be one of them.</p>
         <div class="sp-steps">
           <div class="sp-step"><div class="sp-step-num">1</div><div><div class="sp-step-title">Join WTF Gyms</div><div class="sp-step-desc">Book your free trial and sign up for the HYROX training program</div></div></div>
           <div class="sp-step"><div class="sp-step-num">2</div><div><div class="sp-step-title">Train hard, every session</div><div class="sp-step-desc">Show up consistently and give everything — coaches are watching</div></div></div>
           <div class="sp-step"><div class="sp-step-num">3</div><div><div class="sp-step-title">Get selected by coaches</div><div class="sp-step-desc">The 5 most dedicated members are chosen by the coaching team</div></div></div>
-          <div class="sp-step"><div class="sp-step-num">4</div><div><div class="sp-step-title">Race HYROX — completely FREE</div><div class="sp-step-desc">WTF pays 100% of your entry fee. You show up and race.</div></div></div>
+          <div class="sp-step"><div class="sp-step-num">4</div><div><div class="sp-step-title">Race HYROX — completely FREE</div><div class="sp-step-desc">WTF pays 100% of your entry. You show up and race.</div></div></div>
         </div>
       </div>
-      <div class="reveal reveal-delay-2">
+      <div class="reveal reveal-d2">
         <div class="sp-card">
           <div class="spc-top">
             <div class="spc-num">5</div>
             <div class="spc-lbl">Sponsored Spots Available</div>
           </div>
           <div class="spc-perks">
-            <div class="spc-perk"><span class="spc-em">&#127903;</span>Full HYROX race entry — 100% paid</div>
-            <div class="spc-perk"><span class="spc-em">&#128085;</span>Official WTF Gyms race kit</div>
-            <div class="spc-perk"><span class="spc-em">&#129504;</span>Personal race day coaching session</div>
-            <div class="spc-perk"><span class="spc-em">&#128241;</span>WTF athlete spotlight on social media</div>
-            <div class="spc-perk"><span class="spc-em">&#128202;</span>Full race performance review</div>
+            <div class="spc-perk"><span class="spc-perk-icon">&#127903;</span>Full HYROX race entry — 100% paid</div>
+            <div class="spc-perk"><span class="spc-perk-icon">&#128085;</span>Official WTF Gyms race kit</div>
+            <div class="spc-perk"><span class="spc-perk-icon">&#129504;</span>Personal race day coaching</div>
+            <div class="spc-perk"><span class="spc-perk-icon">&#128241;</span>Athlete spotlight on social media</div>
+            <div class="spc-perk"><span class="spc-perk-icon">&#128202;</span>Full race performance review</div>
           </div>
           <button class="spc-apply" onclick="scrollTo('#join')">Apply for Sponsorship &rarr;</button>
         </div>
@@ -465,83 +582,71 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
 
 <!-- WHY JOIN -->
 <section class="section why-sec">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="reveal">
-      <div class="sec-eyebrow">Why Join WTF?</div>
+      <div class="sec-eyebrow">Why WTF?</div>
       <div class="sec-title">6 reasons to <span class="gold">train here.</span></div>
-      <p class="sec-subtitle">There are hundreds of gyms in Delhi. Only WTF is built specifically for HYROX.</p>
+      <p class="sec-sub">Hundreds of gyms in Delhi. Only WTF is built specifically for HYROX.</p>
     </div>
     <div class="why-grid reveal">
-      <div class="wyc"><div class="wyc-em">&#127947;</div><div class="wyc-title">All 8 stations in-house</div><div class="wyc-desc">SkiErg, sled track, Concept2 rowers, kettlebells, med balls — everything HYROX needs is right here.</div></div>
-      <div class="wyc"><div class="wyc-em">&#127919;</div><div class="wyc-title">Race-specific coaching</div><div class="wyc-desc">Our coaches train you for the actual race — station order, pacing strategy, and handling fatigue at 6km.</div></div>
-      <div class="wyc"><div class="wyc-em">&#127939;</div><div class="wyc-title">Running + strength together</div><div class="wyc-desc">HYROX needs both. We build your running endurance and station strength at the same time.</div></div>
-      <div class="wyc"><div class="wyc-em">&#128203;</div><div class="wyc-title">Structured program</div><div class="wyc-desc">A phased weekly plan, race day strategy, and nutrition basics — built to peak you on race day.</div></div>
-      <div class="wyc"><div class="wyc-em">&#128101;</div><div class="wyc-title">Small batches, real attention</div><div class="wyc-desc">Capped group sizes so every member gets genuine coaching — not a crowded class.</div></div>
-      <div class="wyc"><div class="wyc-em">&#127942;</div><div class="wyc-title">5 members race FREE</div><div class="wyc-desc">Train consistently, get selected, and WTF covers your full HYROX entry. No other gym does this.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#127947;</div><div class="wyc-title">All 8 stations in-house</div><div class="wyc-desc">SkiErg, sled track, Concept2 rowers, kettlebells, med balls — everything HYROX needs under one roof.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#127919;</div><div class="wyc-title">Race-specific coaching</div><div class="wyc-desc">Coaches train you for the actual race — station order, pacing strategy, and handling fatigue at 6km.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#127939;</div><div class="wyc-title">Running + strength together</div><div class="wyc-desc">HYROX needs both. We build running endurance and station strength at the same time.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#128203;</div><div class="wyc-title">Structured program</div><div class="wyc-desc">Phased weekly plan, race day strategy, nutrition basics — built to peak you on race day.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#128101;</div><div class="wyc-title">Small batches</div><div class="wyc-desc">Capped group sizes so every member gets genuine coaching — not a crowded class.</div></div>
+      <div class="wyc"><div class="wyc-icon">&#127942;</div><div class="wyc-title">5 members race FREE</div><div class="wyc-desc">Train consistently, get selected, WTF covers your full HYROX entry. No other gym does this.</div></div>
     </div>
   </div>
 </section>
 
 <!-- DIVISIONS -->
 <section class="section div-sec">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="reveal">
       <div class="sec-eyebrow">Race Divisions</div>
-      <div class="sec-title">How do you want<br>to <span class="gold">race?</span></div>
-      <p class="sec-subtitle">HYROX has four race formats. Not sure which fits? Our coaches will help you decide in your free trial.</p>
+      <div class="sec-title">How do you want<br>to <span class="red">race?</span></div>
+      <p class="sec-sub">HYROX has four race formats. Not sure? Our coaches help you decide in your free trial.</p>
     </div>
     <div class="div-grid reveal">
-      <div class="dvc pop"><div class="dvc-vis"><div class="dvc-em">&#127939;</div><div class="dvc-tag">Most Popular</div></div><div class="dvc-body"><div class="dvc-title">Open Solo</div><div class="dvc-desc">Race alone with standard weights. Perfect for your first HYROX.</div></div></div>
-      <div class="dvc"><div class="dvc-vis"><div class="dvc-em">&#9889;</div></div><div class="dvc-body"><div class="dvc-title">Pro Solo</div><div class="dvc-desc">Heavier weights for athletes chasing competitive times and rankings.</div></div></div>
-      <div class="dvc"><div class="dvc-vis"><div class="dvc-em">&#128107;</div></div><div class="dvc-body"><div class="dvc-title">Doubles</div><div class="dvc-desc">Race with a partner — both run together, split the station reps.</div></div></div>
-      <div class="dvc"><div class="dvc-vis"><div class="dvc-em">&#128101;</div></div><div class="dvc-body"><div class="dvc-title">Relay (Team of 4)</div><div class="dvc-desc">2 runs + 2 challenges per person. WTF can build your full team.</div></div></div>
+      <div class="dvc pop"><div class="dvc-vis"><div class="dvc-emoji">&#127939;</div><div class="dvc-tag">Most Popular</div></div><div class="dvc-body"><div class="dvc-title">Open Solo</div><div class="dvc-desc">Race alone with standard weights. Perfect for your first HYROX.</div></div></div>
+      <div class="dvc"><div class="dvc-vis"><div class="dvc-emoji">&#9889;</div></div><div class="dvc-body"><div class="dvc-title">Pro Solo</div><div class="dvc-desc">Heavier weights for athletes chasing competitive times.</div></div></div>
+      <div class="dvc"><div class="dvc-vis"><div class="dvc-emoji">&#128107;</div></div><div class="dvc-body"><div class="dvc-title">Doubles</div><div class="dvc-desc">Race with a partner — both run, split the station reps.</div></div></div>
+      <div class="dvc"><div class="dvc-vis"><div class="dvc-emoji">&#128101;</div></div><div class="dvc-body"><div class="dvc-title">Relay (Team of 4)</div><div class="dvc-desc">2 runs + 2 challenges per person. WTF builds your team.</div></div></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
 <section class="section test-sec">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="reveal">
       <div class="sec-eyebrow">Real WTF Members</div>
-      <div class="sec-title">Trained here. <span class="gold">Raced.</span></div>
-      <p class="sec-subtitle">From complete beginners to sponsored athletes — here's what WTF members say.</p>
+      <div class="sec-title">Trained here.<br><span class="gold">Raced.</span></div>
+      <p class="sec-sub">From complete beginners to sponsored athletes.</p>
     </div>
     <div class="test-grid reveal">
-      <div class="tc">
-        <div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="tc-quote">"Walked in knowing nothing about HYROX. Six months later I crossed my first finish line. The coaches made me feel ready from the very first session."</div>
-        <div class="tc-who"><div class="tc-avatar">AR</div><div><div class="tc-name">Aarav R.</div><div class="tc-role">HYROX Open finisher &middot; Delhi</div></div></div>
-      </div>
-      <div class="tc">
-        <div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="tc-quote">"No other gym in Delhi has a sled track and SkiErg under one roof. WTF is built for HYROX — you feel it the moment you walk in."</div>
-        <div class="tc-who"><div class="tc-avatar">PS</div><div><div class="tc-name">Priya S.</div><div class="tc-role">Doubles competitor &middot; 2 races</div></div></div>
-      </div>
-      <div class="tc">
-        <div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="tc-quote">"Got selected for the sponsored entry and raced completely free. WTF actually backs its members. No other gym does anything like this."</div>
-        <div class="tc-who"><div class="tc-avatar">KM</div><div><div class="tc-name">Kabir M.</div><div class="tc-role">WTF Sponsored Athlete &middot; Pro</div></div></div>
-      </div>
+      <div class="tc"><div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tc-quote">Walked in knowing nothing about HYROX. Six months later I crossed my first finish line. The coaches made me feel ready from the very first session.</div><div class="tc-who"><div class="tc-avatar">AR</div><div><div class="tc-name">Aarav R.</div><div class="tc-role">HYROX Open finisher &middot; Delhi</div></div></div></div>
+      <div class="tc"><div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tc-quote">No other gym in Delhi has a sled track and SkiErg under one roof. WTF is built for HYROX — you feel it the moment you walk in.</div><div class="tc-who"><div class="tc-avatar">PS</div><div><div class="tc-name">Priya S.</div><div class="tc-role">Doubles competitor &middot; 2 races</div></div></div></div>
+      <div class="tc"><div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tc-quote">Got selected for the sponsored entry and raced completely free. WTF actually backs its members. No other gym does anything like this.</div><div class="tc-who"><div class="tc-avatar">KM</div><div><div class="tc-name">Kabir M.</div><div class="tc-role">WTF Sponsored Athlete &middot; Pro</div></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="section faq-sec" id="faq">
-  <div class="section-sm">
+  <div class="section-inner">
     <div class="reveal">
       <div class="sec-eyebrow">FAQ</div>
       <div class="sec-title">Questions <span class="gold">answered.</span></div>
-      <p class="sec-subtitle">Everything you need to know before booking your free trial at WTF.</p>
+      <p class="sec-sub">Everything you need to know before booking your free trial.</p>
     </div>
     <div class="faq-list reveal">
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Do I need any experience to join?</span><span class="fi-ic">+</span></button><div class="fi-a">None at all. Many WTF members joined with zero race experience. Our coaches start from the basics — every station explained, every movement coached from scratch. Just show up.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>What exactly is HYROX?</span><span class="fi-ic">+</span></button><div class="fi-a">HYROX is a global indoor fitness race combining 8km of running with 8 functional workout challenges. Same format worldwide. Open to everyone from complete beginners to elite athletes.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How does the free trial work?</span><span class="fi-ic">+</span></button><div class="fi-a">Fill in the form below. Our coach calls you within 24 hours to schedule your group session. You try 2-3 HYROX stations, meet the coaches, feel the program. Zero cost, zero commitment.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How do I qualify for the 5 free race entries?</span><span class="fi-ic">+</span></button><div class="fi-a">Join WTF, tick the sponsorship box when you sign up, train consistently, and show real dedication. Our coaches select the 5 most committed members.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How long until I'm ready to race?</span><span class="fi-ic">+</span></button><div class="fi-a">Most beginners are race-ready in 12-20 weeks with consistent training. Intermediate athletes usually need 8-12 weeks. Our phased program builds you progressively.</div></div>
-      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>I'm not a runner — can I still do HYROX?</span><span class="fi-ic">+</span></button><div class="fi-a">Yes. Many of our strongest athletes came from gym backgrounds. We build your running stamina from scratch alongside the station training. It develops faster than you'd expect.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>Do I need any experience to join?</span><span class="fi-icon">+</span></button><div class="fi-a">None at all. Many WTF members joined with zero race experience. Our coaches start from the basics — every station explained, every movement coached from scratch. Just show up.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>What exactly is HYROX?</span><span class="fi-icon">+</span></button><div class="fi-a">HYROX is a global indoor fitness race combining 8km of running with 8 functional workout challenges. Same format worldwide. Open to everyone from complete beginners to elite athletes.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How does the free trial work?</span><span class="fi-icon">+</span></button><div class="fi-a">Fill in the form below. Our coach calls you within 24 hours to schedule your group session. You try 2-3 HYROX stations, meet the coaches, feel the program. Zero cost, zero commitment.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How do I qualify for the 5 free race entries?</span><span class="fi-icon">+</span></button><div class="fi-a">Join WTF, tick the sponsorship box when you sign up, train consistently, and show real dedication. Our coaches select the 5 most committed members.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>How long until I'm ready to race?</span><span class="fi-icon">+</span></button><div class="fi-a">Most beginners are race-ready in 12-20 weeks with consistent training. Intermediate athletes usually need 8-12 weeks. Our phased program builds you progressively.</div></div>
+      <div class="fi"><button class="fi-q" onclick="tFaq(this)"><span>I'm not a runner — can I still do HYROX?</span><span class="fi-icon">+</span></button><div class="fi-a">Yes. Many of our strongest athletes came from gym backgrounds. We build your running stamina from scratch alongside the station training.</div></div>
     </div>
   </div>
 </section>
@@ -569,16 +674,16 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
         <input type="checkbox" id="f-sp"/>
         <div>
           <div class="fs-title">&#127942; Yes — enter me for the 5 sponsored race spots</div>
-          <div class="fs-desc">I want to be considered for one of WTF's 5 free HYROX race entries. Selection is based on training dedication and consistency.</div>
+          <div class="fs-desc">I want to be considered for one of WTF's 5 free HYROX race entries. Selection is based on training dedication.</div>
         </div>
       </label>
       <button class="form-submit" id="f-btn" onclick="doSubmit()">Book My Free Trial Session &rarr;</button>
     </div>
-    <div class="form-note">&#128274; No spam. No pressure. Just one call from our coach to get you started.</div>
+    <div class="form-note">&#128274; No spam. No pressure. Just one call from our coach.</div>
     <div class="f-success" id="f-ok">
       <div class="fs-em">&#127937;</div>
       <div class="fs-h">You're booked in!</div>
-      <p class="fs-p">Our coach will call you within 24 hours to confirm your free trial session.<br><br>Get ready to Witness The Fitness.</p>
+      <p class="fs-p">Our coach will call you within 24 hours to confirm your free trial.<br><br>Get ready to Witness The Fitness.</p>
     </div>
   </div>
 </section>
@@ -588,15 +693,25 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
   <div class="ft-in">
     <div class="ft-top">
       <div>
-        <div class="ft-brand"><div class="ftb-box">WTF</div><div class="ftb-name">GYMS</div></div>
+        <div class="ft-brand">
+          <div class="ft-wtf-mark">
+            <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="4" y="19" font-family="Space Grotesk,sans-serif" font-weight="800" font-size="20" fill="#0a0a0a">WTF</text>
+            </svg>
+          </div>
+          <div class="ft-brand-text">
+            <div class="ft-brand-name">WTF Gyms</div>
+            <div class="ft-brand-sub">Witness The Fitness</div>
+          </div>
+        </div>
         <p class="ft-desc">Delhi's only dedicated HYROX training facility. All 8 stations. Expert coaches. A program built for one race.</p>
-        <div class="ft-tagline">WTF — Witness The Fitness.</div>
+        <div class="ft-tagline">WTF &times; HYROX — Witness The Fitness.</div>
       </div>
       <div>
         <div class="ft-heading">On This Page</div>
         <button class="ft-link" onclick="scrollTo('#hyrox')">What is HYROX?</button>
         <button class="ft-link" onclick="scrollTo('#stations')">8 Stations</button>
-        <button class="ft-link" onclick="scrollTo('#sponsor')">Sponsorship Offer</button>
+        <button class="ft-link" onclick="scrollTo('#sponsor')">Sponsorship</button>
         <button class="ft-link" onclick="scrollTo('#faq')">FAQ</button>
       </div>
       <div>
@@ -607,43 +722,20 @@ footer{background:var(--dark);padding:60px 40px 30px;border-top:1px solid rgba(2
     </div>
     <div class="ft-bottom">
       <div class="ft-copy">&copy; 2025 WTF Gyms. Delhi, India. All rights reserved.</div>
-      <div class="ft-copy">WTF — Witness The Fitness.</div>
+      <div class="ft-copy">WTF &times; HYROX</div>
     </div>
   </div>
 </footer>
 
 <script>
 function scrollTo(s){document.querySelector(s).scrollIntoView({behavior:'smooth'})}
-
-// Nav scroll effect
 var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>50)});
-
-// Scroll reveal
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60)});
 var reveals=document.querySelectorAll('.reveal');
-var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-reveals.forEach(function(el){observer.observe(el)});
-
-// FAQ
-function tFaq(b){
-  var i=b.parentElement,o=i.classList.contains('open');
-  document.querySelectorAll('.fi').forEach(function(x){x.classList.remove('open')});
-  if(!o)i.classList.add('open');
-}
-
-// Form
-function doSubmit(){
-  var n=document.getElementById('f-name').value.trim();
-  var p=document.getElementById('f-phone').value.trim();
-  var e=document.getElementById('f-email').value.trim();
-  if(!n||!p||!e){alert('Please fill in your name, phone and email.');return;}
-  var b=document.getElementById('f-btn');
-  b.textContent='Booking...';b.disabled=true;b.style.opacity='.5';
-  setTimeout(function(){
-    document.getElementById('fbox').style.display='none';
-    document.getElementById('f-ok').style.display='block';
-  },800);
-}
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -60px 0px'});
+reveals.forEach(function(el){obs.observe(el)});
+function tFaq(b){var i=b.parentElement,o=i.classList.contains('open');document.querySelectorAll('.fi').forEach(function(x){x.classList.remove('open')});if(!o)i.classList.add('open')}
+function doSubmit(){var n=document.getElementById('f-name').value.trim(),p=document.getElementById('f-phone').value.trim(),e=document.getElementById('f-email').value.trim();if(!n||!p||!e){alert('Please fill in your name, phone and email.');return}var b=document.getElementById('f-btn');b.textContent='Booking...';b.disabled=true;b.style.opacity='.5';setTimeout(function(){document.getElementById('fbox').style.display='none';document.getElementById('f-ok').style.display='block'},800)}
 </script>
 </body>
 </html>
