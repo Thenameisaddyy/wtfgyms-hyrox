@@ -2,11 +2,11 @@
     "rewrites": [
       {
         "source": "/lp/hyrox",
-        "destination": "https://wtfgyms.com/lp/hyrox"
+        "destination": "https://wtfgyms.com/lp/Oneday_lp_sale"
       },
       {
         "source": "/lp/hyrox/:path*",
-        "destination": "https://wtfgyms.com/lp/hyrox"
+        "destination": "https://wtfgyms.com/lp/Oneday_lp_sale"
       }
     ]
   }
