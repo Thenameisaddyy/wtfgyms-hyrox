@@ -302,6 +302,46 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .tc-name{font-size:13px;font-weight:700}
 .tc-role{font-size:11px;color:var(--dim);margin-top:2px}
 
+/* ---- EVENTS ---- */
+.events-sec{background:var(--bg)}
+.events-grid{display:flex;flex-direction:column;gap:0;border:1px solid var(--border)}
+.evt-card{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:28px 32px;border-bottom:1px solid var(--border);transition:background .3s var(--ease),padding-left .3s var(--ease)}
+.evt-card:last-child{border-bottom:none}
+.evt-card:hover{background:var(--card);padding-left:36px}
+.evt-featured{background:var(--red-glow)}
+.evt-featured:hover{background:rgba(230,57,70,.12)}
+.evt-date{display:flex;flex-direction:column;align-items:center;justify-content:center;width:72px;height:80px;background:var(--surface);border:1px solid var(--border);flex-shrink:0;transition:border-color .3s}
+.evt-card:hover .evt-date{border-color:var(--red)}
+.evt-featured .evt-date{border-color:var(--red);background:var(--red);color:#fff}
+.evt-month{font-family:var(--display);font-size:12px;letter-spacing:3px;color:var(--muted);line-height:1}
+.evt-featured .evt-month{color:rgba(255,255,255,.7)}
+.evt-day{font-family:var(--display);font-size:32px;line-height:1;letter-spacing:2px;color:var(--text)}
+.evt-featured .evt-day{color:#fff}
+.evt-year{font-size:9px;color:var(--dim);letter-spacing:2px}
+.evt-featured .evt-year{color:rgba(255,255,255,.5)}
+.evt-info{min-width:0}
+.evt-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;background:var(--red);color:#fff;margin-bottom:8px}
+.evt-badge.training{background:var(--gold);color:#1A1A2E}
+.evt-name{font-family:var(--display);font-size:clamp(20px,3vw,28px);letter-spacing:2px;line-height:1;margin-bottom:6px}
+.evt-details{font-size:13px;color:var(--muted);font-weight:300;margin-bottom:10px}
+.evt-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.evt-tag{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;background:var(--card);border:1px solid var(--border);color:var(--muted)}
+.evt-status{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;display:flex;align-items:center;gap:5px}
+.evt-status::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.evt-status.open{color:#16a34a;background:rgba(22,163,74,.08)}.evt-status.open::before{background:#16a34a;animation:statusPulse 2s ease-in-out infinite}
+.evt-status.limited{color:var(--gold);background:var(--gold-dim)}.evt-status.limited::before{background:var(--gold);animation:statusPulse 2s ease-in-out infinite}
+.evt-status.closed{color:var(--red);background:var(--red-glow)}.evt-status.closed::before{background:var(--red)}
+@keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.4}}
+.evt-cta{background:transparent;color:var(--red);font-family:var(--display);font-size:12px;padding:10px 20px;border:1px solid var(--red);cursor:pointer;letter-spacing:3px;white-space:nowrap;transition:all .25s var(--ease);flex-shrink:0}
+.evt-cta:hover{background:var(--red);color:#fff}
+.evt-featured .evt-cta{background:var(--red);color:#fff;border-color:var(--red)}
+.evt-featured .evt-cta:hover{background:var(--red-deep)}
+@media(max-width:768px){
+  .evt-card{grid-template-columns:1fr;gap:16px;padding:24px 20px}
+  .evt-date{flex-direction:row;width:auto;height:auto;padding:8px 16px;gap:8px}
+  .evt-cta{width:100%;text-align:center}
+}
+
 /* ---- FAQ ---- */
 .faq-sec{background:var(--surface)}
 .faq-list{border:1px solid var(--border);max-width:800px;border-radius:12px;overflow:hidden;background:var(--bg)}
@@ -432,21 +472,22 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="navLinks">
-    <button class="nav-link" onclick="goTo('#hyrox')">HYROX</button>
-    <button class="nav-link" onclick="goTo('#stations')">Stations</button>
-    <button class="nav-link" onclick="goTo('#sponsor')">Sponsor</button>
-    <button class="nav-link" onclick="goTo('#faq')">FAQ</button>
-    <button class="nav-cta" onclick="goTo('#join')"><span>Book Trial</span></button>
+    <button class="nav-link" onclick="goTo('#hyrox',event)">HYROX</button>
+    <button class="nav-link" onclick="goTo('#stations',event)">Stations</button>
+    <button class="nav-link" onclick="goTo('#sponsor',event)">Sponsor</button>
+    <button class="nav-link" onclick="goTo('#events',event)">Events</button>
+    <button class="nav-link" onclick="goTo('#faq',event)">FAQ</button>
+    <button class="nav-cta" onclick="goTo('#join',event)"><span>Book Trial</span></button>
   </div>
 </nav>
 
 <!-- MOBILE CTA -->
-<div class="mob-cta" id="mobCta"><button onclick="goTo('#join')">BOOK FREE TRIAL</button></div>
+<div class="mob-cta" id="mobCta"><button onclick="goTo('#join',event)">BOOK FREE TRIAL</button></div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" alt="WTF Gym" id="heroBgImg"/>
+    <img src="freepik_a-dark-wideangle-gym-inte_2779685844.png" alt="WTF Gym" id="heroBgImg"/>
   </div>
   <div class="hero-vignette"></div>
   <div class="hero-inner">
@@ -456,8 +497,8 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       <div class="hero-left" id="heroLeft">
         <p class="hero-p">Join <strong>WTF Gyms</strong> and get <strong>race-ready for HYROX</strong> &mdash; all 8 stations, expert coaches, and a structured program built around the race.</p>
         <div class="hero-btns">
-          <button class="btn-primary" onclick="goTo('#join')">Book Free Trial</button>
-          <button class="btn-ghost" onclick="goTo('#hyrox')">What is HYROX?</button>
+          <button class="btn-primary" onclick="goTo('#join',event)">Book Free Trial</button>
+          <button class="btn-ghost" onclick="goTo('#hyrox',event)">What is HYROX?</button>
         </div>
       </div>
       <div class="hero-stats" id="heroStats">
@@ -505,7 +546,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
 <!-- OFFER -->
 <div class="offer">
   <span class="offer-text">WTF is sponsoring <span>5 members</span> &mdash; full HYROX entry paid. FREE.</span>
-  <button class="offer-btn" onclick="goTo('#sponsor')">LEARN MORE</button>
+  <button class="offer-btn" onclick="goTo('#sponsor',event)">LEARN MORE</button>
 </div>
 
 <!-- HYROX -->
@@ -632,7 +673,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
             <div class="spc-item">Social media spotlight</div>
             <div class="spc-item">Post-race performance review</div>
           </div>
-          <button class="spc-btn" onclick="goTo('#join')">APPLY NOW</button>
+          <button class="spc-btn" onclick="goTo('#join',event)">APPLY NOW</button>
         </div>
       </div>
     </div>
@@ -712,6 +753,110 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
         <div class="tc-rating">5.0</div>
         <div class="tc-quote">Got selected for the sponsored entry and raced completely free. WTF backs its members like no one else in the fitness space.</div>
         <div class="tc-who"><div class="tc-avatar">KM</div><div><div class="tc-name">Kabir M.</div><div class="tc-role">Sponsored Athlete</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section class="sec events-sec" id="events">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="eyebrow red">Upcoming Events</div>
+      <div class="sec-line"></div>
+      <div class="sec-title">RACE<br><span class="red">CALENDAR.</span></div>
+      <p class="sec-desc">Upcoming HYROX races and WTF training events. Mark your calendar and start preparing.</p>
+    </div>
+    <div class="events-grid rv">
+      <div class="evt-card evt-featured">
+        <div class="evt-date">
+          <span class="evt-month">SEP</span>
+          <span class="evt-day">14</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge">HYROX Race</div>
+          <h3 class="evt-name">HYROX Delhi 2026</h3>
+          <p class="evt-details">Thyagaraj Sports Complex, New Delhi</p>
+          <div class="evt-meta">
+            <span class="evt-tag">All Divisions</span>
+            <span class="evt-tag">8km + 8 Stations</span>
+            <span class="evt-status open">Registrations Open</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">REGISTER NOW</button>
+      </div>
+      <div class="evt-card">
+        <div class="evt-date">
+          <span class="evt-month">MAY</span>
+          <span class="evt-day">03</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge training">WTF Training</div>
+          <h3 class="evt-name">Mock HYROX Race Day</h3>
+          <p class="evt-details">WTF Gym, Connaught Place</p>
+          <div class="evt-meta">
+            <span class="evt-tag">Members Only</span>
+            <span class="evt-tag">Full Simulation</span>
+            <span class="evt-status open">Spots Available</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">BOOK SPOT</button>
+      </div>
+      <div class="evt-card">
+        <div class="evt-date">
+          <span class="evt-month">JUN</span>
+          <span class="evt-day">21</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge training">WTF Training</div>
+          <h3 class="evt-name">Station Mastery Workshop</h3>
+          <p class="evt-details">WTF Gym, Vasant Kunj</p>
+          <div class="evt-meta">
+            <span class="evt-tag">All Levels</span>
+            <span class="evt-tag">8 Stations Deep-Dive</span>
+            <span class="evt-status limited">Limited Spots</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">BOOK SPOT</button>
+      </div>
+      <div class="evt-card">
+        <div class="evt-date">
+          <span class="evt-month">JUL</span>
+          <span class="evt-day">12</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge">HYROX Race</div>
+          <h3 class="evt-name">HYROX Mumbai 2026</h3>
+          <p class="evt-details">NESCO Centre, Goregaon, Mumbai</p>
+          <div class="evt-meta">
+            <span class="evt-tag">All Divisions</span>
+            <span class="evt-tag">Travel with WTF Team</span>
+            <span class="evt-status open">Registrations Open</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">REGISTER NOW</button>
+      </div>
+      <div class="evt-card">
+        <div class="evt-date">
+          <span class="evt-month">AUG</span>
+          <span class="evt-day">09</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge training">WTF Training</div>
+          <h3 class="evt-name">Race Day Prep Bootcamp</h3>
+          <p class="evt-details">WTF Gym, South Delhi</p>
+          <div class="evt-meta">
+            <span class="evt-tag">Advanced</span>
+            <span class="evt-tag">6-Week Program</span>
+            <span class="evt-status limited">Limited Spots</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">BOOK SPOT</button>
       </div>
     </div>
   </div>
@@ -894,15 +1039,16 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       </div>
       <div>
         <div class="ft-heading">Navigate</div>
-        <button class="ft-link" onclick="goTo('#hyrox')">What is HYROX</button>
-        <button class="ft-link" onclick="goTo('#stations')">8 Stations</button>
-        <button class="ft-link" onclick="goTo('#sponsor')">Sponsorship</button>
-        <button class="ft-link" onclick="goTo('#faq')">FAQ</button>
+        <button class="ft-link" onclick="goTo('#hyrox',event)">What is HYROX</button>
+        <button class="ft-link" onclick="goTo('#stations',event)">8 Stations</button>
+        <button class="ft-link" onclick="goTo('#sponsor',event)">Sponsorship</button>
+        <button class="ft-link" onclick="goTo('#events',event)">Events</button>
+        <button class="ft-link" onclick="goTo('#faq',event)">FAQ</button>
       </div>
       <div>
         <div class="ft-heading">Get Started</div>
-        <button class="ft-link" onclick="goTo('#join')">Book Free Trial</button>
-        <button class="ft-link" onclick="goTo('#join')">Apply for Sponsorship</button>
+        <button class="ft-link" onclick="goTo('#join',event)">Book Free Trial</button>
+        <button class="ft-link" onclick="goTo('#join',event)">Apply for Sponsorship</button>
       </div>
     </div>
     <div class="ft-bottom">
@@ -917,12 +1063,48 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
    ANALYTICS — dataLayer events (GTM-compatible)
    ============================================ */
 window.dataLayer = window.dataLayer || [];
-function trackEvent(event, params) {
-  var data = {event: event};
-  if (params) { for (var k in params) { data[k] = params[k]; } }
+var _eventLog = []; // test harness: stores all fired events
+function trackEvent(name, params) {
+  var data = {event: name, event_timestamp: new Date().toISOString()};
+  if (params) { for (var k in params) { if (params.hasOwnProperty(k)) data[k] = params[k]; } }
   window.dataLayer.push(data);
-  console.log('[Event]', event, params || '');
+  _eventLog.push(data);
+  console.log('%c[GTM Event]%c ' + name, 'color:#E63946;font-weight:bold', 'color:inherit', params || '');
 }
+
+// Test helper — run window.testEvents() in console to verify all events
+window.testEvents = function() {
+  console.log('%c=== GTM EVENT TEST REPORT ===', 'color:#E63946;font-weight:bold;font-size:14px');
+  console.log('Total events fired: ' + _eventLog.length);
+  console.log('');
+
+  var expected = [
+    'page_view', 'cta_click', 'scroll_depth', 'section_view',
+    'form_step_1_view', 'form_step_2_view', 'form_step_3_view',
+    'form_submit', 'sponsorship_opt_in', 'faq_open',
+    'phone_call_intent', 'form_abandon'
+  ];
+  var firedNames = {};
+  _eventLog.forEach(function(e) { firedNames[e.event] = true; });
+
+  expected.forEach(function(name) {
+    var status = firedNames[name] ? '  FIRED' : '  PENDING (needs user action)';
+    var color = firedNames[name] ? 'color:green;font-weight:bold' : 'color:orange';
+    console.log('%c' + status + '%c  ' + name, color, 'color:inherit');
+  });
+
+  console.log('');
+  console.log('Full event log:');
+  console.table(_eventLog.map(function(e) {
+    return {event: e.event, timestamp: e.event_timestamp};
+  }));
+
+  console.log('');
+  console.log('dataLayer contents:');
+  console.table(window.dataLayer);
+
+  return {total: _eventLog.length, events: _eventLog, dataLayer: window.dataLayer};
+};
 
 /* ============================================
    MAIN INIT — runs immediately, no preloader
@@ -1054,8 +1236,10 @@ burger.addEventListener('click', function() {
   navLinks.classList.toggle('open');
 });
 
-function goTo(selector) {
-  trackEvent('cta_click', {cta_target: selector, cta_text: event && event.target ? (event.target.innerText || '').trim() : ''});
+function goTo(selector, e) {
+  var btnText = '';
+  if (e && e.target) { var t = e.target.closest('button') || e.target; btnText = (t.innerText || '').trim(); }
+  trackEvent('cta_click', {cta_target: selector, cta_text: btnText});
   burger.classList.remove('open');
   navLinks.classList.remove('open');
   // Reset form to step 1 when navigating to booking section
