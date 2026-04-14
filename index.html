@@ -1242,7 +1242,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
 var BASE_URL = 'https://api.wtfgyms.com';
 var API_TOKEN = 'nFMjOROg5xdWVt1gG0wAcWdEd';
 var GYM_ID = 'y5mdpUfNZCir4';
-var GYM_ALIAS = 'wtf-rohini-23';
 var currentStep = 1;
 var formData = {};
 
@@ -1300,42 +1299,20 @@ function validateForm() {
 }
 
 function collectData() {
-  var urlParams = new URLSearchParams(window.location.search);
   var phoneRaw = document.getElementById('fPhone').value.replace(/\s/g, '');
   // API auto-trims to last 10 digits
   var mobile = phoneRaw.slice(-10);
 
+  var today = new Date().toISOString().split('T')[0];
+
   formData = {
-    // Form fields
-    mobile: mobile,
     name: document.getElementById('fName').value.trim(),
-    email: document.getElementById('fEmail').value.trim(),
-
-    // Gym config
+    mobile: mobile,
+    preferred_slot: '',
+    city: 'Delhi',
     gym_id: GYM_ID,
-    gym_alias: GYM_ALIAS,
-
-    // Free trial defaults
-    is_payment_done: 0,
-    checkout_lead: 0,
-
-    // UTM tracking (auto from URL)
-    utm_source: urlParams.get('utm_source') || '',
-    utm_medium: urlParams.get('utm_medium') || '',
-    utm_campaign: urlParams.get('utm_campaign') || '',
-    utm_content: urlParams.get('utm_content') || '',
-    utm_term: urlParams.get('utm_term') || '',
-
-    // Google Ads (auto from URL)
-    gclid: urlParams.get('gclid') || '',
-    ga_source: urlParams.get('ga_source') || '',
-    ga_medium: urlParams.get('ga_medium') || '',
-    ga_campaignid: urlParams.get('ga_campaignid') || '',
-    ga_adgroupid: urlParams.get('ga_adgroupid') || '',
-    ga_device: urlParams.get('ga_device') || '',
-    ga_keyword: urlParams.get('ga_keyword') || '',
-    ga_location: urlParams.get('ga_location') || '',
-    keyword: urlParams.get('keyword') || ''
+    date: today,
+    keyword: 'website'
   };
 }
 
