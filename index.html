@@ -909,6 +909,17 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
 
 <script>
 /* ============================================
+   ANALYTICS — dataLayer events (GTM-compatible)
+   ============================================ */
+window.dataLayer = window.dataLayer || [];
+function trackEvent(event, params) {
+  var data = {event: event};
+  if (params) { for (var k in params) { data[k] = params[k]; } }
+  window.dataLayer.push(data);
+  console.log('[Event]', event, params || '');
+}
+
+/* ============================================
    MAIN INIT — runs immediately, no preloader
    ============================================ */
 function initPage() {
@@ -1014,6 +1025,9 @@ function initPage() {
 }
 initPage();
 
+// ---- Page View Event ----
+trackEvent('page_view', {page_title: document.title, page_url: location.href});
+
 /* ============================================
    NAV
    ============================================ */
@@ -1036,6 +1050,7 @@ burger.addEventListener('click', function() {
 });
 
 function goTo(selector) {
+  trackEvent('cta_click', {cta_target: selector, cta_text: event && event.target ? (event.target.innerText || '').trim() : ''});
   burger.classList.remove('open');
   navLinks.classList.remove('open');
   // Reset form to step 1 when navigating to booking section
@@ -1096,7 +1111,10 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
     var item = btn.parentElement;
     var wasOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(function(x) { x.classList.remove('open'); });
-    if (!wasOpen) item.classList.add('open');
+    if (!wasOpen) {
+      item.classList.add('open');
+      trackEvent('faq_open', {question: (btn.querySelector('span') || btn).innerText.trim()});
+    }
   });
 });
 
@@ -1122,6 +1140,8 @@ function showStep(step) {
   });
   updateProgress(step);
   currentStep = step;
+  var stepNames = {1: 'contact', 2: 'details', 3: 'preferences'};
+  trackEvent('form_step_' + step + '_view', {step_number: step, step_name: stepNames[step] || ''});
 }
 
 function validateStep(step) {
@@ -1196,6 +1216,17 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.style.opacity = '.5';
 
+  // Track form submission
+  trackEvent('form_submit', {
+    fitness_level: formData.level,
+    hyrox_experience: formData.hyrox_experience,
+    division: formData.division,
+    sponsorship_opted: formData.sponsorship
+  });
+  if (formData.sponsorship) {
+    trackEvent('sponsorship_opt_in');
+  }
+
   // Log lead data as JSON (ready for API integration)
   console.log('=== NEW LEAD CAPTURED ===');
   console.log(JSON.stringify(formData, null, 2));
@@ -1229,6 +1260,98 @@ document.querySelectorAll('.fg input, .fg select').forEach(function(el) {
     el.closest('.fg').classList.remove('invalid');
   });
 });
+
+/* ============================================
+   SCROLL DEPTH TRACKING
+   ============================================ */
+(function() {
+  var thresholds = [25, 50, 75, 100];
+  var fired = {};
+  window.addEventListener('scroll', function() {
+    var scrollPct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    thresholds.forEach(function(t) {
+      if (scrollPct >= t && !fired[t]) {
+        fired[t] = true;
+        trackEvent('scroll_depth', {depth_percent: t});
+      }
+    });
+  }, {passive: true});
+})();
+
+/* ============================================
+   SECTION VIEW TRACKING
+   ============================================ */
+(function() {
+  var sections = [
+    {id: 'hyrox', name: 'What is HYROX'},
+    {id: 'stations', name: '8 Stations'},
+    {id: 'sponsor', name: 'Sponsorship'},
+    {id: 'faq', name: 'FAQ'},
+    {id: 'join', name: 'Booking Form'}
+  ];
+  sections.forEach(function(sec) {
+    var el = document.getElementById(sec.id);
+    if (el) {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 70%',
+        onEnter: function() {
+          trackEvent('section_view', {section_id: sec.id, section_name: sec.name});
+        },
+        once: true
+      });
+    }
+  });
+})();
+
+/* ============================================
+   PHONE FIELD FOCUS (CALL INTENT)
+   ============================================ */
+(function() {
+  var phoneFired = false;
+  var phoneInput = document.getElementById('fPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('focus', function() {
+      if (!phoneFired) {
+        phoneFired = true;
+        trackEvent('phone_call_intent', {field: 'phone_number'});
+      }
+    });
+  }
+})();
+
+/* ============================================
+   FORM ABANDON TRACKING
+   ============================================ */
+(function() {
+  var formStarted = false;
+  var formCompleted = false;
+
+  // Detect form interaction
+  document.querySelectorAll('#leadForm input, #leadForm select').forEach(function(el) {
+    el.addEventListener('input', function() { formStarted = true; }, {once: true});
+  });
+
+  // Mark completion on submit
+  document.getElementById('leadForm').addEventListener('submit', function() {
+    formCompleted = true;
+  });
+
+  // Fire abandon on page leave if form was started but not completed
+  window.addEventListener('beforeunload', function() {
+    if (formStarted && !formCompleted) {
+      trackEvent('form_abandon', {last_step: currentStep});
+      // Use sendBeacon to ensure event fires before page unloads
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/collect', JSON.stringify({
+          event: 'form_abandon',
+          last_step: currentStep,
+          timestamp: new Date().toISOString()
+        }));
+      }
+    }
+  });
+})();
 </script>
 </body>
 </html>
