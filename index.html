@@ -201,7 +201,10 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}
 @media(max-width:900px){.st-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.st-grid{grid-template-columns:1fr}}
-.stc{padding:32px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:all .35s var(--ease);position:relative;overflow:hidden}
+.stc{padding:0;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:all .35s var(--ease);position:relative;overflow:hidden}
+.stc-img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.stc:hover .stc-img{transform:scale(1.05)}
+.stc-body{padding:22px 20px}
 .stc:nth-child(4n){border-right:none}
 .stc:nth-last-child(-n+4){border-bottom:none}
 @media(max-width:900px){.stc:nth-child(2n){border-right:none}.stc:nth-child(4n){border-right:1px solid var(--border)}.stc:nth-last-child(-n+4){border-bottom:1px solid var(--border)}.stc:nth-last-child(-n+2){border-bottom:none}}
@@ -622,14 +625,38 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       <p class="sec-desc">The exact 8 challenges in every HYROX race. WTF has the equipment and expert coaches for all 8.</p>
     </div>
     <div class="st-grid rv">
-      <div class="stc"><div class="stc-head"><span class="stc-num">01</span><span class="stc-dist">1,000M</span></div><div class="stc-name">SkiErg</div><div class="stc-desc">Cross-country skiing motion. Arms, shoulders, core endurance.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station in the race.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled back. Grip strength under fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">04</span><span class="stc-dist">80M</span></div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop down, jump forward, repeat for 80 meters.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000M</span></div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 at the halfway mark. Pacing is everything.</div><div class="stc-tags"><span class="stc-tag">Endurance</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200M</span></div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells. Grip and grit.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">07</span><span class="stc-dist">100M</span></div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with a sandbag on your shoulders after 7km.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
-      <div class="stc"><div class="stc-head"><span class="stc-num">08</span><span class="stc-dist">75-100</span></div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw. The final push before the finish line.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1620188467120-5042ed1eb5da?w=400&q=80" alt="SkiErg machine"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">01</span><span class="stc-dist">1,000M</span></div><div class="stc-name">SkiErg</div><div class="stc-desc">Cross-country skiing motion. Arms, shoulders, core endurance.</div><div class="stc-tags"><span class="stc-tag">Arms</span><span class="stc-tag">Core</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400&q=80" alt="Sled Push workout"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station in the race.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=400&q=80" alt="Sled Pull with rope"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled back. Grip strength under fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1599744331946-2f68b7cfc2f2?w=400&q=80" alt="Burpee Broad Jump"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">04</span><span class="stc-dist">80M</span></div><div class="stc-name">Burpee Broad Jump</div><div class="stc-desc">Drop down, jump forward, repeat for 80 meters.</div><div class="stc-tags"><span class="stc-tag">Full Body</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?w=400&q=80" alt="Rowing machine"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000M</span></div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 at the halfway mark. Pacing is everything.</div><div class="stc-tags"><span class="stc-tag">Endurance</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=400&q=80" alt="Farmers Carry with kettlebells"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200M</span></div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells. Grip and grit.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=400&q=80" alt="Sandbag Lunges"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">07</span><span class="stc-dist">100M</span></div><div class="stc-name">Sandbag Lunges</div><div class="stc-desc">Lunge 100m with a sandbag on your shoulders after 7km.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Glutes</span></div></div>
+      </div>
+      <div class="stc">
+        <img class="stc-img" src="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?w=400&q=80" alt="Wall Balls exercise"/>
+        <div class="stc-body"><div class="stc-head"><span class="stc-num">08</span><span class="stc-dist">75-100</span></div><div class="stc-name">Wall Balls</div><div class="stc-desc">Squat and throw. The final push before the finish line.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Shoulders</span></div></div>
+      </div>
     </div>
   </div>
 </section>
