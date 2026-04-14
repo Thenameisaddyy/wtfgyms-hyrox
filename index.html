@@ -1303,9 +1303,9 @@ document.getElementById('fCity').addEventListener('change', function() {
     if (res.status && res.data) {
       gymSelect.innerHTML = '<option value="">Select gym</option>';
       res.data.forEach(function(g) {
-        if (!g.gym_name || !g.gym_name.trim() || !g.user_id) return;
+        if (!g.gym_name || !g.gym_name.trim() || !g.gym_id) return;
         var opt = document.createElement('option');
-        opt.value = g.user_id;
+        opt.value = g.gym_id;
         opt.textContent = g.gym_name.trim();
         gymSelect.appendChild(opt);
       });
