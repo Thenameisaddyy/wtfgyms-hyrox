@@ -80,13 +80,13 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 }
 
 /* ---- MOBILE STICKY CTA ---- */
-.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:499;padding:10px 16px;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.08);transition:transform .3s var(--ease)}
+.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:499;padding:10px 16px;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.08);transition:transform .4s var(--ease);transform:translateY(100%)}
 .mob-cta button{width:100%;background:var(--red);color:#fff;font-family:var(--display);font-size:15px;padding:14px;border:none;border-radius:10px;cursor:pointer;letter-spacing:4px;transition:background .2s;box-shadow:0 2px 12px rgba(230,57,70,.3)}
 .mob-cta button:active{background:var(--red-deep)}
-@media(max-width:900px){.mob-cta{display:block}body{padding-bottom:56px}}
+@media(max-width:900px){.mob-cta{display:block}.mob-cta.visible{transform:translateY(0)}body{padding-bottom:56px}}
 
 /* ---- HERO ---- */
-.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;background:#0a0a0a}
+.hero{min-height:100%;height:100dvh;position:relative;overflow:hidden;display:flex;align-items:flex-end;background:#0a0a0a}
 .hero-bg{position:absolute;inset:0}
 .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.45;transform:scale(1.1)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.4) 0%,rgba(10,10,10,.15) 30%,rgba(10,10,10,.5) 60%,#0a0a0a 100%)}
@@ -979,7 +979,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       <!-- Step 3: HYROX Exp + Division + Sponsorship -->
       <div class="form-step" data-step="3">
         <div class="form-fields">
-          <div class="fg">
+          <div class="fg" id="fgExp">
             <label for="fExp">HYROX Experience *</label>
             <select id="fExp" name="hyrox_experience" required>
               <option value="">Select</option>
@@ -987,8 +987,9 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
               <option value="once">1 race</option>
               <option value="multiple">Multiple races</option>
             </select>
+            <span class="fg-error">Required</span>
           </div>
-          <div class="fg">
+          <div class="fg" id="fgDiv">
             <label for="fDiv">Preferred Format *</label>
             <select id="fDiv" name="division" required>
               <option value="">Select</option>
@@ -998,6 +999,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
               <option value="relay">Relay</option>
               <option value="unsure">Not sure yet</option>
             </select>
+            <span class="fg-error">Required</span>
           </div>
         </div>
         <label class="form-sponsor">
@@ -1221,6 +1223,12 @@ trackEvent('page_view', {page_title: document.title, page_url: location.href});
    ============================================ */
 window.addEventListener('scroll', function() {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  // Show mobile CTA only after scrolling past hero
+  var mobCta = document.getElementById('mobCta');
+  if (mobCta) {
+    var pastHero = window.scrollY > window.innerHeight * 0.5;
+    mobCta.classList.toggle('visible', pastHero);
+  }
   // Hide mobile sticky CTA when form section is visible
   var joinSec = document.getElementById('join');
   var mobCta = document.getElementById('mobCta');
@@ -1311,6 +1319,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
 /* ============================================
    MULTI-STEP LEAD FORM
    ============================================ */
+var BASE_URL = 'https://your-api-domain.com';
 var currentStep = 1;
 var formData = {};
 
@@ -1361,12 +1370,38 @@ function validateStep(step) {
   if (step === 2) {
     var email = document.getElementById('fEmail');
     var fgEmail = document.getElementById('fgEmail');
+    var level = document.getElementById('fLevel');
+    var fgLevel = document.getElementById('fgLevel');
 
     fgEmail.classList.remove('invalid');
+    fgLevel.classList.remove('invalid');
 
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
       fgEmail.classList.add('invalid');
+      valid = false;
+    }
+    if (!level.value) {
+      fgLevel.classList.add('invalid');
+      valid = false;
+    }
+  }
+
+  if (step === 3) {
+    var exp = document.getElementById('fExp');
+    var div = document.getElementById('fDiv');
+    var fgExp = document.getElementById('fgExp');
+    var fgDiv = document.getElementById('fgDiv');
+
+    fgExp.classList.remove('invalid');
+    fgDiv.classList.remove('invalid');
+
+    if (!exp.value) {
+      fgExp.classList.add('invalid');
+      valid = false;
+    }
+    if (!div.value) {
+      fgDiv.classList.add('invalid');
       valid = false;
     }
   }
@@ -1399,6 +1434,8 @@ function prevStep(from) {
 document.getElementById('leadForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
+  if (!validateStep(3)) return;
+
   collectData();
 
   var btn = document.getElementById('submitBtn');
@@ -1417,11 +1454,17 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     trackEvent('sponsorship_opt_in');
   }
 
-  // Log lead data as JSON (ready for API integration)
-  console.log('=== NEW LEAD CAPTURED ===');
-  console.log(JSON.stringify(formData, null, 2));
-
-  setTimeout(function() {
+  // POST lead to API
+  fetch(BASE_URL + '/subscription/one_day_membership_lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  })
+  .then(function(res) {
+    if (!res.ok) throw new Error('Server error: ' + res.status);
+    return res.json();
+  })
+  .then(function() {
     document.getElementById('leadForm').style.display = 'none';
     document.getElementById('formProgress').style.display = 'none';
     var success = document.getElementById('formSuccess');
@@ -1441,7 +1484,14 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
       p.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
       container.appendChild(p);
     }
-  }, 900);
+  })
+  .catch(function(err) {
+    console.error('Lead submission failed:', err);
+    btn.textContent = 'BOOK FREE TRIAL';
+    btn.disabled = false;
+    btn.style.opacity = '';
+    alert('Something went wrong. Please try again.');
+  });
 });
 
 // Remove invalid state on input
