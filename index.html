@@ -315,7 +315,7 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .evt-featured .evt-date{border-color:var(--red);background:var(--red);color:#fff}
 .evt-month{font-family:var(--display);font-size:12px;letter-spacing:3px;color:var(--muted);line-height:1}
 .evt-featured .evt-month{color:rgba(255,255,255,.7)}
-.evt-day{font-family:var(--display);font-size:32px;line-height:1;letter-spacing:2px;color:var(--text)}
+.evt-day{font-family:var(--display);font-size:28px;line-height:1;letter-spacing:1px;color:var(--text);white-space:nowrap}
 .evt-featured .evt-day{color:#fff}
 .evt-year{font-size:9px;color:var(--dim);letter-spacing:2px}
 .evt-featured .evt-year{color:rgba(255,255,255,.5)}
@@ -770,17 +770,18 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
     <div class="events-grid rv">
       <div class="evt-card evt-featured">
         <div class="evt-date">
-          <span class="evt-month">SEP</span>
-          <span class="evt-day">14</span>
+          <span class="evt-month">JUL</span>
+          <span class="evt-day">24&ndash;26</span>
           <span class="evt-year">2026</span>
         </div>
         <div class="evt-info">
           <div class="evt-badge">HYROX Race</div>
-          <h3 class="evt-name">HYROX Delhi 2026</h3>
-          <p class="evt-details">Thyagaraj Sports Complex, New Delhi</p>
+          <h3 class="evt-name">Masters' Union HYROX Delhi 2026</h3>
+          <p class="evt-details">Yashobhoomi (IICC), Dwarka, New Delhi</p>
           <div class="evt-meta">
             <span class="evt-tag">All Divisions</span>
-            <span class="evt-tag">8km + 8 Stations</span>
+            <span class="evt-tag">3-Day Event</span>
+            <span class="evt-tag">India's First</span>
             <span class="evt-status open">Registrations Open</span>
           </div>
         </div>
@@ -788,14 +789,33 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       </div>
       <div class="evt-card">
         <div class="evt-date">
-          <span class="evt-month">MAY</span>
-          <span class="evt-day">03</span>
+          <span class="evt-month">SEP</span>
+          <span class="evt-day">18&ndash;20</span>
+          <span class="evt-year">2026</span>
+        </div>
+        <div class="evt-info">
+          <div class="evt-badge">HYROX Race</div>
+          <h3 class="evt-name">HYROX Mumbai 2026</h3>
+          <p class="evt-details">NESCO Centre, Goregaon, Mumbai</p>
+          <div class="evt-meta">
+            <span class="evt-tag">All Divisions</span>
+            <span class="evt-tag">3-Day Event</span>
+            <span class="evt-tag">Travel with WTF Team</span>
+            <span class="evt-status open">Registrations Open</span>
+          </div>
+        </div>
+        <button class="evt-cta" onclick="scrollTo('#join')">REGISTER NOW</button>
+      </div>
+      <div class="evt-card">
+        <div class="evt-date">
+          <span class="evt-month">JUN</span>
+          <span class="evt-day">21</span>
           <span class="evt-year">2026</span>
         </div>
         <div class="evt-info">
           <div class="evt-badge training">WTF Training</div>
           <h3 class="evt-name">Mock HYROX Race Day</h3>
-          <p class="evt-details">WTF Gym, Connaught Place</p>
+          <p class="evt-details">WTF Gym, Delhi</p>
           <div class="evt-meta">
             <span class="evt-tag">Members Only</span>
             <span class="evt-tag">Full Simulation</span>
@@ -806,53 +826,17 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       </div>
       <div class="evt-card">
         <div class="evt-date">
-          <span class="evt-month">JUN</span>
-          <span class="evt-day">21</span>
-          <span class="evt-year">2026</span>
-        </div>
-        <div class="evt-info">
-          <div class="evt-badge training">WTF Training</div>
-          <h3 class="evt-name">Station Mastery Workshop</h3>
-          <p class="evt-details">WTF Gym, Vasant Kunj</p>
-          <div class="evt-meta">
-            <span class="evt-tag">All Levels</span>
-            <span class="evt-tag">8 Stations Deep-Dive</span>
-            <span class="evt-status limited">Limited Spots</span>
-          </div>
-        </div>
-        <button class="evt-cta" onclick="scrollTo('#join')">BOOK SPOT</button>
-      </div>
-      <div class="evt-card">
-        <div class="evt-date">
           <span class="evt-month">JUL</span>
-          <span class="evt-day">12</span>
-          <span class="evt-year">2026</span>
-        </div>
-        <div class="evt-info">
-          <div class="evt-badge">HYROX Race</div>
-          <h3 class="evt-name">HYROX Mumbai 2026</h3>
-          <p class="evt-details">NESCO Centre, Goregaon, Mumbai</p>
-          <div class="evt-meta">
-            <span class="evt-tag">All Divisions</span>
-            <span class="evt-tag">Travel with WTF Team</span>
-            <span class="evt-status open">Registrations Open</span>
-          </div>
-        </div>
-        <button class="evt-cta" onclick="scrollTo('#join')">REGISTER NOW</button>
-      </div>
-      <div class="evt-card">
-        <div class="evt-date">
-          <span class="evt-month">AUG</span>
-          <span class="evt-day">09</span>
+          <span class="evt-day">05</span>
           <span class="evt-year">2026</span>
         </div>
         <div class="evt-info">
           <div class="evt-badge training">WTF Training</div>
           <h3 class="evt-name">Race Day Prep Bootcamp</h3>
-          <p class="evt-details">WTF Gym, South Delhi</p>
+          <p class="evt-details">WTF Gym, Delhi</p>
           <div class="evt-meta">
-            <span class="evt-tag">Advanced</span>
-            <span class="evt-tag">6-Week Program</span>
+            <span class="evt-tag">All Levels</span>
+            <span class="evt-tag">Pre-Delhi Race Prep</span>
             <span class="evt-status limited">Limited Spots</span>
           </div>
         </div>
