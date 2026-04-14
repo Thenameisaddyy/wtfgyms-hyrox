@@ -1223,18 +1223,18 @@ trackEvent('page_view', {page_title: document.title, page_url: location.href});
    ============================================ */
 window.addEventListener('scroll', function() {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
-  // Show mobile CTA only after scrolling past hero
+  // Show/hide mobile CTA: hidden in hero, hidden when form is visible, shown otherwise
   var mobCta = document.getElementById('mobCta');
+  var joinSec = document.getElementById('join');
   if (mobCta) {
     var pastHero = window.scrollY > window.innerHeight * 0.5;
-    mobCta.classList.toggle('visible', pastHero);
-  }
-  // Hide mobile sticky CTA when form section is visible
-  var joinSec = document.getElementById('join');
-  var mobCta = document.getElementById('mobCta');
-  if (joinSec && mobCta) {
-    var rect = joinSec.getBoundingClientRect();
-    mobCta.style.transform = rect.top < window.innerHeight && rect.bottom > 0 ? 'translateY(100%)' : 'translateY(0)';
+    var formVisible = false;
+    if (joinSec) {
+      var rect = joinSec.getBoundingClientRect();
+      formVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    }
+    mobCta.classList.toggle('visible', pastHero && !formVisible);
+    mobCta.style.transform = '';
   }
 }, {passive: true});
 
