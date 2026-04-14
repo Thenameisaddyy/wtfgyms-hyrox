@@ -14,7 +14,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#FAFAFA;--surface:#FFFFFF;--card:#F3F3F5;--border:rgba(0,0,0,.08);
-  --text:#1A1A2E;--muted:rgba(26,26,46,.55);--dim:rgba(26,26,46,.25);
+  --text:#1A1A2E;--muted:rgba(26,26,46,.7);--dim:rgba(26,26,46,.4);
   --red:#E63946;--red-deep:#C1121F;--red-glow:rgba(230,57,70,.08);
   --gold:#D4A017;--gold-dim:rgba(212,160,23,.10);
   --display:'Bebas Neue',Impact,sans-serif;--body:'Outfit',system-ui,sans-serif;
@@ -177,7 +177,7 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .hx-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
 .hx-card:hover{background:var(--card)}
 .hx-card:hover::before{transform:scaleX(1)}
-.hx-num{font-family:var(--display);font-size:80px;color:rgba(0,0,0,.04);line-height:1;letter-spacing:2px}
+.hx-num{font-family:var(--display);font-size:80px;color:rgba(0,0,0,.08);line-height:1;letter-spacing:2px}
 .hx-card-title{font-size:16px;font-weight:700;margin:8px 0 6px;letter-spacing:-.2px}
 .hx-card-desc{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300}
 
@@ -265,7 +265,7 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .wyc::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;background:var(--red);transition:width .5s var(--ease)}
 .wyc:hover{background:var(--card)}
 .wyc:hover::before{width:100%}
-.wyc-num{font-family:var(--display);font-size:40px;color:rgba(0,0,0,.04);line-height:1;letter-spacing:2px}
+.wyc-num{font-family:var(--display);font-size:40px;color:rgba(0,0,0,.08);line-height:1;letter-spacing:2px}
 .wyc-title{font-size:15px;font-weight:700;margin:8px 0 6px}
 .wyc-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
 
