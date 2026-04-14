@@ -903,14 +903,37 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
             <label for="fPhone">Phone *</label>
             <div class="phone-wrap">
               <span class="phone-prefix">+91</span>
-              <input type="tel" id="fPhone" name="phone" placeholder="00000 00000" autocomplete="tel" required/>
+              <input type="tel" id="fPhone" name="phone" placeholder="00000 00000" autocomplete="tel" maxlength="10" required/>
             </div>
-            <span class="fg-error">Valid phone required</span>
+            <span class="fg-error">Enter exactly 10 digits</span>
           </div>
           <div class="fg" id="fgEmail">
             <label for="fEmail">Email *</label>
             <input type="email" id="fEmail" name="email" placeholder="you@email.com" autocomplete="email" required/>
-            <span class="fg-error">Valid email required</span>
+            <span class="fg-error">Enter a valid email</span>
+          </div>
+          <div class="fg" id="fgCity">
+            <label for="fCity">City *</label>
+            <select id="fCity" name="city" required>
+              <option value="">Loading cities...</option>
+            </select>
+            <span class="fg-error">Required</span>
+          </div>
+          <div class="fg" id="fgGym">
+            <label for="fGym">Gym Location *</label>
+            <select id="fGym" name="gym" required disabled>
+              <option value="">Select city first</option>
+            </select>
+            <span class="fg-error">Required</span>
+          </div>
+          <div class="fg" id="fgSlot">
+            <label for="fSlot">Preferred Slot</label>
+            <select id="fSlot" name="preferred_slot">
+              <option value="">Select slot</option>
+              <option value="Morning">Morning</option>
+              <option value="Afternoon">Afternoon</option>
+              <option value="Evening">Evening</option>
+            </select>
           </div>
         </div>
         <div class="form-actions">
@@ -1242,56 +1265,106 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
    ============================================ */
 var BASE_URL = 'https://api.wtfgyms.com';
 var API_TOKEN = 'nFMjOROg5xdWVt1gG0wAcWdEd';
-var GYM_ID = 'y5mdpUfNZCir4';
 var formData = {};
+
+// --- Fetch Cities on page load ---
+(function loadCities() {
+  var citySelect = document.getElementById('fCity');
+  fetch(BASE_URL + '/gym/cities/v2', {
+    headers: { 'Authorization': 'Bearer ' + API_TOKEN }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.status && res.data) {
+      citySelect.innerHTML = '<option value="">Select city</option>';
+      res.data.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.city_id;
+        opt.textContent = c.city;
+        citySelect.appendChild(opt);
+      });
+    }
+  })
+  .catch(function() {
+    citySelect.innerHTML = '<option value="">Failed to load cities</option>';
+  });
+})();
+
+// --- Fetch Gyms when city changes ---
+document.getElementById('fCity').addEventListener('change', function() {
+  var cityId = this.value;
+  var gymSelect = document.getElementById('fGym');
+
+  if (!cityId) {
+    gymSelect.innerHTML = '<option value="">Select city first</option>';
+    gymSelect.disabled = true;
+    return;
+  }
+
+  gymSelect.innerHTML = '<option value="">Loading gyms...</option>';
+  gymSelect.disabled = true;
+
+  fetch(BASE_URL + '/gym/places/v2?is_web=1&city_id=' + cityId, {
+    headers: { 'Authorization': 'Bearer ' + API_TOKEN }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.status && res.data) {
+      gymSelect.innerHTML = '<option value="">Select gym</option>';
+      res.data.forEach(function(g) {
+        var opt = document.createElement('option');
+        opt.value = g.user_id;
+        opt.textContent = g.gym_name;
+        gymSelect.appendChild(opt);
+      });
+      gymSelect.disabled = false;
+    }
+  })
+  .catch(function() {
+    gymSelect.innerHTML = '<option value="">Failed to load gyms</option>';
+  });
+});
+
+// --- Phone: allow only digits, max 10 ---
+document.getElementById('fPhone').addEventListener('input', function() {
+  this.value = this.value.replace(/\D/g, '').slice(0, 10);
+});
 
 function validateForm() {
   var valid = true;
-  var name = document.getElementById('fName');
-  var phone = document.getElementById('fPhone');
-  var email = document.getElementById('fEmail');
-  var fgName = document.getElementById('fgName');
-  var fgPhone = document.getElementById('fgPhone');
-  var fgEmail = document.getElementById('fgEmail');
+  var fields = [
+    { el: 'fName', fg: 'fgName', check: function(v) { return v.trim().length > 0; } },
+    { el: 'fPhone', fg: 'fgPhone', check: function(v) { var d = v.replace(/\s/g, ''); return d.length === 10 && /^\d{10}$/.test(d); } },
+    { el: 'fEmail', fg: 'fgEmail', check: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); } },
+    { el: 'fCity', fg: 'fgCity', check: function(v) { return v !== ''; } },
+    { el: 'fGym', fg: 'fgGym', check: function(v) { return v !== ''; } }
+  ];
 
-  fgName.classList.remove('invalid');
-  fgPhone.classList.remove('invalid');
-  fgEmail.classList.remove('invalid');
-
-  if (!name.value.trim()) {
-    fgName.classList.add('invalid');
-    valid = false;
-  }
-
-  var phoneVal = phone.value.replace(/\s/g, '');
-  if (!phoneVal || phoneVal.length < 10 || !/^\d+$/.test(phoneVal)) {
-    fgPhone.classList.add('invalid');
-    valid = false;
-  }
-
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
-    fgEmail.classList.add('invalid');
-    valid = false;
-  }
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.el);
+    var fg = document.getElementById(f.fg);
+    fg.classList.remove('invalid');
+    if (!f.check(el.value)) {
+      fg.classList.add('invalid');
+      valid = false;
+    }
+  });
 
   return valid;
 }
 
 function collectData() {
-  var phoneRaw = document.getElementById('fPhone').value.replace(/\s/g, '');
-  // API auto-trims to last 10 digits
-  var mobile = phoneRaw.slice(-10);
-
+  var mobile = document.getElementById('fPhone').value.replace(/\D/g, '').slice(0, 10);
   var today = new Date().toISOString().split('T')[0];
 
   formData = {
     name: document.getElementById('fName').value.trim(),
     mobile: mobile,
-    preferred_slot: '',
-    city: 'Delhi',
-    gym_id: GYM_ID,
+    email: document.getElementById('fEmail').value.trim(),
+    gym_id: document.getElementById('fGym').value,
+    preferred_slot: document.getElementById('fSlot').value,
     date: today,
+    is_payment_done: 0,
     keyword: 'WTF-HYROX'
   };
 }
