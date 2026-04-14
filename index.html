@@ -1321,7 +1321,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
    ============================================ */
 var BASE_URL = 'https://api.wtfgyms.com';
 var API_TOKEN = 'nFMjOROg5xdWVt1gG0wAcWdEd';
-var GYM_ID = 'gmLs0oo0lC21t';
 var GYM_ALIAS = 'wtf-rohini-23';
 var currentStep = 1;
 var formData = {};
@@ -1424,8 +1423,7 @@ function collectData() {
     name: document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
 
-    // Gym config
-    gym_id: GYM_ID,
+    // Gym config (gym_id auto-resolved from gym_alias)
     gym_alias: GYM_ALIAS,
 
     // Free trial defaults
