@@ -464,8 +464,9 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "Masters' Union HYROX Delhi 2026",
-  "startDate": "2026-07-24",
-  "endDate": "2026-07-26",
+  "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
+  "startDate": "2026-07-24T09:00:00+05:30",
+  "endDate": "2026-07-26T20:00:00+05:30",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
   "location": {
@@ -491,6 +492,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
   "@context": "https://schema.org",
   "@type": "GymOrSportsActivityLocation",
   "name": "WTF Gyms - HYROX Training",
+  "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
   "description": "Delhi's only dedicated HYROX training facility with all 8 race stations and certified coaches.",
   "url": "https://wtfgyms.com/lp/wtfhyrox2026delhi",
   "address": {
@@ -727,7 +729,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- PARALLAX BREAK -->
 <div class="pbreak">
-  <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1920&q=80" alt="" id="pbreakImg"/>
+  <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1920&q=80" alt="Train at WTF, race anywhere" id="pbreakImg"/>
   <div class="pbreak-inner">
     <div class="pbreak-quote">TRAIN AT <span class="red">WTF.</span><br>RACE <span class="gold">ANYWHERE.</span></div>
   </div>
@@ -1467,8 +1469,8 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
 
   // Track form submission
   trackEvent('form_submit', {
-    name: formData.name,
-    mobile: formData.mobile
+    form_name: 'lead_form',
+    gym_id: formData.gym_id
   });
 
   // POST lead to API
@@ -1598,9 +1600,19 @@ document.querySelectorAll('.fg input, .fg select').forEach(function(el) {
   });
 
   // Fire abandon on page leave if form was started but not completed
-  window.addEventListener('beforeunload', function() {
-    if (formStarted && !formCompleted) {
-      trackEvent('form_abandon', {});
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden' && formStarted && !formCompleted) {
+      var filled = [];
+      if (document.getElementById('fName').value.trim()) filled.push('name');
+      if (document.getElementById('fPhone').value.trim()) filled.push('phone');
+      if (document.getElementById('fEmail').value.trim()) filled.push('email');
+      if (document.getElementById('fCity').value) filled.push('city');
+      if (document.getElementById('fGym').value) filled.push('gym');
+      var data = {event: 'form_abandon', fields_filled: filled.join(','), fields_count: filled.length, event_timestamp: new Date().toISOString()};
+      window.dataLayer.push(data);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('https://www.google-analytics.com/collect', JSON.stringify(data));
+      }
     }
   });
 })();
