@@ -71,6 +71,7 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .nav-burger.open span:nth-child(3){transform:rotate(-45deg);top:17px}
 .mob-nav{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:32px;z-index:999}
 .mob-nav.open{display:flex}
+.mob-nav-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:36px;cursor:pointer;width:48px;height:48px;display:flex;align-items:center;justify-content:center;line-height:1}
 .mob-nav .nav-link{font-size:24px;letter-spacing:4px;font-family:var(--display);color:#fff;background:none;border:none;cursor:pointer}
 .mob-nav .nav-link::after{display:none}
 .mob-nav .nav-cta{font-size:14px;padding:16px 40px;margin-top:20px}
@@ -491,6 +492,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
 
 <!-- MOBILE NAV OVERLAY (outside nav to avoid backdrop-filter breaking position:fixed) -->
 <div class="mob-nav" id="navLinks">
+  <button class="mob-nav-close" id="mobNavClose" aria-label="Close menu">&times;</button>
   <button class="nav-link" onclick="goTo('#hyrox',event)">HYROX</button>
   <button class="nav-link" onclick="goTo('#stations',event)">Stations</button>
   <button class="nav-link" onclick="goTo('#sponsor',event)">Sponsor</button>
@@ -1192,6 +1194,8 @@ burger.addEventListener('click', function() {
     openMenu();
   }
 });
+
+document.getElementById('mobNavClose').addEventListener('click', closeMenu);
 
 function goTo(selector, e) {
   var btnText = '';
