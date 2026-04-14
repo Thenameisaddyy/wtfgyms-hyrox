@@ -926,15 +926,6 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
             </select>
             <span class="fg-error">Required</span>
           </div>
-          <div class="fg" id="fgSlot">
-            <label for="fSlot">Preferred Slot</label>
-            <select id="fSlot" name="preferred_slot">
-              <option value="">Select slot</option>
-              <option value="Morning">Morning</option>
-              <option value="Afternoon">Afternoon</option>
-              <option value="Evening">Evening</option>
-            </select>
-          </div>
         </div>
         <div class="form-actions">
           <button type="submit" class="form-submit" id="submitBtn">BOOK FREE TRIAL</button>
@@ -1312,9 +1303,10 @@ document.getElementById('fCity').addEventListener('change', function() {
     if (res.status && res.data) {
       gymSelect.innerHTML = '<option value="">Select gym</option>';
       res.data.forEach(function(g) {
+        if (!g.gym_name || !g.gym_name.trim() || !g.user_id) return;
         var opt = document.createElement('option');
         opt.value = g.user_id;
-        opt.textContent = g.gym_name;
+        opt.textContent = g.gym_name.trim();
         gymSelect.appendChild(opt);
       });
       gymSelect.disabled = false;
@@ -1362,7 +1354,7 @@ function collectData() {
     mobile: mobile,
     email: document.getElementById('fEmail').value.trim(),
     gym_id: document.getElementById('fGym').value,
-    preferred_slot: document.getElementById('fSlot').value,
+    preferred_slot: '',
     date: today,
     is_payment_done: 0,
     keyword: 'WTF-HYROX'
