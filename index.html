@@ -910,26 +910,8 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
     </div>
 
     <!-- Progress -->
-    <div class="form-progress rv" id="formProgress">
-      <div class="fp-step active" data-step="1">
-        <div class="fp-dot"><span class="fp-dot-num">1</span><svg class="fp-dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="fp-label">Contact</div>
-        <div class="fp-line"></div>
-      </div>
-      <div class="fp-step" data-step="2">
-        <div class="fp-dot"><span class="fp-dot-num">2</span><svg class="fp-dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="fp-label">Details</div>
-        <div class="fp-line"></div>
-      </div>
-      <div class="fp-step" data-step="3">
-        <div class="fp-dot"><span class="fp-dot-num">3</span><svg class="fp-dot-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="fp-label">Preferences</div>
-      </div>
-    </div>
-
     <!-- Form -->
     <form class="form-box rv" id="leadForm" novalidate>
-      <!-- Step 1: Name + Phone -->
       <div class="form-step active" data-step="1">
         <div class="form-fields">
           <div class="fg" id="fgName">
@@ -945,72 +927,13 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
             </div>
             <span class="fg-error">Valid phone required</span>
           </div>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="form-next" onclick="nextStep(1)">CONTINUE</button>
-        </div>
-      </div>
-
-      <!-- Step 2: Email + Level -->
-      <div class="form-step" data-step="2">
-        <div class="form-fields">
           <div class="fg" id="fgEmail">
             <label for="fEmail">Email *</label>
             <input type="email" id="fEmail" name="email" placeholder="you@email.com" autocomplete="email" required/>
             <span class="fg-error">Valid email required</span>
           </div>
-          <div class="fg" id="fgLevel">
-            <label for="fLevel">Fitness Level *</label>
-            <select id="fLevel" name="level" required>
-              <option value="">Select level</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-            <span class="fg-error">Required</span>
-          </div>
         </div>
         <div class="form-actions">
-          <button type="button" class="form-back" onclick="prevStep(2)"><span>BACK</span></button>
-          <button type="button" class="form-next" onclick="nextStep(2)">CONTINUE</button>
-        </div>
-      </div>
-
-      <!-- Step 3: HYROX Exp + Division + Sponsorship -->
-      <div class="form-step" data-step="3">
-        <div class="form-fields">
-          <div class="fg" id="fgExp">
-            <label for="fExp">HYROX Experience *</label>
-            <select id="fExp" name="hyrox_experience" required>
-              <option value="">Select</option>
-              <option value="no">No experience</option>
-              <option value="once">1 race</option>
-              <option value="multiple">Multiple races</option>
-            </select>
-            <span class="fg-error">Required</span>
-          </div>
-          <div class="fg" id="fgDiv">
-            <label for="fDiv">Preferred Format *</label>
-            <select id="fDiv" name="division" required>
-              <option value="">Select</option>
-              <option value="open">Solo Open</option>
-              <option value="pro">Solo Pro</option>
-              <option value="doubles">Doubles</option>
-              <option value="relay">Relay</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-            <span class="fg-error">Required</span>
-          </div>
-        </div>
-        <label class="form-sponsor">
-          <input type="checkbox" id="fSponsor" name="sponsorship"/>
-          <div>
-            <div class="fs-title">Enter me for the 5 sponsored spots</div>
-            <div class="fs-desc">You'll be considered based on training dedication and consistency.</div>
-          </div>
-        </label>
-        <div class="form-actions">
-          <button type="button" class="form-back" onclick="prevStep(3)"><span>BACK</span></button>
           <button type="submit" class="form-submit" id="submitBtn">BOOK FREE TRIAL</button>
         </div>
         <div class="form-note">No spam. One call from our coach within 24 hours.</div>
@@ -1254,16 +1177,13 @@ function goTo(selector, e) {
   // Reset form to step 1 when navigating to booking section
   if (selector === '#join') {
     var form = document.getElementById('leadForm');
-    var progress = document.getElementById('formProgress');
     var success = document.getElementById('formSuccess');
     if (form) { form.style.display = ''; form.reset(); }
-    if (progress) progress.style.display = '';
     if (success) { success.classList.remove('show'); success.style.display = ''; }
     var submitBtn = document.getElementById('submitBtn');
     if (submitBtn) { submitBtn.textContent = 'BOOK FREE TRIAL'; submitBtn.disabled = false; submitBtn.style.opacity = ''; }
     var particles = document.getElementById('fsParticles');
     if (particles) particles.innerHTML = '';
-    showStep(1);
   }
   if (window._lenis) {
     window._lenis.scrollTo(selector);
@@ -1321,6 +1241,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
    ============================================ */
 var BASE_URL = 'https://api.wtfgyms.com';
 var API_TOKEN = 'nFMjOROg5xdWVt1gG0wAcWdEd';
+var GYM_ID = 'y5mdpUfNZCir4';
 var GYM_ALIAS = 'wtf-rohini-23';
 var currentStep = 1;
 var formData = {};
@@ -1345,67 +1266,34 @@ function showStep(step) {
   trackEvent('form_step_' + step + '_view', {step_number: step, step_name: stepNames[step] || ''});
 }
 
-function validateStep(step) {
+function validateForm() {
   var valid = true;
+  var name = document.getElementById('fName');
+  var phone = document.getElementById('fPhone');
+  var email = document.getElementById('fEmail');
+  var fgName = document.getElementById('fgName');
+  var fgPhone = document.getElementById('fgPhone');
+  var fgEmail = document.getElementById('fgEmail');
 
-  if (step === 1) {
-    var name = document.getElementById('fName');
-    var phone = document.getElementById('fPhone');
-    var fgName = document.getElementById('fgName');
-    var fgPhone = document.getElementById('fgPhone');
+  fgName.classList.remove('invalid');
+  fgPhone.classList.remove('invalid');
+  fgEmail.classList.remove('invalid');
 
-    fgName.classList.remove('invalid');
-    fgPhone.classList.remove('invalid');
-
-    if (!name.value.trim()) {
-      fgName.classList.add('invalid');
-      valid = false;
-    }
-
-    var phoneVal = phone.value.replace(/\s/g, '');
-    if (!phoneVal || phoneVal.length < 10 || !/^\d+$/.test(phoneVal)) {
-      fgPhone.classList.add('invalid');
-      valid = false;
-    }
+  if (!name.value.trim()) {
+    fgName.classList.add('invalid');
+    valid = false;
   }
 
-  if (step === 2) {
-    var email = document.getElementById('fEmail');
-    var fgEmail = document.getElementById('fgEmail');
-    var level = document.getElementById('fLevel');
-    var fgLevel = document.getElementById('fgLevel');
-
-    fgEmail.classList.remove('invalid');
-    fgLevel.classList.remove('invalid');
-
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
-      fgEmail.classList.add('invalid');
-      valid = false;
-    }
-    if (!level.value) {
-      fgLevel.classList.add('invalid');
-      valid = false;
-    }
+  var phoneVal = phone.value.replace(/\s/g, '');
+  if (!phoneVal || phoneVal.length < 10 || !/^\d+$/.test(phoneVal)) {
+    fgPhone.classList.add('invalid');
+    valid = false;
   }
 
-  if (step === 3) {
-    var exp = document.getElementById('fExp');
-    var div = document.getElementById('fDiv');
-    var fgExp = document.getElementById('fgExp');
-    var fgDiv = document.getElementById('fgDiv');
-
-    fgExp.classList.remove('invalid');
-    fgDiv.classList.remove('invalid');
-
-    if (!exp.value) {
-      fgExp.classList.add('invalid');
-      valid = false;
-    }
-    if (!div.value) {
-      fgDiv.classList.add('invalid');
-      valid = false;
-    }
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+    fgEmail.classList.add('invalid');
+    valid = false;
   }
 
   return valid;
@@ -1423,7 +1311,8 @@ function collectData() {
     name: document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
 
-    // Gym config (gym_id auto-resolved from gym_alias)
+    // Gym config
+    gym_id: GYM_ID,
     gym_alias: GYM_ALIAS,
 
     // Free trial defaults
@@ -1450,19 +1339,10 @@ function collectData() {
   };
 }
 
-function nextStep(from) {
-  if (!validateStep(from)) return;
-  showStep(from + 1);
-}
-
-function prevStep(from) {
-  showStep(from - 1);
-}
-
 document.getElementById('leadForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  if (!validateStep(3)) return;
+  if (!validateForm()) return;
 
   collectData();
 
@@ -1473,14 +1353,10 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
 
   // Track form submission
   trackEvent('form_submit', {
-    fitness_level: formData.level,
-    hyrox_experience: formData.hyrox_experience,
-    division: formData.division,
-    sponsorship_opted: formData.sponsorship
+    name: formData.name,
+    mobile: formData.mobile,
+    email: formData.email
   });
-  if (formData.sponsorship) {
-    trackEvent('sponsorship_opt_in');
-  }
 
   // POST lead to API
   fetch(BASE_URL + '/subscription/one_day_membership_lead', {
@@ -1497,7 +1373,6 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
       throw new Error(result.message || 'Submission failed');
     }
     document.getElementById('leadForm').style.display = 'none';
-    document.getElementById('formProgress').style.display = 'none';
     var success = document.getElementById('formSuccess');
     success.classList.add('show');
     // Spawn celebration particles
