@@ -266,7 +266,10 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}
 @media(max-width:768px){.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.why-grid{grid-template-columns:1fr}}
-.wyc{padding:40px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:all .3s var(--ease);position:relative}
+.wyc{padding:0;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:all .3s var(--ease);position:relative;overflow:hidden}
+.wyc-img{width:100%;height:140px;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.wyc:hover .wyc-img{transform:scale(1.05)}
+.wyc-body{padding:24px 20px}
 .wyc:nth-child(3n){border-right:none}
 .wyc:nth-last-child(-n+3){border-bottom:none}
 @media(max-width:768px){.wyc:nth-child(3n){border-right:1px solid var(--border)}.wyc:nth-child(2n){border-right:none}.wyc:nth-last-child(-n+3){border-bottom:1px solid var(--border)}.wyc:nth-last-child(-n+2){border-bottom:none}}
@@ -707,12 +710,30 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
       <p class="sec-desc">Hundreds of gyms in Delhi. Only WTF is purpose-built for HYROX.</p>
     </div>
     <div class="why-grid rv">
-      <div class="wyc"><div class="wyc-num">01</div><div class="wyc-title">All 8 stations in-house</div><div class="wyc-desc">SkiErg, sled track, rowers, wall balls &mdash; everything under one roof.</div></div>
-      <div class="wyc"><div class="wyc-num">02</div><div class="wyc-title">Race-specific coaching</div><div class="wyc-desc">Pacing strategy, station order, fatigue management. Real race prep.</div></div>
-      <div class="wyc"><div class="wyc-num">03</div><div class="wyc-title">Running + strength</div><div class="wyc-desc">Endurance and station strength programmed and built together.</div></div>
-      <div class="wyc"><div class="wyc-num">04</div><div class="wyc-title">Structured program</div><div class="wyc-desc">Phased periodization plan designed to peak on race day.</div></div>
-      <div class="wyc"><div class="wyc-num">05</div><div class="wyc-title">Small batch groups</div><div class="wyc-desc">Capped class sizes. Real coaching attention for every athlete.</div></div>
-      <div class="wyc"><div class="wyc-num">06</div><div class="wyc-title">5 race entries FREE</div><div class="wyc-desc">Train hard, get selected by coaches, and WTF covers your entry.</div></div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" alt="Gym with all equipment"/>
+        <div class="wyc-body"><div class="wyc-num">01</div><div class="wyc-title">All 8 stations in-house</div><div class="wyc-desc">SkiErg, sled track, rowers, wall balls &mdash; everything under one roof.</div></div>
+      </div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" alt="Coach training athlete"/>
+        <div class="wyc-body"><div class="wyc-num">02</div><div class="wyc-title">Race-specific coaching</div><div class="wyc-desc">Pacing strategy, station order, fatigue management. Real race prep.</div></div>
+      </div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1461896836934-bd45ba688b6a?w=400&q=80" alt="Running and strength training"/>
+        <div class="wyc-body"><div class="wyc-num">03</div><div class="wyc-title">Running + strength</div><div class="wyc-desc">Endurance and station strength programmed and built together.</div></div>
+      </div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&q=80" alt="Structured training program"/>
+        <div class="wyc-body"><div class="wyc-num">04</div><div class="wyc-title">Structured program</div><div class="wyc-desc">Phased periodization plan designed to peak on race day.</div></div>
+      </div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=400&q=80" alt="Small group training"/>
+        <div class="wyc-body"><div class="wyc-num">05</div><div class="wyc-title">Small batch groups</div><div class="wyc-desc">Capped class sizes. Real coaching attention for every athlete.</div></div>
+      </div>
+      <div class="wyc">
+        <img class="wyc-img" src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?w=400&q=80" alt="Race finish line celebration"/>
+        <div class="wyc-body"><div class="wyc-num">06</div><div class="wyc-title">5 race entries FREE</div><div class="wyc-desc">Train hard, get selected by coaches, and WTF covers your entry.</div></div>
+      </div>
     </div>
   </div>
 </section>
