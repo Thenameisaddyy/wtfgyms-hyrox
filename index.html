@@ -79,7 +79,7 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
   .nav-links-desktop{display:none!important}
   .nav-burger{display:block;z-index:1000}
   nav{padding:0 20px}
-  body.menu-open{overflow:hidden;position:fixed;width:100%}
+  body.menu-open{overflow:hidden;position:fixed;width:100%;left:0}
 }
 @media(min-width:901px){
   .mob-nav{display:none!important}
@@ -374,23 +374,6 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .form-header-sub{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;max-width:420px;margin:0 auto}
 .form-header-sub strong{color:var(--red);font-weight:600}
 
-/* Progress Bar */
-.form-progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:32px;position:relative}
-.fp-step{flex:0 0 auto;text-align:center;position:relative;padding:0 clamp(16px,4vw,36px)}
-.fp-dot{width:40px;height:40px;border:2px solid var(--border);border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:15px;color:var(--dim);letter-spacing:1px;margin:0 auto 8px;transition:all .5s var(--ease);position:relative;z-index:2}
-.fp-step.active .fp-dot{border-color:var(--red);color:#fff;background:var(--red);box-shadow:0 4px 16px rgba(230,57,70,.3);transform:scale(1.05)}
-.fp-step.done .fp-dot{border-color:var(--red);background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(230,57,70,.2)}
-.fp-step.done .fp-dot-num{display:none}
-.fp-step.done .fp-dot-check{display:block}
-.fp-dot-check{display:none;width:16px;height:16px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.fp-label{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;transition:all .4s var(--ease);font-weight:600}
-.fp-step.active .fp-label{color:var(--red)}
-.fp-step.done .fp-label{color:var(--muted)}
-.fp-line{position:absolute;top:20px;left:calc(50% + 26px);right:calc(-50% + 26px);height:2px;background:var(--border);z-index:1;overflow:hidden;border-radius:1px}
-.fp-line::after{content:'';position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
-.fp-step:last-child .fp-line{display:none}
-.fp-step.done .fp-line::after{transform:scaleX(1)}
-
 /* Form Box */
 .form-box{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface);position:relative;box-shadow:var(--shadow-md)}
 .form-step{display:none;animation:formStepIn .5s var(--ease)}
@@ -414,22 +397,12 @@ nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(28px);-webkit-ba
 .fg.invalid .fg-error{opacity:1}
 .fg.invalid input,.fg.invalid .phone-wrap,.fg.invalid select{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(230,57,70,.08)}
 
-/* Sponsorship Checkbox */
-.form-sponsor{background:var(--red-glow);border-top:1px solid var(--border);padding:20px 28px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:all .3s var(--ease);margin:20px 28px;border-radius:10px;border:1px solid rgba(230,57,70,.15)}
-.form-sponsor:hover{background:rgba(230,57,70,.08)}
-.form-sponsor input[type="checkbox"]{accent-color:var(--red);width:20px;height:20px;margin-top:2px;flex-shrink:0;cursor:pointer}
-.fs-title{font-size:14px;font-weight:700;color:var(--red);margin-bottom:3px}
-.fs-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
-
 /* Form Actions */
 .form-actions{padding:24px 28px;display:flex;gap:12px}
 @media(max-width:520px){.form-actions{padding:20px 20px}}
-.form-back{flex:0 0 auto;background:var(--card);color:var(--muted);font-size:12px;font-weight:600;padding:16px 24px;border:1px solid var(--border);border-radius:10px;cursor:pointer;letter-spacing:2px;text-transform:uppercase;transition:all .3s var(--ease)}
-.form-back:hover{background:var(--surface);color:var(--text);border-color:rgba(0,0,0,.15)}
-.form-back span{position:relative;z-index:1}
-.form-next,.form-submit{flex:1;background:var(--red);color:#fff;font-family:var(--body);font-size:15px;font-weight:700;padding:16px 24px;border:none;border-radius:10px;cursor:pointer;letter-spacing:1px;transition:all .3s var(--ease);box-shadow:0 4px 16px rgba(230,57,70,.3)}
-.form-next:hover,.form-submit:hover{background:var(--red-deep);box-shadow:0 6px 24px rgba(230,57,70,.4);transform:translateY(-1px)}
-.form-next:disabled,.form-submit:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+.form-submit{flex:1;background:var(--red);color:#fff;font-family:var(--body);font-size:15px;font-weight:700;padding:16px 24px;border:none;border-radius:10px;cursor:pointer;letter-spacing:1px;transition:all .3s var(--ease);box-shadow:0 4px 16px rgba(230,57,70,.3)}
+.form-submit:hover{background:var(--red-deep);box-shadow:0 6px 24px rgba(230,57,70,.4);transform:translateY(-1px)}
+.form-submit:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
 .form-note{text-align:center;font-size:11px;color:var(--dim);padding:0 28px 20px;display:flex;align-items:center;justify-content:center;gap:8px}
 .form-note::before{content:'';width:4px;height:4px;background:var(--red);border-radius:50%;flex-shrink:0}
 
@@ -617,7 +590,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
         <span class="r-run">RUN 1KM</span><span class="r-arrow">&rarr;</span>
         <span class="r-station">Sled Pull</span><span class="r-arrow">&rarr;</span>
         <span class="r-run">RUN 1KM</span><span class="r-arrow">&rarr;</span>
-        <span class="r-station">Burpee Jump</span><span class="r-arrow">&rarr;</span>
+        <span class="r-station">Burpee Broad Jump</span><span class="r-arrow">&rarr;</span>
         <span class="r-run">RUN 1KM</span><span class="r-arrow">&rarr;</span>
         <span class="r-station">Rowing</span><span class="r-arrow">&rarr;</span>
         <span class="r-run">RUN 1KM</span><span class="r-arrow">&rarr;</span>
@@ -651,7 +624,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
         <div class="stc-body"><div class="stc-head"><span class="stc-num">02</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Push</div><div class="stc-desc">Push a heavy sled 50m. The most feared station in the race.</div><div class="stc-tags"><span class="stc-tag">Legs</span><span class="stc-tag">Core</span></div></div>
       </div>
       <div class="stc">
-        <img class="stc-img" src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=400&q=80" alt="Sled Pull with rope"/>
+        <img class="stc-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" alt="Sled Pull with rope"/>
         <div class="stc-body"><div class="stc-head"><span class="stc-num">03</span><span class="stc-dist">50M</span></div><div class="stc-name">Sled Pull</div><div class="stc-desc">Rope-pull the sled back. Grip strength under fatigue.</div><div class="stc-tags"><span class="stc-tag">Back</span><span class="stc-tag">Biceps</span></div></div>
       </div>
       <div class="stc">
@@ -663,7 +636,7 @@ footer{background:#111;padding:72px clamp(20px,4vw,64px) 28px;border-top:none;co
         <div class="stc-body"><div class="stc-head"><span class="stc-num">05</span><span class="stc-dist">1,000M</span></div><div class="stc-name">Rowing</div><div class="stc-desc">Concept2 at the halfway mark. Pacing is everything.</div><div class="stc-tags"><span class="stc-tag">Endurance</span></div></div>
       </div>
       <div class="stc">
-        <img class="stc-img" src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=400&q=80" alt="Farmers Carry with kettlebells"/>
+        <img class="stc-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80" alt="Farmers Carry with kettlebells"/>
         <div class="stc-body"><div class="stc-head"><span class="stc-num">06</span><span class="stc-dist">200M</span></div><div class="stc-name">Farmers Carry</div><div class="stc-desc">Walk 200m with heavy kettlebells. Grip and grit.</div><div class="stc-tags"><span class="stc-tag">Grip</span><span class="stc-tag">Core</span></div></div>
       </div>
       <div class="stc">
