@@ -969,8 +969,7 @@ window.testEvents = function() {
 
   var expected = [
     'page_view', 'cta_click', 'scroll_depth', 'section_view',
-    'form_step_1_view', 'form_step_2_view', 'form_step_3_view',
-    'form_submit', 'sponsorship_opt_in', 'faq_open',
+    'form_submit', 'faq_open',
     'phone_call_intent', 'form_abandon'
   ];
   var firedNames = {};
@@ -1205,28 +1204,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
 var BASE_URL = 'https://api.wtfgyms.com';
 var API_TOKEN = 'nFMjOROg5xdWVt1gG0wAcWdEd';
 var GYM_ID = 'y5mdpUfNZCir4';
-var currentStep = 1;
 var formData = {};
-
-function updateProgress(step) {
-  document.querySelectorAll('.fp-step').forEach(function(el) {
-    var s = parseInt(el.dataset.step);
-    el.classList.remove('active', 'done');
-    if (s === step) el.classList.add('active');
-    else if (s < step) el.classList.add('done');
-  });
-}
-
-function showStep(step) {
-  document.querySelectorAll('.form-step').forEach(function(el) {
-    el.classList.remove('active');
-    if (parseInt(el.dataset.step) === step) el.classList.add('active');
-  });
-  updateProgress(step);
-  currentStep = step;
-  var stepNames = {1: 'contact', 2: 'details', 3: 'preferences'};
-  trackEvent('form_step_' + step + '_view', {step_number: step, step_name: stepNames[step] || ''});
-}
 
 function validateForm() {
   var valid = true;
@@ -1294,8 +1272,7 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
   // Track form submission
   trackEvent('form_submit', {
     name: formData.name,
-    mobile: formData.mobile,
-    email: formData.email
+    mobile: formData.mobile
   });
 
   // POST lead to API
@@ -1371,6 +1348,7 @@ document.querySelectorAll('.fg input, .fg select').forEach(function(el) {
   var sections = [
     {id: 'hyrox', name: 'What is HYROX'},
     {id: 'stations', name: '8 Stations'},
+    {id: 'events', name: 'Race Calendar'},
     {id: 'sponsor', name: 'Sponsorship'},
     {id: 'faq', name: 'FAQ'},
     {id: 'join', name: 'Booking Form'}
@@ -1426,15 +1404,7 @@ document.querySelectorAll('.fg input, .fg select').forEach(function(el) {
   // Fire abandon on page leave if form was started but not completed
   window.addEventListener('beforeunload', function() {
     if (formStarted && !formCompleted) {
-      trackEvent('form_abandon', {last_step: currentStep});
-      // Use sendBeacon to ensure event fires before page unloads
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/collect', JSON.stringify({
-          event: 'form_abandon',
-          last_step: currentStep,
-          timestamp: new Date().toISOString()
-        }));
-      }
+      trackEvent('form_abandon', {});
     }
   });
 })();
